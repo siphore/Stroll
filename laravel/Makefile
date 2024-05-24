@@ -2,13 +2,16 @@ deploy: public/build/manifest.json
 	rsync -avz public/build stroll:sites/Stroll/laravel/public
 	ssh stroll 'cd sites/Stroll/laravel && git pull origin main && make install'
 
-install: vendor/autoload.php .env
+install: vendor/autoload.php .env public/storage
 	php artisan cache:clear
 	php artisan migrate
 
 .env:
 	cp .env.example
 	php artisan key:generate
+
+public/storage:
+	php artisan storage:link
 
 vendor/autoload.php: composer.lock
 	composer install
