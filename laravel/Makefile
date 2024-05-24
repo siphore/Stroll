@@ -7,11 +7,8 @@ install: vendor/autoload.php .env public/storage
 	php artisan migrate
 
 .env:
-	cp .env.example .env
+	cp .env.example
 	php artisan key:generate
-
-public/storage:
-	php artisan storage:link
 
 vendor/autoload.php: composer.lock
 	composer install
