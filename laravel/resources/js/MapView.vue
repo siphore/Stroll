@@ -45,7 +45,7 @@ export default {
         return new maplibregl.Map({
           container: 'map',
           style:
-            'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
+            'https://api.maptiler.com/maps/streets/style.json?key=AskmG7OtKitUCOKFDwAn',
           center: [6.6412, 46.7785],
           zoom: 12
         })
