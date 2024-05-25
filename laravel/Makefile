@@ -3,6 +3,7 @@ deploy: public/build/manifest.json
 	ssh stroll 'cd sites/Stroll/laravel && git pull origin main && make install'
 
 install: vendor/autoload.php .env public/storage
+	rm -rf public/build
 	php artisan cache:clear
 	php artisan migrate
 
