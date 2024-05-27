@@ -18,5 +18,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/map', [App\Http\Controllers\MapController::class, 'index']);
+Route::get('/profile', function() {
+    return view('profile');
+});
 
 require __DIR__.'/auth.php';
