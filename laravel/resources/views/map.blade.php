@@ -10,13 +10,3 @@
         <div id="map"></div>
     </body>
 </html>
-
-<!-- @section('title', 'Stroll - Map')
-
-@section('app')
-    @vite('resources/js/strollMap.js')
-@endsection
-
-@section('content')
-    <div id="app"></div>
-@endsection -->
