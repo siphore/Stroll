@@ -4,11 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Profile</title>
-        <!-- @vite('resources/js/appStroll.js') -->
+        <!-- @vite('resources/js/app.js') -->
     </head>
     <body>
-        <div id="profile">
-            <h1>Profile</h1>
-        </div>
+        <div id="profile"></div>
     </body>
 </html>
