@@ -45,7 +45,6 @@ const currentView = computed(() => {
 </script>
 
 <template>
-  <TheHeader>Stroll</TheHeader>
   <main>
     <component :is="currentView" />
   </main>

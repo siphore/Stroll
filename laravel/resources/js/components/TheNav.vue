@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, onMounted } from 'vue';
 
 defineProps({
   routes: {
@@ -32,13 +32,15 @@ const icons = {
     </svg>`
 };
 
-const normalColor = "#254A3D";
-const activeColor = "#CD9349";
+function placeNav() {
+  const nav = document.querySelector('nav')
+  const navHeight = nav.offsetHeight;
+  nav.style.top = `${window.innerHeight - navHeight}px`;
+}
 
-console.log(document.querySelectorAll('.icon'));
-
-// #254A3D - Green
-// #CD9349 - Gold
+onMounted(() => {
+  placeNav();
+});
 </script>
 
 <template>
@@ -62,7 +64,8 @@ body {
 }
 
 nav {
-  /* width: 100vw; */
+  position: absolute;
+  width: 100vw;
   background: #FFFAF5;
 }
 
@@ -103,7 +106,7 @@ a.active {
 
 @media (min-width: 1000px) {
   nav {
-    padding: 1rem;
+    padding: 1rem 0;
     text-align: center;
   }
 
@@ -123,9 +126,7 @@ a.active {
 
 @media (max-width: 1000px) {
   nav {
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem;
+    padding: 1.5rem 0;
   }
 
   .icon>* {

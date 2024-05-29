@@ -86,9 +86,9 @@ import { getCoords } from "../composable/getMouseCoordinates";
 import { fitToPath } from "../composable/fitToPath";
 
 function loadMap() {
-  const headerHeight = document.querySelector('header').offsetHeight;
+  // const headerHeight = document.querySelector('header').offsetHeight;
   const navHeight = document.querySelector('nav').offsetHeight;
-  document.getElementById('map').style.height = `${window.innerHeight - headerHeight - navHeight}px`;
+  document.getElementById('map').style.height = `${window.innerHeight - navHeight}px`;
 
   // const demSource = new mlcontour.DemSource({
   //   url: 'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png',
