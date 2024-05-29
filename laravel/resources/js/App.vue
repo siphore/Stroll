@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue';
-import HomeView from "./components/HomeView.vue";
 import MapView from "./components/MapView.vue";
+import SentiersView from "./components/SentiersView.vue";
+import StarredView from "./components/StarredView.vue";
 import ProfileView from "./components/ProfileView.vue";
-import TheHeader from './components/TheHeader.vue';
 import TheNav from './components/TheNav.vue';
 
 const routes = {
@@ -12,15 +12,15 @@ const routes = {
     label: 'Cartes',
   },
   '#sentiers': {
-    component: MapView,
+    component: SentiersView,
     label: 'Sentiers',
   },
   '#home': {
-    component: HomeView,
+    component: SentiersView,
     label: 'Bienvenue',
   },
   '#starred': {
-    component: HomeView,
+    component: StarredView,
     label: 'Enregistré',
   },
   '#profile': {
