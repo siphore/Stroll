@@ -1,8 +1,8 @@
 export function fitToLocation(map) {
     document.getElementById("fit").addEventListener("click", () => {
         map.fitBounds([
-            [32.958984, -5.353521],
-            [43.50585, 5.615985],
+            [5.957039, 45.818028],
+            [10.49205, 47.80845],
         ]);
     });
 }

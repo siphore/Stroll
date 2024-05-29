@@ -7,17 +7,25 @@ import TheHeader from './components/TheHeader.vue';
 import TheNav from './components/TheNav.vue';
 
 const routes = {
+  '#carte': {
+    component: MapView,
+    label: 'Cartes',
+  },
+  '#sentiers': {
+    component: MapView,
+    label: 'Sentiers',
+  },
   '#home': {
     component: HomeView,
-    label: 'Home',
+    label: 'Bienvenue',
   },
-  '#map': {
-    component: MapView,
-    label: 'Map',
+  '#starred': {
+    component: HomeView,
+    label: 'Enregistré',
   },
   '#profile': {
     component: ProfileView,
-    label: 'Profile',
+    label: 'Profil',
   }
 }
 
@@ -38,18 +46,29 @@ const currentView = computed(() => {
 
 <template>
   <TheHeader>Stroll</TheHeader>
-  <TheNav :routes="routes" :currentPath="currentPath" />
   <main>
     <component :is="currentView" />
   </main>
+  <TheNav :routes="routes" :currentPath="currentPath" />
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
+  font-family: "Arimo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.arimo-normal {
+  font-family: "Arimo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 </style>

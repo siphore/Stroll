@@ -2,6 +2,7 @@
   <main>
     <div id="map">
       <button id="fit">Fit to Switzerland</button>
+      <!-- <button id="zoomto" class="btn-control">Zoom to bounds</button> -->
     </div>
     <div id="distance" class="distance-container"></div>
   </main>
@@ -47,6 +48,28 @@
   background: #ee8a65;
   z-index: 1;
 }
+
+.btn-control {
+  font: bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  background-color: #3386c0;
+  color: #fff;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  z-index: 1;
+  border: none;
+  width: 200px;
+  margin-left: -100px;
+  display: block;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+.btn-control:hover {
+  background-color: #4ea0da;
+}
 </style>
 
 <script setup>
@@ -59,6 +82,8 @@ import { makePoints } from "../composable/makePoints";
 import { fitToLocation } from "../composable/fitToLocation";
 import { tracePath } from "../composable/tracePath";
 import { locateUser } from "../composable/locateUser";
+import { getCoords } from "../composable/getMouseCoordinates";
+import { fitToPath } from "../composable/fitToPath";
 
 function loadMap() {
   const headerHeight = document.querySelector('header').offsetHeight;
@@ -161,10 +186,12 @@ function loadMap() {
   })
 
   map.on("load", () => {
-    makePoints(map);
+    // makePoints(map);
     fitToLocation(map);
     locateUser(map);
-    // tracePath();
+    getCoords(map);
+    // fitToPath(map);
+    // tracePath(map);
   })
 }
 
