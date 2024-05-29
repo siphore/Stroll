@@ -1,19 +1,14 @@
 <template>
   <main>
-    <div id="map"></div>
+    <div id="map">
+      <button id="fit">Fit to Switzerland</button>
+    </div>
     <div id="distance" class="distance-container"></div>
   </main>
 </template>
 
 <style scoped>
 @import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.css";
-
-html,
-body,
-#map {
-  width: 100vw;
-  height: 80vh;
-}
 
 .distance-container {
   position: absolute;
@@ -34,14 +29,42 @@ body,
   padding: 5px 10px;
   border-radius: 3px;
 }
+
+#fit {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 30%;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  background: #ee8a65;
+  z-index: 1;
+}
 </style>
 
 <script setup>
 import { onMounted } from "vue";
 import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
 // import "https://unpkg.com/maplibre-contour@0.0.5/dist/index.min.js";
+// import "https://d3js.org/d3.v3.min.js";
+
+import { makePoints } from "../composable/makePoints";
+import { fitToLocation } from "../composable/fitToLocation";
+import { tracePath } from "../composable/tracePath";
+import { locateUser } from "../composable/locateUser";
 
 function loadMap() {
+  const headerHeight = document.querySelector('header').offsetHeight;
+  const navHeight = document.querySelector('nav').offsetHeight;
+  document.getElementById('map').style.height = `${window.innerHeight - headerHeight - navHeight}px`;
+
   // const demSource = new mlcontour.DemSource({
   //   url: 'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png',
   //   encoding: 'mapbox',
@@ -137,131 +160,12 @@ function loadMap() {
     */
   })
 
-  const distanceContainer = document.getElementById('distance');
-
-  // GeoJSON object to hold our measurement features
-  const geojson = {
-    'type': 'FeatureCollection',
-    'features': []
-  };
-
-  // Used to draw a line between points
-  const linestring = {
-    'type': 'Feature',
-    'geometry': {
-      'type': 'LineString',
-      'coordinates': []
-    }
-  };
-
   map.on("load", () => {
-    map.addSource('geojson', {
-      'type': 'geojson',
-      'data': geojson
-    });
-
-    // Add styles to the map
-    map.addLayer({
-      id: 'measure-points',
-      type: 'circle',
-      source: 'geojson',
-      paint: {
-        'circle-radius': 5,
-        'circle-color': '#000'
-      },
-      filter: ['in', '$type', 'Point']
-    });
-
-    map.addLayer({
-      id: 'measure-lines',
-      type: 'line',
-      source: 'geojson',
-      layout: {
-        'line-cap': 'round',
-        'line-join': 'round'
-      },
-      paint: {
-        'line-color': '#000',
-        'line-width': 2.5
-      },
-      filter: ['in', '$type', 'LineString']
-    });
-
-    map.on('click', (e) => {
-      const features = map.queryRenderedFeatures(e.point, {
-        layers: ['measure-points']
-      });
-
-      // Remove the linestring from the group
-      // So we can redraw it based on the points collection
-      if (geojson.features.length > 1) geojson.features.pop();
-
-      // Clear the Distance container to populate it with a new value
-      distanceContainer.innerHTML = '';
-
-      // If a feature was clicked, remove it from the map
-      if (features.length) {
-        const id = features[0].properties.id;
-        geojson.features = geojson.features.filter((point) => {
-          return point.properties.id !== id;
-        });
-      } else {
-        const point = {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [e.lngLat.lng, e.lngLat.lat]
-          },
-          'properties': {
-            'id': String(new Date().getTime())
-          }
-        };
-
-        geojson.features.push(point);
-      }
-
-      if (geojson.features.length > 1) {
-        linestring.geometry.coordinates = geojson.features.map(
-          (point) => {
-            return point.geometry.coordinates;
-          }
-        );
-
-        geojson.features.push(linestring);
-
-        // Populate the distanceContainer with total distance
-        loadTurf().then(() => {
-          const value = document.createElement('pre');
-          value.textContent =
-            `Total distance: ${turf.length(linestring).toLocaleString()
-            }km`;
-          distanceContainer.appendChild(value);
-        });
-      }
-
-      map.getSource('geojson').setData(geojson);
-    });
-
-    map.on('mousemove', (e) => {
-      const features = map.queryRenderedFeatures(e.point, {
-        layers: ['measure-points']
-      });
-      // UI indicator for clicking/hovering a point on the map
-      map.getCanvas().style.cursor = features.length ?
-        'pointer' :
-        'crosshair';
-    })
+    makePoints(map);
+    fitToLocation(map);
+    locateUser(map);
+    // tracePath();
   })
-}
-
-async function loadTurf() {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = 'https://npmcdn.com/@turf/turf@5.1.6/turf.min.js';
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
 }
 
 onMounted(() => {
