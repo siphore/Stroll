@@ -55,6 +55,12 @@ console.log(document.querySelectorAll('.icon'));
 </template>
 
 <style scoped>
+html,
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 nav {
   /* width: 100vw; */
   background: #FFFAF5;
@@ -73,17 +79,18 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
 a {
   text-decoration: none;
   color: #254A3D;
+  font-size: 3vw;
 }
 
 a.active {
   font-weight: bold;
   color: #CD9349;
+  font-size: 3.5vw;
 }
 
 .icon {
@@ -96,7 +103,6 @@ a.active {
 
 @media (min-width: 1000px) {
   nav {
-    color: white;
     padding: 1rem;
     text-align: center;
   }
@@ -104,6 +110,14 @@ a.active {
   .icon>* {
     width: 2vw;
     height: 2vw;
+  }
+
+  a {
+    font-size: 1vw;
+  }
+
+  a.active {
+    font-size: 1.2vw;
   }
 }
 
@@ -117,6 +131,14 @@ a.active {
   .icon>* {
     width: 6vw;
     height: 6vw;
+  }
+
+  a {
+    font-size: 3vw;
+  }
+
+  a.active {
+    font-size: 3.5vw;
   }
 }
 </style>
