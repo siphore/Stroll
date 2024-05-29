@@ -37,14 +37,11 @@ body,
 </style>
 
 <script setup>
+import { onMounted } from "vue";
 import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
 // import "https://unpkg.com/maplibre-contour@0.0.5/dist/index.min.js";
 
-window.addEventListener("DOMContentLoaded", loadMap);
-window.addEventListener("hashchange", loadMap);
-
-function loadMap(e) {
-  if (e.newURL != undefined && !e.newURL.includes("#map")) return;
+function loadMap() {
   // const demSource = new mlcontour.DemSource({
   //   url: 'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png',
   //   encoding: 'mapbox',
@@ -58,7 +55,6 @@ function loadMap(e) {
     container: 'map',
     center: [6.6412, 46.7785],
     zoom: 12,
-    // hash: true,
     style:
       'https://api.maptiler.com/maps/streets/style.json?key=AskmG7OtKitUCOKFDwAn',
     /*
@@ -267,4 +263,8 @@ async function loadTurf() {
     document.head.appendChild(script);
   });
 }
+
+onMounted(() => {
+  loadMap();
+});
 </script>
