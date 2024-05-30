@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import MapView from "./components/MapView.vue";
 import SentiersView from "./components/SentiersView.vue";
+import HomeView from "./components/HomeView.vue";
 import StarredView from "./components/StarredView.vue";
 import ProfileView from "./components/ProfileView.vue";
 import TheNav from './components/TheNav.vue';
@@ -16,8 +17,8 @@ const routes = {
     label: 'Sentiers',
   },
   '#home': {
-    component: SentiersView,
-    label: 'Bienvenue',
+    component: HomeView,
+    label: 'Accueil',
   },
   '#starred': {
     component: StarredView,

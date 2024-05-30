@@ -1,79 +1,70 @@
 <script setup>
 import Filtres from "./Filtres.vue";
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
+import { displayCards } from "../composable/vignette.js";
 
 const filters = {
-    "Tout": "Tous les sentiers",
+    "Tout": "Tous les sentiers vaudois",
     "Populaires": "Sentiers les plus populaires",
-    "Ville": "Sentiers de ville",
-    "Forêt": "Sentiers de forêt",
-    "Monuments": "Sentiers de monuments",
-    "Gastronomie": "Sentiers de gastronomie",
+    "Street Art": "Sentiers Street Art",
     "Architecture": "Sentiers d'architecture",
+    "Historique": "Sentiers historiques",
+    "Nature": "Sentiers Nature",
+    "Sportif": "Sentiers sportifs",
+    "Gastronomie": "Sentiers gastronomiques",
+    "Arts & culture": "Sentiers Art & Culture",
+    "Ephémère": "Sentiers éphémères"
 };
 
-function loadFiltersText() {
-    const allFilters = document.querySelectorAll(".liste-filtres li");
-    const filterKeys = Object.keys(filters);
-    let counter = 0;
-    allFilters.forEach((filter) => {
-        filter.textContent = filterKeys[counter++];
-    })
+const cards = displayCards();
+const cardsKeys = Object.keys(cards);
+const activeFilter = ref("Populaires");
+const isFilterMenuVisible = ref(false);
+
+function toggleFilterMenu() {
+    isFilterMenuVisible.value = !isFilterMenuVisible.value;
 }
-
-function handleClick() {
-    const allFilters = document.querySelectorAll(".liste-filtres li");
-    document.addEventListener("click", (e) => {
-        if (e.target.nodeName == "LI") {
-            allFilters.forEach((filter) => {
-                filter.classList.remove("active");
-            })
-            e.target.classList.add("active");
-
-            const filter = e.target.textContent;
-            const title = document.querySelector(".title");
-            title.textContent = filters[`${filter}`];
-        }
-    })
-}
-
-function handleDisplay() {
-    const filterButton = document.querySelector(".filter-icon");
-    const filterMenu = document.querySelector(".filter-menu");
-
-    filterButton.addEventListener("click", function () {
-        filterMenu.classList.toggle("show");
-    });
-}
-
-onMounted(() => {
-    loadFiltersText();
-    handleClick();
-    handleDisplay();
-})
 </script>
 
 <template>
     <main>
         <div id="home">
             <!-- Logo -->
-            <img src="../../svg/logo.svg" class="logo" alt="Application logo">
+            <img src="../../svg/logo.svg" class="logo" alt="Logo application">
 
             <!-- Search box -->
             <div class="search-container">
                 <input type="text" class="search" placeholder="Rechercher">
-                <img src="../../svg/magnifying-glass.svg" alt="Loupe" class="search-icon">
+                <img src="../../svg/magnifying-glass.svg" alt="Rechercher" class="search-icon">
                 <img src="../../svg/filter.svg" alt="Afficher filtres" class="filter-icon">
             </div>
 
             <!-- Filters -->
-            <div class="filter-menu">
-                <Filtres />
+            <div class="filter-menu" :class="{ show: isFilterMenuVisible }">
+                <Filtres :filters="filters" v-model:activeFilter="activeFilter" />
             </div>
 
             <!-- Content -->
-
-            <h2 class="title">{{ filters.Populaires }}</h2>
+            <h2 class="title">{{ filters[activeFilter] }}</h2>
+            <!-- <ul class="cards">
+                <li v-for="(key, index) in cardsKeys" :key="index" class="card-item">
+                    <div v-html="cards[key]" class="card"></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span><i class="fas fa-exchange-alt"></i> 1km</span>
+                            <span><i class="fas fa-clock"></i> 1h00</span>
+                            <span><i class="fas fa-mountain"></i> Facile</span>
+                        </div>
+                        <h3 class="card-title">Sentier des narcisses</h3>
+                        <p class="card-location">Châtel-Saint-Denis</p>
+                        <div class="card-indicators">
+                            <span class="indicator active"></span>
+                            <span class="indicator"></span>
+                            <span class="indicator"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul> -->
         </div>
     </main>
 </template>
@@ -84,6 +75,8 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     padding: 0 3vw;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 /* Logo */
@@ -135,16 +128,15 @@ onMounted(() => {
     line-height: 28px;
     color: #254A3D;
     align-self: start;
-    margin: 0;
+    margin: 0 0 3vh 0;
 }
 
 /* Filters */
 .filter-menu {
-    display: none;
+    display: flex;
     overflow-x: scroll;
     max-width: 100vw;
     scrollbar-width: none;
-    cursor: pointer;
     justify-self: end;
     margin-bottom: 5vh;
 }
@@ -168,9 +160,82 @@ onMounted(() => {
     background: #A1C9BB;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px;
+    cursor: pointer;
+    text-wrap: nowrap;
 }
 
-.show {
+/* Cards */
+.cards {
+    margin: 0 0 15vh 0;
+    padding: 0;
+}
+
+.card-item {
+    margin: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 398px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    border-radius: 15px;
+}
+
+.card-content {
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 15px 15px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.card-header span {
+    display: flex;
+    align-items: center;
+}
+
+.card-header i {
+    margin-right: 5px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    margin: 10px 0 5px;
+}
+
+.card-location {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.card-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.indicator.active {
+    background: #d4a959;
+}
+
+.filter-menu.show {
     display: flex;
 }
 
