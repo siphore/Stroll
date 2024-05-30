@@ -46,25 +46,27 @@ function toggleFilterMenu() {
 
             <!-- Content -->
             <h2 class="title">{{ filters[activeFilter] }}</h2>
-            <!-- <ul class="cards">
-                <li v-for="(key, index) in cardsKeys" :key="index" class="card-item">
-                    <div v-html="cards[key]" class="card"></div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <span><i class="fas fa-exchange-alt"></i> 1km</span>
-                            <span><i class="fas fa-clock"></i> 1h00</span>
-                            <span><i class="fas fa-mountain"></i> Facile</span>
-                        </div>
-                        <h3 class="card-title">Sentier des narcisses</h3>
-                        <p class="card-location">Châtel-Saint-Denis</p>
-                        <div class="card-indicators">
-                            <span class="indicator active"></span>
-                            <span class="indicator"></span>
-                            <span class="indicator"></span>
+            <ul class="cards">
+                <li v-for="(index) in cardsKeys" :key="index" class="card-item">
+                    <div class="card">
+                        <div class="card-image" :style="{ backgroundImage: 'url(http://placebacon.net/240/398)' }"></div>
+                        <div class="card-overlay">
+                            <div class="card-header">
+                                <span><i class="fas fa-exchange-alt"></i> 1km</span>
+                                <span><i class="fas fa-clock"></i> 1h00</span>
+                                <span><i class="fas fa-mountain"></i> Facile</span>
+                            </div>
+                            <h3 class="card-title">Sentier des narcisses</h3>
+                            <p class="card-location">Châtel-Saint-Denis</p>
+                            <div class="card-indicators">
+                                <span class="indicator active"></span>
+                                <span class="indicator"></span>
+                                <span class="indicator"></span>
+                            </div>
                         </div>
                     </div>
                 </li>
-            </ul> -->
+            </ul>
         </div>
     </main>
 </template>
@@ -168,6 +170,7 @@ function toggleFilterMenu() {
 .cards {
     margin: 0 0 15vh 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .card-item {
