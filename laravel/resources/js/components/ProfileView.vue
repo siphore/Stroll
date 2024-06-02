@@ -1,10 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
 function redirectToLogin() {
-    router.push('/login');
+    window.location.href = "/login"
 }
 </script>
 

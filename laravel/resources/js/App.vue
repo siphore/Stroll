@@ -16,15 +16,15 @@ const routes = {
     component: SentiersView,
     label: 'Sentiers',
   },
-  '#home': {
+  '#accueil': {
     component: HomeView,
     label: 'Accueil',
   },
-  '#starred': {
+  '#favoris': {
     component: StarredView,
     label: 'Enregistré',
   },
-  '#profile': {
+  '#profil': {
     component: ProfileView,
     label: 'Profil',
   }
@@ -35,7 +35,7 @@ updateCurrentPath();
 
 function updateCurrentPath() {
   const path = window.location.hash;
-  currentPath.value = routes[path] ? path : '#home';
+  currentPath.value = routes[path] ? path : '#accueil';
 }
 
 window.addEventListener('hashchange', updateCurrentPath);
