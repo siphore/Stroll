@@ -47,6 +47,7 @@ const currentView = computed(() => {
 
 <template>
   <main>
+    <router-view></router-view>
     <component :is="currentView" />
   </main>
   <TheNav :routes="routes" :currentPath="currentPath" />

@@ -1,3 +1,13 @@
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function redirectToLogin() {
+    router.push('/login');
+}
+</script>
+
 <template>
     <main>
         <div id="profile">
@@ -19,6 +29,10 @@
             <section class="dashboard">
                 <h2>Vos succès</h2>
             </section>
+
+            <section class="auth-section">
+                <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
+            </section>
         </div>
     </main>
 </template>
@@ -30,5 +44,24 @@
 
 section {
     margin-bottom: 8vh;
+}
+
+.auth-section {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-button {
+    background-color: #254A3D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background-color: #1e3a2f;
 }
 </style>
