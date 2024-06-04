@@ -1,0 +1,98 @@
+body {
+    background-color: #fffaf5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    padding: 7vw;
+    overflow-y: auto;
+    background-color: #fffaf5;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 6vw;
+    /* margin: 3vh 5vw; */
+}
+
+sub {
+    margin-bottom: 5vh;
+}
+
+.form-group {
+    margin-bottom: 2vh;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select {
+    background-color: #ecf7f2;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #a1c9bb;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.file-instructions {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-primary {
+    background-color: #198754;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+}
+
+.btn-secondary {
+    background-color: #adb5bd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #8b9aa1;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    width: 70vw;
+}
+
+#radius {
+    width: 70vw;
+}

@@ -1,3 +1,5 @@
+
+
 export function tracePath(map) {
     d3.json(
         "https://maplibre.org/maplibre-gl-js/docs/assets/hike.geojson",

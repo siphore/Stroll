@@ -2,9 +2,9 @@
   <main>
     <div id="map">
       <button id="fit">Fit to Switzerland</button>
-      <!-- <button id="zoomto" class="btn-control">Zoom to bounds</button> -->
+      <button id="clear">Clear Routes</button>
     </div>
-    <div id="distance" class="distance-container"></div>
+    <!-- <div id="distance" class="distance-container"></div> -->
   </main>
 </template>
 
@@ -49,151 +49,15 @@
   z-index: 1;
 }
 
-.btn-control {
-  font: bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  background-color: #3386c0;
-  color: #fff;
+#clear {
   position: absolute;
-  top: 20px;
-  left: 50%;
   z-index: 1;
-  border: none;
-  width: 200px;
-  margin-left: -100px;
-  display: block;
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 3px;
-  z-index: 1;
-}
-
-.btn-control:hover {
-  background-color: #4ea0da;
 }
 </style>
 
 <script setup>
 import { onMounted } from "vue";
-import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
-// import "https://unpkg.com/maplibre-contour@0.0.5/dist/index.min.js";
-// import "https://d3js.org/d3.v3.min.js";
-
-import { makePoints } from "../composable/makePoints";
-import { fitToLocation } from "../composable/fitToLocation";
-import { tracePath } from "../composable/tracePath";
-import { locateUser } from "../composable/locateUser";
-import { getCoords } from "../composable/getMouseCoordinates";
-import { fitToPath } from "../composable/fitToPath";
-
-function loadMap() {
-  // const headerHeight = document.querySelector('header').offsetHeight;
-  const navHeight = document.querySelector('nav').offsetHeight;
-  document.getElementById('map').style.height = `${window.innerHeight - navHeight}px`;
-
-  // const demSource = new mlcontour.DemSource({
-  //   url: 'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png',
-  //   encoding: 'mapbox',
-  //   maxzoom: 12,
-  //   // offload contour line computation to a web worker
-  //   worker: true
-  // })
-  // demSource.setupMaplibre(maplibregl);
-
-  const map = new maplibregl.Map({
-    container: 'map',
-    center: [6.6412, 46.7785],
-    zoom: 12,
-    style:
-      'https://api.maptiler.com/maps/streets/style.json?key=AskmG7OtKitUCOKFDwAn',
-    /*
-    style: {
-      version: 8,
-      glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-      sources: {
-        hillshadeSource: {
-          type: 'raster-dem',
-          // share cached raster-dem tiles with the contour source
-          tiles: [demSource.sharedDemProtocolUrl],
-          tileSize: 512,
-          maxzoom: 12
-        },
-        contourSourceFeet: {
-          type: 'vector',
-          tiles: [
-            demSource.contourProtocolUrl({
-              // meters to feet
-              multiplier: 3.28084,
-              overzoom: 1,
-              thresholds: {
-                // zoom: [minor, major]
-                11: [200, 1000],
-                12: [100, 500],
-                13: [100, 500],
-                14: [50, 200],
-                15: [20, 100]
-              },
-              elevationKey: 'ele',
-              levelKey: 'level',
-              contourLayer: 'contours'
-            })
-          ],
-          maxzoom: 15
-        }
-      },
-      layers: [
-        {
-          id: 'hills',
-          type: 'hillshade',
-          source: 'hillshadeSource',
-          layout: { visibility: 'visible' },
-          paint: { 'hillshade-exaggeration': 0.25 }
-        },
-        {
-          id: 'contours',
-          type: 'line',
-          source: 'contourSourceFeet',
-          'source-layer': 'contours',
-          paint: {
-            'line-opacity': 0.5,
-            // "major" contours have level=1, "minor" have level=0
-            'line-width': ['match', ['get', 'level'], 1, 1, 0.5]
-          }
-        },
-        {
-          id: 'contour-text',
-          type: 'symbol',
-          source: 'contourSourceFeet',
-          'source-layer': 'contours',
-          filter: ['>', ['get', 'level'], 0],
-          paint: {
-            'text-halo-color': 'white',
-            'text-halo-width': 1
-          },
-          layout: {
-            'symbol-placement': 'line',
-            'text-size': 10,
-            'text-field': [
-              'concat',
-              ['number-format', ['get', 'ele'], {}],
-              '\''
-            ],
-            'text-font': ['Noto Sans Bold']
-          }
-        }
-      ]
-    }
-    */
-  })
-
-  map.on("load", () => {
-    // makePoints(map);
-    fitToLocation(map);
-    locateUser(map);
-    getCoords(map);
-    // fitToPath(map);
-    // tracePath(map);
-  })
-}
+import { loadMap } from "../composable/map";
 
 onMounted(() => {
   loadMap();

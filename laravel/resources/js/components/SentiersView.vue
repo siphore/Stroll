@@ -1,28 +1,20 @@
 <script setup>
 import Filtres from "./Filtres.vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { displayCards } from "../composable/vignette.js";
-
-const filters = {
-    "Tout": "Tous les sentiers vaudois",
-    "Populaires": "Sentiers les plus populaires",
-    "Street Art": "Sentiers Street Art",
-    "Architecture": "Sentiers d'architecture",
-    "Historique": "Sentiers historiques",
-    "Nature": "Sentiers Nature",
-    "Sportif": "Sentiers sportifs",
-    "Gastronomie": "Sentiers gastronomiques",
-    "Arts & culture": "Sentiers Art & Culture",
-    "Ephémère": "Sentiers éphémères"
-};
+import { filters } from "../composable/thematiques.js";
 
 const cards = displayCards();
 const cardsKeys = Object.keys(cards);
 const activeFilter = ref("Populaires");
 const isFilterMenuVisible = ref(false);
 
-function toggleFilterMenu() {
-    isFilterMenuVisible.value = !isFilterMenuVisible.value;
+function createRoute() {
+    window.location.hash = "#ajout-1";
+}
+
+function redirectToFilters() {
+    window.location.hash = "#filtres"
 }
 </script>
 
@@ -36,7 +28,7 @@ function toggleFilterMenu() {
             <div class="search-container">
                 <input type="text" class="search" placeholder="Rechercher">
                 <img src="../../svg/magnifying-glass.svg" alt="Rechercher" class="search-icon">
-                <img src="../../svg/filter.svg" alt="Afficher filtres" class="filter-icon">
+                <img src="../../svg/filter.svg" alt="Afficher filtres" class="filter-icon" @click="redirectToFilters">
             </div>
 
             <!-- Filters -->
@@ -49,7 +41,8 @@ function toggleFilterMenu() {
             <ul class="cards">
                 <li v-for="(index) in cardsKeys" :key="index" class="card-item">
                     <div class="card">
-                        <div class="card-image" :style="{ backgroundImage: 'url(http://placebacon.net/240/398)' }"></div>
+                        <div class="card-image" :style="{ backgroundImage: 'url(https://placebacon.net/240/398)' }">
+                        </div>
                         <div class="card-overlay">
                             <div class="card-header">
                                 <span><i class="fas fa-exchange-alt"></i> 1km</span>
@@ -67,6 +60,14 @@ function toggleFilterMenu() {
                     </div>
                 </li>
             </ul>
+            <div class="add-route-container">
+                <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19 12.3335V25.6668M12.3333 19.0002H25.6667M35.6667 19.0002C35.6667 28.2049 28.2048 35.6668 19 35.6668C9.79526 35.6668 2.33334 28.2049 2.33334 19.0002C2.33334 9.79542 9.79526 2.3335 19 2.3335C28.2048 2.3335 35.6667 9.79542 35.6667 19.0002Z"
+                        stroke="#CD9349" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
         </div>
     </main>
 </template>
@@ -79,6 +80,7 @@ function toggleFilterMenu() {
     padding: 0 3vw;
     max-height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Logo */
@@ -240,6 +242,14 @@ function toggleFilterMenu() {
 
 .filter-menu.show {
     display: flex;
+}
+
+/* Add route */
+.add-route-container {
+    display: flex;
+    justify-content: end;
+    width: 100vw;
+    margin: 0 5vw 11vh 0;
 }
 
 /* Desktop */

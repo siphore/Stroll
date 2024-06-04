@@ -1,11 +1,18 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import MapView from "./components/MapView.vue";
 import SentiersView from "./components/SentiersView.vue";
 import HomeView from "./components/HomeView.vue";
 import StarredView from "./components/StarredView.vue";
 import ProfileView from "./components/ProfileView.vue";
 import TheNav from './components/TheNav.vue';
+import AddRoute_1 from './components/AddRoute_1.vue';
+import AddRoute_2 from './components/AddRoute_2.vue';
+import AddRoute_3 from './components/AddRoute_3.vue';
+import AddRoute_4 from './components/AddRoute_4.vue';
+import AddRoute_5 from './components/AddRoute_5.vue';
+import AddRoute_6 from './components/AddRoute_6.vue';
+import FiltresView from './components/FiltresView.vue';
 
 const routes = {
   '#carte': {
@@ -27,10 +34,39 @@ const routes = {
   '#profil': {
     component: ProfileView,
     label: 'Profil',
-  }
+  },
+  '#ajout-1': {
+    component: AddRoute_1,
+  },
+  '#ajout-2': {
+    component: AddRoute_2,
+  },
+  '#ajout-3': {
+    component: AddRoute_3,
+  },
+  '#ajout-4': {
+    component: AddRoute_4,
+  },
+  '#ajout-5': {
+    component: AddRoute_5,
+  },
+  '#ajout-6': {
+    component: AddRoute_6,
+  },
+  '#filtres': {
+    component: FiltresView,
+  },
 }
 
-const currentPath = ref(window.location.hash);
+const navLinks = {
+  '#carte': routes['#carte'],
+  '#sentiers': routes['#sentiers'],
+  '#accueil': routes['#accueil'],
+  '#favoris': routes['#favoris'],
+  '#profil': routes['#profil']
+};
+
+const currentPath = ref(window.location.hash || '#accueil');
 updateCurrentPath();
 
 function updateCurrentPath() {
@@ -42,19 +78,21 @@ window.addEventListener('hashchange', updateCurrentPath);
 
 const currentView = computed(() => {
   return routes[currentPath.value].component;
-})
+});
+
+const showNav = computed(() => {
+  return currentPath.value in navLinks;
+});
 </script>
 
 <template>
-  <main>
-    <router-view></router-view>
-    <component :is="currentView" />
-  </main>
-  <TheNav :routes="routes" :currentPath="currentPath" />
+  <component :is="currentView" />
+  <TheNav v-if="showNav" :routes="navLinks" :currentPath="currentPath" />
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('../css/multiselect.css');
 
 html,
 body {
@@ -66,6 +104,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  overflow: hidden;
 }
 
 .arimo-normal {
