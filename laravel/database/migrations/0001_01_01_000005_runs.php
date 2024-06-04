@@ -25,7 +25,7 @@ return new class extends Migration {
                 'Morges',
                 'Nyon',
                 'Ouest Lausanne',
-                "Riviera-Pays-d'Enhaut" // Double quotes to escape the single quote
+                'Riviera-Pays-d_Enhaut' // Double quotes to escape the single quote
             ]);
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
