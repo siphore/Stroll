@@ -13,12 +13,13 @@ return new class extends Migration {
         Schema::create('location_run', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('locations_id')->unsigned();
-            $table->integer('runs_id')->unsigned();
-            $table->foreign('locations_id')->references('id')->on('locations')
+            $table->unsignedInteger('location_id'); // Adjusted column name to match convention
+            $table->unsignedInteger('run_id'); // Adjusted column name to match convention
+
+            $table->foreign('location_id')->references('id')->on('locations')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->foreign('runs_id')->references('id')->on('runs')
+            $table->foreign('run_id')->references('id')->on('runs')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });

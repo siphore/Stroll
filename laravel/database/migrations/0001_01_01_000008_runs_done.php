@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('runs_done', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('runs_id');
+            $table->unsignedInteger('runs_id');
             $table->timestamps();
         });
     }

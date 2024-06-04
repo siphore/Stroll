@@ -25,7 +25,7 @@ return new class extends Migration {
                 'Morges',
                 'Nyon',
                 'Ouest Lausanne',
-                'Riviera-Pays-d_Enhaut' // Double quotes to escape the single quote
+                'Riviera-Pays-d_Enhaut' // Corrected escape for single quote
             ]);
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
@@ -49,9 +49,12 @@ return new class extends Migration {
             $table->boolean('place_fire');
             $table->boolean('game_place');
             $table->integer('rating');
-            $table->foreignId('locations_id')->constrained();
-            $table->foreignId('types_id')->constrained();
+            $table->unsignedInteger('location_id'); // Changed to match the expected foreign key
+            $table->unsignedInteger('type_id'); // Changed to match the expected foreign key
             $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade'); // Corrected table name
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
     }
 
