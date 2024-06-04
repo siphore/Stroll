@@ -57,10 +57,12 @@ const districts = [
 // Define custom labels for French
 const customLabels = {
     addOption: "Ajouter l'option",
+    noResults: "Aucun résultat trouvé",
     noOptions: "Aucune option disponible",
     search: "Rechercher",
     selected: "Sélectionné",
-    title: "Choisissez vos options"
+    deselectLabel: "Désélectionner",
+    selectLabel: "Sélectionner"
 };
 </script>
 
