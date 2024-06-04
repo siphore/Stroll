@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Run_done;
+use App\Models\Run_saved;
 
 class User extends Authenticatable
 {
@@ -43,5 +45,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function runs_done()
+    {
+        return $this->hasMany(Run_done::class);
+    }
+    public function runs_saved()
+    {
+        return $this->hasMany(Run_saved::class);
     }
 }

@@ -11,14 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('runs_done', function (Blueprint $table) {
+            $table->increments('id');
+            $table->foreignId('runs_id');
+            $table->timestamps();
+        });
     }
-
+    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('runs_done');
     }
 };
