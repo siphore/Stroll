@@ -67,11 +67,4 @@ function redirectToSentiers() {
 
 <style scoped>
 @import url('../../css/filtres.css');
-
-.close {
-    position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 2vh 0 0 80vw;
-}
 </style>

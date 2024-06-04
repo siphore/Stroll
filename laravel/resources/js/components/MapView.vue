@@ -4,7 +4,6 @@
       <button id="fit">Fit to Switzerland</button>
       <button id="clear">Clear Routes</button>
     </div>
-    <!-- <div id="distance" class="distance-container"></div> -->
   </main>
 </template>
 

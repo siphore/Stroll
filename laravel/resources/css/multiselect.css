@@ -10,10 +10,11 @@
 
 .multiselect__placeholder {
     display: flex;
+    align-items: center;
     color: #254a3d;
-    font-size: 4vw;
+    font-size: 1rem;
 }
 
 .multiselect__placeholder img {
-    padding-right: 3vw;
+    padding-right: .8rem;
 }

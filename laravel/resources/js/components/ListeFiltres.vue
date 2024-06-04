@@ -59,7 +59,8 @@ const customLabels = {
     addOption: "Ajouter l'option",
     noOptions: "Aucune option disponible",
     search: "Rechercher",
-    selected: "Sélectionné"
+    selected: "Sélectionné",
+    title: "Choisissez vos options"
 };
 </script>
 

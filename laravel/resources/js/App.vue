@@ -113,4 +113,11 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.close {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 3vh 0 0 80vw;
+}
 </style>

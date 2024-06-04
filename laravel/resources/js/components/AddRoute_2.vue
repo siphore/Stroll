@@ -23,7 +23,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import Multiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.css';
 import ListeFiltres from './ListeFiltres.vue';
 
@@ -38,48 +37,6 @@ const form = ref({
     equipment: [],
     district: [],
 });
-
-const seasons = [
-    { name: 'Printemps' },
-    { name: 'Été' },
-    { name: 'Automne' },
-    { name: 'Hiver' }
-];
-
-const publicOptions = [
-    { name: 'Famille' },
-    { name: 'Scolaire' },
-    { name: 'Sénior' }
-];
-
-const accessibilities = [
-    { name: 'Mobilité réduite' },
-    { name: 'Poussettes' },
-    { name: 'Chiens bienvenus' },
-    { name: 'Parking gratuit' },
-    { name: 'Accès en transport public' }
-];
-
-const equipments = [
-    { name: 'Banc' },
-    { name: 'Table de pique-nique' },
-    { name: 'Toilette' },
-    { name: 'Place de feu' },
-    { name: 'Place de jeu' }
-];
-
-const districts = [
-    { name: 'Aigle' },
-    { name: 'Broye-Vully' },
-    { name: 'Gros-de-Vaud' },
-    { name: 'Jura-Nord vaudois' },
-    { name: 'Lausanne' },
-    { name: 'Lavaux-Oron' },
-    { name: 'Morges' },
-    { name: 'Nyon' },
-    { name: 'Ouest Lausannois' },
-    { name: "Riviera-Pays-d'Enhaut" },
-];
 
 const handleSubmit = () => {
     // Handle form submission

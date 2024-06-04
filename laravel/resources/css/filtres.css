@@ -13,8 +13,7 @@ body {
 }
 
 h1 {
-    font-size: 6vw;
-    /* margin: 3vh 5vw; */
+    font-size: 2rem;
 }
 
 sub {
@@ -27,8 +26,7 @@ sub {
 
 label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 1vh;
 }
 
 select {
