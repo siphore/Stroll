@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('location', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->decimal('lat', 100);
-            $table->decimal('log', 100);
-            $table->string('descr', 100);
-            $table->string('img', 500);
-            $table->string('acess', 100);
+            $table->string('name', 65);
+            $table->decimal('lat', 65);
+            $table->decimal('log', 65);
+            $table->string('descr', 65);
+            $table->string('img', 65);
+            $table->string('acess', 65);
             $table->timestamps();
         });
     }
