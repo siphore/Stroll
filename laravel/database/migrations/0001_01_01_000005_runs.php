@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('runs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->string('img', 500);
-            $table->string('descr', 100);
+            $table->string('name', 65);
+            $table->string('img', 65);
+            $table->string('descr', 65);
             $table->enum('district', [
                 'Aigle',
                 'Broye-Vully',
@@ -25,7 +25,7 @@ return new class extends Migration {
                 'Morges',
                 'Nyon',
                 'Ouest Lausanne',
-                'Riviera-Pays-d_Enhaut' // Double quotes to escape the single quote
+                "Riviera-Pays-d'Enhaut" // Double quotes to escape the single quote
             ]);
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
