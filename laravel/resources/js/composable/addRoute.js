@@ -18,35 +18,37 @@ export function addRoute(map, coordinates) {
             if (map.isStyleLoaded()) {
                 addRouteSourceAndLayer();
             } else {
-                map.on("style.load", () => {
-                    addRouteSourceAndLayer();
-                });
+                map.on("style.load", addRouteSourceAndLayer);
             }
         })
-        .catch((err) => console.error(err));
+        .catch((err) =>
+            console.error("Error fetching route or adding layer:", err)
+        );
 }
 
 function addSourceAndLayer(map, sourceId, route) {
-    map.addSource(sourceId, {
-        type: "geojson",
-        data: {
-            type: "Feature",
-            properties: {},
-            geometry: route,
-        },
-    });
+    if (!map.getSource(sourceId)) {
+        map.addSource(sourceId, {
+            type: "geojson",
+            data: {
+                type: "Feature",
+                properties: {},
+                geometry: route,
+            },
+        });
 
-    map.addLayer({
-        id: sourceId,
-        type: "line",
-        source: sourceId,
-        layout: {
-            "line-join": "round",
-            "line-cap": "round",
-        },
-        paint: {
-            "line-color": "#ff0000",
-            "line-width": 4,
-        },
-    });
+        map.addLayer({
+            id: sourceId,
+            type: "line",
+            source: sourceId,
+            layout: {
+                "line-join": "round",
+                "line-cap": "round",
+            },
+            paint: {
+                "line-color": "#ff0000",
+                "line-width": 4,
+            },
+        });
+    }
 }
