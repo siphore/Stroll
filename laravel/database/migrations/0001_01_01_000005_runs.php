@@ -13,10 +13,10 @@ return new class extends Migration {
         Schema::create('runs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 65);
-            $table->string('img', 65);
+            $table->text('img');
             $table->decimal('departure', 8, 2);
             $table->decimal('arrival', 8, 2);
-            $table->string('descr', 65);
+            $table->text('descr');
             $table->enum('district', [
                 'Aigle',
                 'Broye-Vully',
