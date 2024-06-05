@@ -3,12 +3,12 @@
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="distance">Distance (km)</label>
-                <input type="text" id="distance" v-model="form.distance" placeholder="5,1 km" required />
+                <input type="text" id="distance" v-model="form.distance" placeholder="5.1" required />
             </div>
 
             <div class="form-group">
                 <label for="duration">Durée (heures)</label>
-                <input type="text" id="duration" v-model="form.duration" placeholder="1h" required />
+                <input type="text" id="duration" v-model="form.duration" placeholder="hh:mm" required />
             </div>
 
             <ListeFiltres :form="form" />
@@ -39,13 +39,11 @@ const form = ref({
 });
 
 const handleSubmit = () => {
-    // Handle form submission
     console.log(form.value);
-    // Navigate to the next view or handle submission logic
+    window.location.hash = '#ajout-3';
 };
 
 const handleBack = () => {
-    // Handle back action
     window.history.back();
 };
 </script>

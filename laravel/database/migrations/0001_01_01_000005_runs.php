@@ -25,29 +25,29 @@ return new class extends Migration {
                 'Morges',
                 'Nyon',
                 'Ouest Lausanne',
-                'Riviera-Pays-d_Enhaut' // Corrected escape for single quote
+                'Riviera-Pays-d_Enhaut',
             ]);
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
             $table->enum('level_difficulty', ['Facile', 'Moyen', 'Difficile']);
-            $table->boolean('printemps');
-            $table->boolean('ete');
-            $table->boolean('automne');
-            $table->boolean('hiver');
-            $table->boolean('family');
-            $table->boolean('school');
-            $table->boolean('senior');
-            $table->boolean('handicap');
-            $table->boolean('dogs');
-            $table->boolean('parkings');
-            $table->boolean('public_transport');
-            $table->boolean('mobility');
-            $table->boolean('scroller');
-            $table->boolean('table_picnic');
-            $table->boolean('bench');
-            $table->boolean('wc');
-            $table->boolean('place_fire');
-            $table->boolean('game_place');
+            $table->boolean('printemps')->default(false);
+            $table->boolean('ete')->default(false);
+            $table->boolean('automne')->default(false);
+            $table->boolean('hiver')->default(false);
+            $table->boolean('family')->default(false);
+            $table->boolean('school')->default(false);
+            $table->boolean('senior')->default(false);
+            $table->boolean('handicap')->default(false);
+            $table->boolean('dogs')->default(false);
+            $table->boolean('parkings')->default(false);
+            $table->boolean('public_transport')->default(false);
+            $table->boolean('mobility')->default(false);
+            $table->boolean('scroller')->default(false);
+            $table->boolean('table_picnic')->default(false);
+            $table->boolean('bench')->default(false);
+            $table->boolean('wc')->default(false);
+            $table->boolean('fireplace')->default(false);
+            $table->boolean('playground')->default(false);
             $table->integer('rating');
             $table->unsignedInteger('location_id'); // Changed to match the expected foreign key
             $table->unsignedInteger('type_id'); // Changed to match the expected foreign key

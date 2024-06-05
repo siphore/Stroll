@@ -1,4 +1,7 @@
 <script setup>
+
+//import MonthlyHikesChart from './components/MonthlyHikesChart.vue';
+
 function redirectToLogin() {
     window.location.href = "/login"
 }
@@ -20,11 +23,40 @@ function redirectToLogin() {
 
             <section class="dashboard">
                 <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-frame">
+                        <div class="dashboard-content">100 km</div>
+                        <div class="dashboard-label">Distance parcourue</div>
+                    </div>
+                    <div class="dashboard-frame">
+                        <div class="dashboard-content">25/100</div>
+                        <div class="dashboard-label">Sentiers parcourus</div>
+                    </div>
+
+                    <div class="dashboard-frame">
+                        <div class="dashboard-content">10000</div>
+                        <div class="dashboard-label">pas parcourus</div>
+                    </div>
+                    <div class="dashboard-frame">
+                        <div class="dashboard-progress-container">
+                            <div class="dashboard-progress">
+                                <div class="progress-bar" style="width: 50%;"></div>
+                            </div>
+                            <div class="progress-label">3/6</div>
+                        </div>
+                        <div class="dashboard-label">Objectif de sentier mensuel</div>
+                    </div>
+                </div>
             </section>
 
-            <section class="dashboard">
-                <h2>Vos succès</h2>
+            <!-- ajouter un graphique nombre de balade par année -->
+            <section class="graph">
+                <div class="dashboard-frame-graph">
+                    <div class="dashboard-content">Nombre de balades par année</div>
+                    <MonthHikesChart />
+                </div>
             </section>
+
 
             <section class="auth-section">
                 <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
@@ -33,14 +65,28 @@ function redirectToLogin() {
     </main>
 </template>
 
+
+
+
 <style scoped>
+body {
+    background-color: #F5F5F5;
+}
+
 #profile {
     padding: 5vw;
+    background-color: #F5F5F5;
+    height: 100vh;
+    max-height: 90vh;
+    overflow-y: scroll;
+
 }
 
 section {
     margin-bottom: 8vh;
 }
+
+
 
 .auth-section {
     display: flex;
@@ -59,5 +105,98 @@ section {
 
 .auth-button:hover {
     background-color: #1e3a2f;
+}
+
+.dashboard-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dashboard-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    border: 0.0625rem solid var(--Sapin-2, #A1C9BB);
+    background: #FFF;
+    padding: 0 1.25rem;
+    margin: 0.625rem 0;
+    width: 9.5rem;
+    height: 7.625rem;
+    position: relative;
+}
+
+.dashboard-frame-graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    border: 0.0625rem solid var(--Sapin-2, #A1C9BB);
+    background: #FFF;
+    padding: 1.25rem;
+    margin: 0.625rem 0;
+    width: 80%;
+    height: 10rem;
+    position: relative;
+}
+
+.dashboard-content {
+    color: var(--Sapin-1, #254A3D);
+    font-size: 2.5rem;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.05rem;
+
+}
+
+.dashboard-label {
+    text-align: center;
+    font-family: Arimo;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--Sapin-1, #254A3D);
+    position: absolute;
+    bottom: 0.625rem;
+    width: 100%;
+    line-height: 1rem;
+}
+
+
+.dashboard-progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 0.5rem;
+}
+
+.dashboard-progress {
+    width: 100%;
+    height: 20px;
+    background: #A1C9BB;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--Sapin-1, #254A3D);
+    border-radius: 5px;
+}
+
+.progress-label {
+    color: var(--Sapin-1, #254A3D);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    text-align: center;
+
+
 }
 </style>

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('isAdmin')->default(false);
-            $table->decimal('nb_km_done');
-            $table->decimal('nb_runs_done');    
+            $table->decimal('nb_km_done')->default(0);
+            $table->decimal('nb_runs_done')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

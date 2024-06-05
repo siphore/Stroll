@@ -13,7 +13,7 @@ export function displayCards() {
         <stop offset="0.505953" stop-opacity="0"/>
         <stop offset="1"/>
         </linearGradient>
-        <image href="http://placebacon.net/240/398" x="0" y="0" width="398" height="240" />
+        <image href="https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg" x="0" y="0" width="398" height="240" />
         </defs>
         </svg>`
     }

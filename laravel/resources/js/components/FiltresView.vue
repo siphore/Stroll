@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <img class="close" src="../../svg/close.svg" alt="Fermer le menu" @click="redirectToSentiers">
-        <h1><img src="../../svg/filter-simple.svg"> Filtres</h1>
+        <h1><img class="icon filter" src="../../svg/filter-simple.svg"> Filtres</h1>
         <sub>Sélectionner les filtres de recherche</sub>
 
         <form @submit.prevent="handleSubmit">
@@ -33,11 +33,6 @@
 import { ref, computed } from 'vue';
 import 'vue-multiselect/dist/vue-multiselect.css';
 import ListeFiltres from './ListeFiltres.vue';
-import { filters } from '../composable/thematiques';
-
-const filteredFilters = computed(() => {
-    return Object.entries(filters).slice(2);
-});
 
 const form = ref({
     radius: 0,
@@ -67,4 +62,9 @@ function redirectToSentiers() {
 
 <style scoped>
 @import url('../../css/filtres.css');
+
+.icon.filter {
+    width: 1.5rem;
+    height: 1.5rem;
+}
 </style>

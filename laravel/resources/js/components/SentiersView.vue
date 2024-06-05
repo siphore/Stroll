@@ -41,8 +41,7 @@ function redirectToFilters() {
             <ul class="cards">
                 <li v-for="(index) in cardsKeys" :key="index" class="card-item">
                     <div class="card">
-                        <div class="card-image" :style="{ backgroundImage: 'url(https://placebacon.net/240/398)' }">
-                        </div>
+                        <div class="card-image"></div>
                         <div class="card-overlay">
                             <div class="card-header">
                                 <span><i class="fas fa-exchange-alt"></i> 1km</span>
@@ -238,6 +237,15 @@ function redirectToFilters() {
 
 .indicator.active {
     background: #d4a959;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
 }
 
 .filter-menu.show {

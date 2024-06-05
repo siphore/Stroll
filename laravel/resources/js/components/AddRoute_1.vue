@@ -8,30 +8,33 @@
             </div>
 
             <div class="form-group">
-                <select id="theme" v-model="form.theme" required>
-                    <option value="" disabled>Thématiques</option>
-                    <option v-for="(filter) in filteredFilters">
-                        {{ `Sentier ${filter[0]}` }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" v-model="form.description" placeholder="Description du sentier"
                     required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="image">Image de sentier</label>
-                <input type="file" id="image" @change="handleImageUpload" accept="image/png, image/jpeg" />
-                <p class="file-instructions">Cliquer pour ajouter ou drag and drop<br />PNG ou JPG</p>
+                <label for="image">Image du sentier</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="image" @change="handleImageUpload" accept="image/png, image/jpeg" />
+                    <div class="upload-icon">
+                        <img src="../../svg/upload-icon.svg" alt="Upload Icon">
+                    </div>
+                    <p class="file-instructions"><span class="highlight">Cliquer pour ajouter</span> ou drag and
+                        drop<br />PNG ou JPG</p>
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="pdf">PDF de Sentier</label>
-                <input type="file" id="pdf" @change="handlePdfUpload" accept="application/pdf" />
-                <p class="file-instructions">Cliquer pour ajouter ou drag and drop<br />PDF</p>
+                <label for="image">PDF du Sentier</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="image" @change="handlePdfUpload" accept="application/pdf" />
+                    <div class="upload-icon">
+                        <img src="../../svg/upload-icon.svg" alt="Upload Icon">
+                    </div>
+                    <p class="file-instructions"><span class="highlight">Cliquer pour ajouter</span> ou drag and
+                        drop<br />PDF</p>
+                </div>
             </div>
 
             <div class="buttons">
@@ -43,12 +46,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { filters } from '../composable/thematiques.js';
-
-const filteredFilters = computed(() => {
-    return Object.entries(filters).slice(2);
-});
+import { ref } from 'vue';
 
 const form = ref({
     name: '',
@@ -77,13 +75,11 @@ const handlePdfUpload = (event) => {
 };
 
 const handleSubmit = () => {
-    // Handle form submission
     console.log(form.value);
     window.location.hash = "#ajout-2";
 };
 
 const handleBack = () => {
-    // Handle back action
     window.history.back();
 };
 </script>

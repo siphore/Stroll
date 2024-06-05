@@ -6,10 +6,21 @@ const props = defineProps({
     form: Object
 });
 
+const thematiques = [
+    { name: "Sentier Street Art" },
+    { name: "Sentier Architecture" },
+    { name: "Sentier Historique" },
+    { name: "Sentier Nature" },
+    { name: "Sentier Sportif" },
+    { name: "Sentier Gastronomie" },
+    { name: "Sentier Arts & Culture" },
+    { name: "Sentier Ephémère" },
+]
+
 const levels = [
     { name: "Facile" },
     { name: "Moyen" },
-    { name: "Difficile" }
+    { name: "Difficile" },
 ];
 
 const seasons = [
@@ -68,8 +79,8 @@ const customLabels = {
 
 <template>
     <div class="form-group">
-        <multiselect v-model="form.theme" :options="levels" :multiple="true" :close-on-select="false"
-            label="name" track-by="name">
+        <multiselect v-model="form.theme" :options="thematiques" :multiple="true" :close-on-select="false" label="name"
+            track-by="name" :labels="customLabels" select-label="Sélection">
             <template #placeholder>
                 <img src="../../svg/thematiques.svg" class="icon"> Thématiques
             </template>
@@ -77,8 +88,8 @@ const customLabels = {
     </div>
 
     <div class="form-group">
-        <multiselect v-model="form.levels" :options="levels" :multiple="true" :close-on-select="false" label="name"
-            track-by="name" :labels="customLabels">
+        <multiselect v-model="form.levels" :options="levels" :close-on-select="false" label="name" track-by="name"
+            select-label="Sélectionner">
             <template #placeholder>
                 <img src="../../svg/niveau.svg" class="icon"> Niveau
             </template>
