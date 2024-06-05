@@ -47,7 +47,7 @@ return new class extends Migration {
             $table->boolean('wc')->default(false);
             $table->boolean('fireplace')->default(false);
             $table->boolean('playground')->default(false);
-            $table->integer('rating');
+            $table->integer('rating')->default(0);
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('type_id');
             $table->timestamps();
