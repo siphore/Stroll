@@ -55,12 +55,21 @@
 </style>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { fetch } from "../composable/fetch";
 import { loadMap } from "../composable/map";
-import { fetchRuns } from "../composable/fetch";
+import { addRoute } from "../composable/addRoute";
 
-onMounted(() => {
-  loadMap();
-  console.log(fetchRuns("https://vdiscover.ch/api/runs"));
+const runs = ref([]);
+
+onMounted(async () => {
+  const map = loadMap();
+
+  const url = 'http://127.0.0.1:8000/api/runs';
+  runs.value = await fetch(url).then((data) => {
+    const coordsDep = data[0].departure.split(',').map(coord => parseFloat(coord.trim()));
+    const coordsArr = data[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
+    addRoute(map, [coordsDep, coordsArr]);
+  });
 });
 </script>

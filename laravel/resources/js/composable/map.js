@@ -28,4 +28,6 @@ export function loadMap() {
         map.addControl(new maplibregl.NavigationControl());
         getCoords(map, addRoute);
     });
+
+    return map;
 }
