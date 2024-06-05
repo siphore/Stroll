@@ -1,9 +1,10 @@
 <script setup>
-
-//import MonthlyHikesChart from './components/MonthlyHikesChart.vue';
-
 function redirectToLogin() {
-    window.location.href = "/login"
+    window.location.href = "/login";
+}
+
+function viewHistory() {
+    window.location.href = '#historique';
 }
 </script>
 
@@ -57,6 +58,9 @@ function redirectToLogin() {
                 </div>
             </section>
 
+            <div class="buttons">
+                <button @click="viewHistory" class="btn-primary">Voir l'historique</button>
+            </div>
 
             <section class="auth-section">
                 <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
@@ -69,6 +73,8 @@ function redirectToLogin() {
 
 
 <style scoped>
+@import url('../../css/filtres.css');
+
 body {
     background-color: #F5F5F5;
 }
@@ -85,8 +91,6 @@ body {
 section {
     margin-bottom: 8vh;
 }
-
-
 
 .auth-section {
     display: flex;
@@ -196,7 +200,5 @@ section {
     font-weight: 700;
     line-height: 1.5rem;
     text-align: center;
-
-
 }
 </style>

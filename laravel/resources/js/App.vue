@@ -13,6 +13,7 @@ import AddRoute_4 from './components/AddRoute_4.vue';
 import AddRoute_5 from './components/AddRoute_5.vue';
 import AddRoute_6 from './components/AddRoute_6.vue';
 import FiltresView from './components/FiltresView.vue';
+import HistoryView from './components/HistoryView.vue';
 
 const routes = {
   '#carte': {
@@ -55,6 +56,9 @@ const routes = {
   },
   '#filtres': {
     component: FiltresView,
+  },
+  '#historique': {
+    component: HistoryView,
   },
 }
 
