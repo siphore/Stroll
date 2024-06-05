@@ -2,7 +2,6 @@
   <main>
     <div id="map">
       <button id="fit">Fit to Switzerland</button>
-      <button id="clear">Clear Routes</button>
     </div>
   </main>
 </template>
@@ -63,13 +62,15 @@ import { addRoute } from "../composable/addRoute";
 const runs = ref([]);
 
 onMounted(async () => {
-  const map = loadMap();
+  const map = await loadMap();
 
   const url = 'http://127.0.0.1:8000/api/runs';
-  runs.value = await fetch(url).then((data) => {
+  const data = await fetch(url);
+
+  if (data && data.length > 0) {
     const coordsDep = data[0].departure.split(',').map(coord => parseFloat(coord.trim()));
     const coordsArr = data[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
     addRoute(map, [coordsDep, coordsArr]);
-  });
+  }
 });
 </script>

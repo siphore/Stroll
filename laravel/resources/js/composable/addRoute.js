@@ -1,5 +1,4 @@
 export function addRoute(map, coordinates) {
-    console.log(coordinates);
     const url = `https://router.project-osrm.org/route/v1/driving/${coordinates.join(
         ";"
     )}?overview=full&geometries=geojson`;
@@ -10,11 +9,17 @@ export function addRoute(map, coordinates) {
             const route = data.routes[0].geometry;
             const sourceId = `route-${Date.now()}`;
 
+            const addRouteSourceAndLayer = () => {
+                if (!map.getSource(sourceId)) {
+                    addSourceAndLayer(map, sourceId, route);
+                }
+            };
+
             if (map.isStyleLoaded()) {
-                addSourceAndLayer(map, sourceId, route);
+                addRouteSourceAndLayer();
             } else {
                 map.on("style.load", () => {
-                    addSourceAndLayer(map, sourceId, route);
+                    addRouteSourceAndLayer();
                 });
             }
         })
