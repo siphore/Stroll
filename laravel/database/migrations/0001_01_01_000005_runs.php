@@ -32,10 +32,7 @@ return new class extends Migration {
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
             $table->enum('level_difficulty', ['Facile', 'Moyen', 'Difficile']);
-            $table->boolean('printemps')->default(false);
-            $table->boolean('ete')->default(false);
-            $table->boolean('automne')->default(false);
-            $table->boolean('hiver')->default(false);
+            $table->enum('season', ['Printemps', 'Ete', 'Automne', 'Hiver']);
             $table->boolean('family')->default(false);
             $table->boolean('school')->default(false);
             $table->boolean('senior')->default(false);
@@ -51,11 +48,11 @@ return new class extends Migration {
             $table->boolean('fireplace')->default(false);
             $table->boolean('playground')->default(false);
             $table->integer('rating');
-            $table->unsignedInteger('location_id'); // Changed to match the expected foreign key
-            $table->unsignedInteger('type_id'); // Changed to match the expected foreign key
+            $table->unsignedInteger('location_id');
+            $table->unsignedInteger('type_id');
             $table->timestamps();
 
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade'); // Corrected table name
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
     }

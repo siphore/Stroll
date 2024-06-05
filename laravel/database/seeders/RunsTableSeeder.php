@@ -23,14 +23,14 @@ class RunsTableSeeder extends Seeder
             'distance' => '20',
             'duration' => '60',
             'level_difficulty' => 'Facile',
-            'ete' => true,
+            'season' => 'Ete',
             'family' => true,
             'mobility' => true,
             'scroller' => true,
             'bench' => true,
-            'types_id' => 1,
-            'users_id' => 1,
-            'locations_id' => 1
+            'type_id' => 1,
+            // 'users_id' => 1,
+            'location_id' => 1
 
         ]);
 
