@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->decimal('log', 8, 2);
             $table->text('descr');
             $table->text('img');
-            $table->string('access', 65);
+            $table->text('access');
             $table->timestamps();
         });
     }
