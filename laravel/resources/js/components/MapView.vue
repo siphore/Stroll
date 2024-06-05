@@ -57,8 +57,10 @@
 <script setup>
 import { onMounted } from "vue";
 import { loadMap } from "../composable/map";
+import { fetchRuns } from "../composable/fetch";
 
 onMounted(() => {
   loadMap();
+  console.log(fetchRuns("http://vdiscover.ch/api/runs"));
 });
 </script>
