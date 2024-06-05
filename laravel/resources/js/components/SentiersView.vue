@@ -1,11 +1,9 @@
 <script setup>
 import Filtres from "./Filtres.vue";
 import { ref } from "vue";
-import { displayCards } from "../composable/vignette.js";
 import { filters } from "../composable/thematiques.js";
+import Vignette from "./Vignette.vue";
 
-const cards = displayCards();
-const cardsKeys = Object.keys(cards);
 const activeFilter = ref("Populaires");
 const isFilterMenuVisible = ref(false);
 
@@ -38,27 +36,7 @@ function redirectToFilters() {
 
             <!-- Content -->
             <h2 class="title">{{ filters[activeFilter] }}</h2>
-            <ul class="cards">
-                <li v-for="(index) in cardsKeys" :key="index" class="card-item">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-overlay">
-                            <div class="card-header">
-                                <span><i class="fas fa-exchange-alt"></i> 1km</span>
-                                <span><i class="fas fa-clock"></i> 1h00</span>
-                                <span><i class="fas fa-mountain"></i> Facile</span>
-                            </div>
-                            <h3 class="card-title">Sentier des narcisses</h3>
-                            <p class="card-location">Châtel-Saint-Denis</p>
-                            <div class="card-indicators">
-                                <span class="indicator active"></span>
-                                <span class="indicator"></span>
-                                <span class="indicator"></span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <Vignette />
             <div class="add-route-container">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -165,87 +143,6 @@ function redirectToFilters() {
     border-radius: 8px;
     cursor: pointer;
     text-wrap: nowrap;
-}
-
-/* Cards */
-.cards {
-    margin: 0 0 15vh 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-.card-item {
-    margin: 10px;
-    border-radius: 15px;
-    overflow: hidden;
-    width: 398px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    border-radius: 15px;
-}
-
-.card-content {
-    padding: 10px;
-    background: #fff;
-    border-radius: 0 0 15px 15px;
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-    color: #666;
-}
-
-.card-header span {
-    display: flex;
-    align-items: center;
-}
-
-.card-header i {
-    margin-right: 5px;
-}
-
-.card-title {
-    font-size: 1.2em;
-    margin: 10px 0 5px;
-}
-
-.card-location {
-    font-size: 0.9em;
-    color: #999;
-}
-
-.card-indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    background: #ccc;
-    border-radius: 50%;
-    margin: 0 5px;
-}
-
-.indicator.active {
-    background: #d4a959;
-}
-
-.card-image {
-    width: 100%;
-    height: 100%;
-    background-image: url('https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
 }
 
 .filter-menu.show {
