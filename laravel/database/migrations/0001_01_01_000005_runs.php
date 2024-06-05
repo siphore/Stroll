@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->increments('id');
             $table->string('name', 65);
             $table->text('img');
-            $table->decimal('departure', 10, 8);
-            $table->decimal('arrival', 10, 8);
+            $table->string('departure');
+            $table->string('arrival');
             $table->text('descr');
             $table->enum('district', [
                 'Aigle',
