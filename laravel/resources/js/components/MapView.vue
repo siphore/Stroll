@@ -61,6 +61,6 @@ import { fetchRuns } from "../composable/fetch";
 
 onMounted(() => {
   loadMap();
-  console.log(fetchRuns("http://vdiscover.ch/api/runs"));
+  console.log(fetchRuns("https://vdiscover.ch/api/runs"));
 });
 </script>
