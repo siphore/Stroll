@@ -59,6 +59,10 @@ body {
   font-style: normal;
 }
 
+.scrollable {
+  overflow-y: scroll;
+}
+
 .close {
     position: absolute;
     width: 1.5rem;

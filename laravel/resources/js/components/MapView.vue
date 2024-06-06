@@ -73,7 +73,7 @@ async function init(retries = 0) {
       const { latitude, longitude } = position.coords;
       map.setCenter([longitude, latitude]);
 
-      // Routes
+      // Sentiers
       const runsResp = await axios.get('/api/runs');
       runs.value = runsResp.data;
 

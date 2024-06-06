@@ -5,7 +5,6 @@ import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
 
 const activeFilter = ref("Populaires");
-const isFilterMenuVisible = ref(false);
 
 function createRoute() {
     window.location.hash = "#ajout-1";
@@ -20,7 +19,7 @@ function redirectToFilters() {
     <main>
         <div id="home">
             <!-- Logo -->
-            <img src="../../svg/logo.svg" class="logo" alt="Logo application">
+            <!-- <img src="../../svg/logo.svg" class="logo" alt="Logo application"> -->
 
             <!-- Search box -->
             <div class="search-container">
@@ -30,13 +29,15 @@ function redirectToFilters() {
             </div>
 
             <!-- Filters -->
-            <div class="filter-menu" :class="{ show: isFilterMenuVisible }">
+            <div class="filter-menu">
                 <Filtres :filters="filters" v-model:activeFilter="activeFilter" />
             </div>
 
             <!-- Content -->
             <h2 class="title">{{ filters[activeFilter] }}</h2>
-            <Vignette />
+            <div class="scrollable">
+                <Vignette />
+            </div>
             <div class="add-route-container">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -56,8 +57,7 @@ function redirectToFilters() {
     align-items: center;
     padding: 0 3vw;
     max-height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 /* Logo */

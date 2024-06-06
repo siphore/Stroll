@@ -10,7 +10,7 @@
                         <span><i class="fas fa-mountain"></i> Facile</span>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Sentier des narcisses</h3>
+                        <h3 class="card-title">{{ data.name }}</h3>
                         <p class="card-location">Châtel-Saint-Denis</p>
                     </div>
                     <div class="card-indicators">
@@ -25,10 +25,22 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { displayCards } from "../composable/vignette.js";
 
 const cards = displayCards();
 const cardsKeys = Object.keys(cards);
+
+const runs = ref([]);
+
+async function getRuns() {
+    const runsResp = await axios.get('/api/runs');
+    runs.value = runsResp.data;
+    return runs.value[0];
+}
+const data = await getRuns();
+
+console.log(data);
 </script>
 
 <style scoped>
@@ -39,7 +51,7 @@ const cardsKeys = Object.keys(cards);
     list-style: none;
     height: 50vh;
     padding: 0;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .card-item {

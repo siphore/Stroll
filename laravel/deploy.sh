@@ -24,3 +24,6 @@ php artisan migrate
 
 # Step 7: Generate application key
 php artisan key:generate
+
+# Step 8: Install api dependencies
+php artisan install:api
