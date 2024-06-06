@@ -3,30 +3,42 @@ export function addRoute(map, coordinates) {
         ";"
     )}?overview=full&geometries=geojson`;
 
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            const route = data.routes[0].geometry;
-            const sourceId = `route-${Date.now()}`;
+    fetchWithRetry(url, map, coordinates);
+}
 
-            const addRouteSourceAndLayer = () => {
-                if (!map.getSource(sourceId)) {
-                    addSourceAndLayer(map, sourceId, route);
-                    addMarkers(map, coordinates);
-                }
-            };
+async function fetchWithRetry(url, map, coordinates, retries = 3) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const route = data.routes[0].geometry;
+        const sourceId = `route-${Date.now()}`;
 
-            if (map.isStyleLoaded()) {
-                addRouteSourceAndLayer();
-            } else {
-                map.on("style.load", () => {
-                    addRouteSourceAndLayer();
-                });
+        const addRouteSourceAndLayer = () => {
+            if (!map.getSource(sourceId)) {
+                addSourceAndLayer(map, sourceId, route);
+                addMarkers(map, coordinates);
             }
-        })
-        .catch((err) =>
-            console.error("Error fetching route or adding layer:", err)
-        );
+        };
+
+        if (map.isStyleLoaded()) {
+            addRouteSourceAndLayer();
+        } else {
+            map.on("style.load", () => {
+                addRouteSourceAndLayer();
+            });
+        }
+    } catch (error) {
+        if (retries > 0) {
+            console.warn(`Retrying fetch... (${3 - retries + 1})`);
+            await new Promise((res) => setTimeout(res, 1000)); // Wait for 1 second before retrying
+            fetchWithRetry(url, map, coordinates, retries - 1);
+        } else {
+            console.error("Error fetching route or adding layer:", error);
+        }
+    }
 }
 
 function addSourceAndLayer(map, sourceId, route) {

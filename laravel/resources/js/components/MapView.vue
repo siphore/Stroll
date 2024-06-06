@@ -59,36 +59,60 @@ import axios from "axios";
 import { loadMap } from "../composable/map";
 import { addRoute } from "../composable/addRoute";
 import { addLocation } from "../composable/addLocation";
-import { fetch } from "../composable/fetch";
 
 const runs = ref([]);
 const locations = ref([]);
+const MAX_RETRIES = 3;
 
-onMounted(async () => {
+async function init(retries = 0) {
   try {
     const map = await loadMap();
 
-    // Routes
-    const runsResp = await axios.get('/api/runs');
-    runs.value = runsResp.data;
-    console.log(runs.value);
+    // Center map on user's location
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      map.setCenter([longitude, latitude]);
 
-    if (runs.value && runs.value.length > 0) {
-      const coordsDep = runs.value[0].departure.split(',').map(coord => parseFloat(coord.trim()));
-      const coordsArr = runs.value[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
-      addRoute(map, [coordsDep, coordsArr]);
-    }
+      // Routes
+      const runsResp = await axios.get('/api/runs');
+      runs.value = runsResp.data;
 
-    // Locations
-    const locResp = await axios.get('/api/locations');
-    locations.value = locResp.data;
-    locations.value.forEach((location) => {
-      const coordsX = parseFloat(location.log.trim());
-      const coordsY = parseFloat(location.lat.trim());
-      addLocation(map, [coordsX, coordsY]);
+      if (runs.value && runs.value.length > 0) {
+        const coordsDep = runs.value[0].departure.split(',').map(coord => parseFloat(coord.trim()));
+        const coordsArr = runs.value[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
+        addRoute(map, [coordsDep, coordsArr]);
+      }
+
+      // Locations
+      const locResp = await axios.get('/api/locations');
+      locations.value = locResp.data;
+      locations.value.forEach((location) => {
+        const coordsX = parseFloat(location.log.trim());
+        const coordsY = parseFloat(location.lat.trim());
+
+        // Create a popup
+        const popup = new maplibregl.Popup({ offset: 25 }).setText(
+          location.descr
+        );
+
+        // Create DOM element for the marker
+        const el = document.createElement('div');
+        el.class = 'marker';
+        const newLocation = addLocation(map, [coordsX, coordsY], popup);
+      })
     })
   } catch (error) {
-    console.error("Error loading map or fetching runs:", error);
+    if (retries < MAX_RETRIES) {
+      console.warn(`Retrying map initialization... (${retries + 1})`);
+      await new Promise((res) => setTimeout(res, 1000)); // Wait for 1 second before retrying
+      await initializeMap(retries + 1);
+    } else {
+      console.error("Error loading map or fetching runs:", error);
+    }
   }
+}
+
+onMounted(() => {
+  init();
 });
 </script>
