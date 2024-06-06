@@ -1,22 +1,25 @@
 <template>
     <ul class="cards">
-        <li v-for="(index) in cardsKeys" :key="index" class="card-item">
+        <li v-for="(index) in runs" :key="index" class="card-item">
             <div class="card" v-if="runs.length > 0">
-                <img class="card-image" src={{ runs[0].img }} />
+                <img class="card-image" :src="index.img" />
                 <div class="card-overlay">
                     <div class="card-header">
-                        <span><i class="fas fa-exchange-alt"></i>{{ runs[0].distance }}km</span>
-                        <span><i class="fas fa-clock"></i> {{ runs[0].duration }}</span>
-                        <span><i class="fas fa-mountain"></i> {{ runs[0].level_difficulty }}</span>
+                        <span><i class="fas fa-exchange-alt"></i>{{ index.distance }}km</span>
+                        <span><i class="fas fa-clock"></i> {{ index.duration }}</span>
+                        <span><i class="fas fa-mountain"></i> {{ index.level_difficulty }}</span>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">{{ runs[0].name }}</h3>
-                        <p class="card-location">{{ runs[0].district }}</p>
+                        <h3 class="card-title">{{ index.name }}</h3>
+                        <p class="card-location">{{ index.district }}</p>
                     </div>
                     <div class="card-indicators">
                         <span class="indicator active"></span>
                         <span class="indicator"></span>
                         <span class="indicator"></span>
+                    </div>
+                    <div class="star">
+                        <img src="../../svg/star.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -26,11 +29,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { displayCards } from "../composable/vignette.js";
 import axios from 'axios';
-
-const cards = displayCards();
-const cardsKeys = Object.keys(cards);
 
 const runs = ref([]);
 
@@ -38,7 +37,6 @@ async function getRuns() {
     try {
         const response = await axios.get('/api/runs');
         runs.value = response.data;
-        console.log(runs.value);
     } catch (error) {
         console.error('Error fetching runs:', error);
     }
@@ -61,7 +59,6 @@ onMounted(() => {
 }
 
 .card-item {
-    margin: 10px;
     border-radius: 15px;
     overflow: hidden;
     width: 90vw;
@@ -72,7 +69,7 @@ onMounted(() => {
 .card {
     position: relative;
     width: 100%;
-    height: 240px;
+    height: 25vh;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -80,7 +77,6 @@ onMounted(() => {
 .card-image {
     width: 100%;
     height: 100%;
-    /* background-image: url('https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg'); */
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -97,9 +93,15 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5vw;
     box-sizing: border-box;
     z-index: 1;
+}
+
+.star {
+    display: flex;
+    justify-content: end;
+    width: 100%;
 }
 
 .card-header {
@@ -124,19 +126,23 @@ onMounted(() => {
 
 .card-title {
     font-size: 1.5em;
-    margin: 0;
+    margin: 10vh 0 1vh 0;
     font-weight: bold;
 }
 
 .card-location {
     font-size: 1em;
     color: #ccc;
+    margin: 0;
 }
 
 .card-indicators {
+    position: absolute;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    align-items: end;
+    width: 80vw;
+    height: 85%;
 }
 
 .indicator {

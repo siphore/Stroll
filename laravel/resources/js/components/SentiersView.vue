@@ -70,7 +70,7 @@ function redirectToFilters() {
     display: flex;
     align-items: center;
     position: relative;
-    margin-bottom: 3vh;
+    margin: 3vh 0;
 }
 
 .search {

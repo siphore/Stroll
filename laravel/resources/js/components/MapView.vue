@@ -78,9 +78,11 @@ async function init(retries = 0) {
       runs.value = runsResp.data;
 
       if (runs.value && runs.value.length > 0) {
-        const coordsDep = runs.value[0].departure.split(',').map(coord => parseFloat(coord.trim()));
-        const coordsArr = runs.value[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
-        addRoute(map, [coordsDep, coordsArr]);
+        runs.value.forEach((run) => {
+          const coordsDep = run.departure.split(',').map(coord => parseFloat(coord.trim()));
+          const coordsArr = run.arrival.split(',').map(coord => parseFloat(coord.trim()));
+          addRoute(map, [coordsDep, coordsArr]);
+        })
       }
 
       // Locations

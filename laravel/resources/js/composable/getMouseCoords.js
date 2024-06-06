@@ -1,4 +1,4 @@
-export function getCoords(map, addRoute) {
+export function getCoords(map) {
     let coordinates = [];
     let markerList = [];
 
@@ -12,11 +12,6 @@ export function getCoords(map, addRoute) {
             .setLngLat([lngLat.lng, lngLat.lat])
             .addTo(map);
         markerList.push(marker);
-
-        // For this example, let's add the route after every click
-        if (coordinates.length >= 2) {
-            addRoute(map, coordinates);
-        }
     });
 
     // Example to clear markers and routes

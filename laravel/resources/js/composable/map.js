@@ -1,6 +1,7 @@
 import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
 import { fitToLocation } from "../composable/fitToLocation";
 import { locateUser } from "../composable/locateUser";
+import { getCoords } from "../composable/getMouseCoords.js";
 
 export function loadMap() {
     return new Promise((resolve, reject) => {
@@ -20,6 +21,7 @@ export function loadMap() {
         map.on("load", () => {
             fitToLocation(map);
             locateUser(map);
+            // getCoords(map);
             map.addControl(new maplibregl.NavigationControl());
             resolve(map);
         });
