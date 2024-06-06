@@ -58,22 +58,35 @@ import { onMounted, ref } from "vue";
 import axios from "axios";
 import { loadMap } from "../composable/map";
 import { addRoute } from "../composable/addRoute";
+import { addLocation } from "../composable/addLocation";
+import { fetch } from "../composable/fetch";
 
 const runs = ref([]);
+const locations = ref([]);
 
 onMounted(async () => {
   try {
     const map = await loadMap();
 
-    const url = 'http://127.0.0.1:8000/api/runs'; // Adjust to your hosted URL if necessary
-    const response = await axios.get(url);
-    runs.value = response.data;
+    // Routes
+    const runsResp = await axios.get('http://127.0.0.1:8000/api/runs');
+    runs.value = runsResp.data;
+    console.log(runs.value);
 
     if (runs.value && runs.value.length > 0) {
       const coordsDep = runs.value[0].departure.split(',').map(coord => parseFloat(coord.trim()));
       const coordsArr = runs.value[0].arrival.split(',').map(coord => parseFloat(coord.trim()));
       addRoute(map, [coordsDep, coordsArr]);
     }
+
+    // Locations
+    const locResp = await axios.get('http://127.0.0.1:8000/api/locations');
+    locations.value = locResp.data;
+    locations.value.forEach((location) => {
+      const coordsX = parseFloat(location.log.trim());
+      const coordsY = parseFloat(location.lat.trim());
+      addLocation(map, [coordsX, coordsY]);
+    })
   } catch (error) {
     console.error("Error loading map or fetching runs:", error);
   }
