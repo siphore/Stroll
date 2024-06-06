@@ -1,16 +1,63 @@
 <script setup>
+import { onMounted, ref } from 'vue';
+import axios from "../composable/axios.js";
+import MonthlyHikesChart from '@/components/MonthlyHikesChart.vue';
+
 function redirectToLogin() {
     window.location.href = "/login";
+}
+
+function redirectToRegister() {
+    window.location.href = "/register";
 }
 
 function viewHistory() {
     window.location.href = '#historique';
 }
+
+async function logout() {
+    try {
+        await axios.post('/logout');
+        window.location.href = '/'; // Redirect to the home page or login page
+    } catch (error) {
+        console.error('Error logging out:', error);
+    }
+}
+
+const isAuthenticated = ref(false);
+async function checkAuth() {
+    try {
+        const response = await axios.get('/api/user');
+        isAuthenticated.value = response.data.authenticated;
+    } catch (error) {
+        console.error('Error checking authentication:', error);
+    }
+}
+
+onMounted(() => {
+    checkAuth();
+})
 </script>
 
 <template>
     <main>
-        <div id="profile">
+        <!-- Déconnecté -->
+        <div id="profile" v-if="!isAuthenticated">
+            <h1>Mon profil</h1>
+            <p>
+                Identifie-toi pour visualiser les résultats de tes parcours de sentier et suivre tes progrès.
+            </p>
+            <img class="cover" src="https://images.unsplash.com/photo-1595202761821-57d3a4e5dc9f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2VudGllciUyMGRlJTIwcmFuZG9ubiVDMyVBOWV8ZW58MHx8MHx8fDA%3D" alt="">
+            <section class="auth-section">
+                <div class="buttons">
+                    <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
+                    <button @click="redirectToRegister" class="btn-secondary">Créer un compte</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Connecté -->
+        <div id="profile" class="scrollable">
             <section class="informations">
                 <img src="../../svg/pp.svg" alt="Photo de profil">
                 <h2>Jean-Michel <svg width="20" height="20" viewBox="0 0 22 22" fill="none"
@@ -54,7 +101,7 @@ function viewHistory() {
             <section class="graph">
                 <div class="dashboard-frame-graph">
                     <div class="dashboard-content">Nombre de balades par année</div>
-                    <MonthHikesChart />
+                    <MonthlyHikesChart />
                 </div>
             </section>
 
@@ -63,7 +110,9 @@ function viewHistory() {
             </div>
 
             <section class="auth-section">
-                <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
+                <div class="buttons">
+                    <button v-if="isAuthenticated" @click="logout" class="btn-secondary">Logout</button>
+                </div>
             </section>
         </div>
     </main>
@@ -83,9 +132,16 @@ body {
     padding: 5vw;
     background-color: #F5F5F5;
     height: 100vh;
-    max-height: 90vh;
-    overflow-y: scroll;
+    /* max-height: 90vh; */
+}
 
+.cover {
+    width: 90vw;
+    height: 50vh;
+    margin: 0;
+    padding: 0;
+    border-radius: 20px;
+    margin-bottom: 3vh;
 }
 
 section {

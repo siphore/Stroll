@@ -11,6 +11,8 @@ import AddRoute_5 from "../components/AddRoute_5.vue";
 import AddRoute_6 from "../components/AddRoute_6.vue";
 import FiltresView from "../components/FiltresView.vue";
 import HistoryView from "../components/HistoryView.vue";
+import DetailedRoute from "../components/DetailedRoute.vue";
+import DetailedLocation from "../components/DetailedLocation.vue";
 
 export const routes = {
     "#carte": {
@@ -56,5 +58,11 @@ export const routes = {
     },
     "#historique": {
         component: HistoryView,
+    },
+    "#details-sentier": {
+        component: DetailedRoute,
+    },
+    "#details-point-interet": {
+        component: DetailedLocation,
     },
 };
