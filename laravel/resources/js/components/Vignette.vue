@@ -1,17 +1,17 @@
 <template>
     <ul class="cards">
         <li v-for="(index) in cardsKeys" :key="index" class="card-item">
-            <div class="card">
-                <div class="card-image"></div>
+            <div class="card" v-if="runs.length > 0">
+                <img class="card-image" src={{ runs[0].img }} />
                 <div class="card-overlay">
                     <div class="card-header">
-                        <span><i class="fas fa-exchange-alt"></i> 1km</span>
-                        <span><i class="fas fa-clock"></i> 1h00</span>
-                        <span><i class="fas fa-mountain"></i> Facile</span>
+                        <span><i class="fas fa-exchange-alt"></i>{{ runs[0].distance }}km</span>
+                        <span><i class="fas fa-clock"></i> {{ runs[0].duration }}</span>
+                        <span><i class="fas fa-mountain"></i> {{ runs[0].level_difficulty }}</span>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">{{ data.name }}</h3>
-                        <p class="card-location">Châtel-Saint-Denis</p>
+                        <h3 class="card-title">{{ runs[0].name }}</h3>
+                        <p class="card-location">{{ runs[0].district }}</p>
                     </div>
                     <div class="card-indicators">
                         <span class="indicator active"></span>
@@ -25,8 +25,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { displayCards } from "../composable/vignette.js";
+import axios from 'axios';
 
 const cards = displayCards();
 const cardsKeys = Object.keys(cards);
@@ -34,14 +35,20 @@ const cardsKeys = Object.keys(cards);
 const runs = ref([]);
 
 async function getRuns() {
-    const runsResp = await axios.get('/api/runs');
-    runs.value = runsResp.data;
-    return runs.value[0];
+    try {
+        const response = await axios.get('/api/runs');
+        runs.value = response.data;
+        console.log(runs.value);
+    } catch (error) {
+        console.error('Error fetching runs:', error);
+    }
 }
-const data = await getRuns();
 
-console.log(data);
+onMounted(() => {
+    getRuns();
+});
 </script>
+
 
 <style scoped>
 .cards {
@@ -49,9 +56,8 @@ console.log(data);
     justify-content: center;
     flex-wrap: wrap;
     list-style: none;
-    height: 50vh;
+    height: 60vh;
     padding: 0;
-    /* overflow-y: scroll; */
 }
 
 .card-item {
@@ -74,7 +80,7 @@ console.log(data);
 .card-image {
     width: 100%;
     height: 100%;
-    background-image: url('https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg');
+    /* background-image: url('https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7-1024x683.jpg'); */
     background-size: cover;
     background-position: center;
     z-index: 0;

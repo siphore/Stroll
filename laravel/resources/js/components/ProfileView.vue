@@ -132,12 +132,11 @@ body {
     padding: 5vw;
     background-color: #F5F5F5;
     height: 100vh;
-    /* max-height: 90vh; */
 }
 
 .cover {
-    width: 90vw;
-    height: 50vh;
+    width: 24rem;
+    height: 30rem;
     margin: 0;
     padding: 0;
     border-radius: 20px;
