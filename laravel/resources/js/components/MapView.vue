@@ -69,7 +69,7 @@ onMounted(async () => {
     const map = await loadMap();
 
     // Routes
-    const runsResp = await axios.get('http://127.0.0.1:8000/api/runs');
+    const runsResp = await axios.get('/api/runs');
     runs.value = runsResp.data;
     console.log(runs.value);
 
@@ -80,7 +80,7 @@ onMounted(async () => {
     }
 
     // Locations
-    const locResp = await axios.get('http://127.0.0.1:8000/api/locations');
+    const locResp = await axios.get('/api/locations');
     locations.value = locResp.data;
     locations.value.forEach((location) => {
       const coordsX = parseFloat(location.log.trim());
