@@ -67,6 +67,7 @@ nav {
   position: absolute;
   width: 100vw;
   background: #FFFAF5;
+  z-index: 9999;
 }
 
 ul {
