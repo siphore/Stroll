@@ -39,6 +39,10 @@ const showNav = computed(() => {
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('../css/multiselect.css');
 
+:root {
+  background: #fffaf5;
+}
+
 html,
 body {
   margin: 0;
@@ -61,6 +65,7 @@ body {
 
 .scrollable {
   overflow-y: scroll;
+  max-height: 100vh;
 }
 
 .close {

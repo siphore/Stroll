@@ -1,17 +1,17 @@
 <template>
     <ul class="cards">
-        <li v-for="(index) in runs" :key="index" class="card-item">
+        <li v-for="(run, index) in runs" :key="index" class="card-item" @click="redirectToDetail(run)">
             <div class="card" v-if="runs.length > 0">
-                <img class="card-image" :src="index.img" />
+                <img class="card-image" :src="run.img" />
                 <div class="card-overlay">
                     <div class="card-header">
-                        <span><i class="fas fa-exchange-alt"></i>{{ index.distance }}km</span>
-                        <span><i class="fas fa-clock"></i> {{ index.duration }}</span>
-                        <span><i class="fas fa-mountain"></i> {{ index.level_difficulty }}</span>
+                        <span><i class="fas fa-exchange-alt"></i>{{ run.distance }}km</span>
+                        <span><i class="fas fa-clock"></i> {{ run.duration }}</span>
+                        <span><i class="fas fa-mountain"></i> {{ run.level_difficulty }}</span>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">{{ index.name }}</h3>
-                        <p class="card-location">{{ index.district }}</p>
+                        <h3 class="card-title">{{ run.name }}</h3>
+                        <p class="card-location">{{ run.district }}</p>
                     </div>
                     <div class="card-indicators">
                         <span class="indicator active"></span>
@@ -28,24 +28,19 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import axios from 'axios';
+import { onMounted } from 'vue';
+import { runs, fetchRuns } from '../composable/fetchRuns.js';
 
-const runs = ref([]);
-
-async function getRuns() {
-    try {
-        const response = await axios.get('/api/runs');
-        runs.value = response.data;
-    } catch (error) {
-        console.error('Error fetching runs:', error);
-    }
+function redirectToDetail(runData) {
+    localStorage.setItem('runData', JSON.stringify(runData));
+    window.location.hash = "#details-sentier";
 }
 
 onMounted(() => {
-    getRuns();
+    fetchRuns();
 });
 </script>
+
 
 
 <style scoped>

@@ -43,8 +43,6 @@ select {
     font-size: 16px;
 }
 
-input
-
 input::placeholder,
 textarea::placeholder {
     font-family: "Arimo", sans-serif;
@@ -64,7 +62,7 @@ textarea::placeholder {
 }
 
 .buttons > * {
-    width: 85vw;
+    width: 23rem;
     padding: 1vh 5vw;
     border: none;
     border-radius: 5px;

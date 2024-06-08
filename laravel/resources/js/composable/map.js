@@ -7,9 +7,9 @@ export function loadMap() {
     return new Promise((resolve, reject) => {
         const navHeight = document.querySelector("nav")?.offsetHeight;
         const mapElement = document.getElementById("map");
-        mapElement.style.height = `${
-            navHeight ? window.innerHeight - navHeight + "px" : 70 + "vh"
-        }`;
+        mapElement.style.height = navHeight
+            ? window.innerHeight - navHeight + "px"
+            : 70 + "vh";
 
         const map = new maplibregl.Map({
             container: "map",
@@ -18,16 +18,21 @@ export function loadMap() {
             style: "https://api.maptiler.com/maps/streets/style.json?key=AskmG7OtKitUCOKFDwAn",
         });
 
-        map.on("load", () => {
-            fitToLocation(map);
-            locateUser(map);
-            // getCoords(map);
-            map.addControl(new maplibregl.NavigationControl());
-            resolve(map);
-        });
+        // Center map on user's location
+        navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            map.setCenter([longitude, latitude]);
+            map.on("load", () => {
+                fitToLocation(map);
+                locateUser(map);
+                // getCoords(map);
+                map.addControl(new maplibregl.NavigationControl());
+                resolve(map);
+            });
 
-        map.on("error", (e) => {
-            reject(e);
+            map.on("error", (e) => {
+                reject(e);
+            });
         });
     });
 }

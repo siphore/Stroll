@@ -13,20 +13,4 @@ export function getCoords(map) {
             .addTo(map);
         markerList.push(marker);
     });
-
-    // Example to clear markers and routes
-    const clearButton = document.getElementById("clear");
-    clearButton.onclick = () => {
-        coordinates = [];
-        markerList.forEach((marker) => marker.remove());
-        markerList = [];
-
-        // Remove all layers and sources related to routes
-        map.getStyle()
-            .layers.filter((layer) => layer.id.startsWith("route-"))
-            .forEach((layer) => {
-                map.removeLayer(layer.id);
-                map.removeSource(layer.id);
-            });
-    };
 }

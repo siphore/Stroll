@@ -9,6 +9,9 @@ use App\Models\Location;
 class Run extends Model
 {
     protected $table = 'runs';
+    protected $casts = [
+        'season' => 'array',
+    ];
     use HasFactory;
 
     public function location()

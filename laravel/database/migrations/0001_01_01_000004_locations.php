@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id'); // Primary key
             $table->string('name', 65);
-            $table->decimal('lat', 8, 2);
-            $table->decimal('log', 8, 2);
+            $table->decimal('lat', 17, 14); // Latitude with precision 17 and scale 14
+            $table->decimal('log', 17, 14); // Longitude with precision 17 and scale 14
             $table->text('descr');
             $table->text('img');
             $table->text('access');

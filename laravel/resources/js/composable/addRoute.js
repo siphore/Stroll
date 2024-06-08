@@ -1,12 +1,8 @@
-export function addRoute(map, coordinates) {
+export async function addRoute(map, coordinates) {
     const url = `https://router.project-osrm.org/route/v1/driving/${coordinates.join(
         ";"
     )}?overview=full&geometries=geojson`;
 
-    fetchWithRetry(url, map, coordinates);
-}
-
-async function fetchWithRetry(url, map, coordinates, retries = 3) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -23,21 +19,25 @@ async function fetchWithRetry(url, map, coordinates, retries = 3) {
             }
         };
 
-        if (map.isStyleLoaded()) {
-            addRouteSourceAndLayer();
-        } else {
-            map.on("style.load", () => {
-                addRouteSourceAndLayer();
+        const waitForStyleLoad = () => {
+            return new Promise((resolve) => {
+                if (map.isStyleLoaded()) {
+                    resolve();
+                } else {
+                    map.once("style.load", resolve);
+                }
             });
-        }
+        };
+
+        waitForStyleLoad()
+            .then(() => {
+                addRouteSourceAndLayer();
+            })
+            .catch((err) => {
+                console.error("Error waiting for style to load:", err);
+            });
     } catch (error) {
-        if (retries > 0) {
-            console.warn(`Retrying fetch... (${3 - retries + 1})`);
-            await new Promise((res) => setTimeout(res, 1000)); // Wait for 1 second before retrying
-            fetchWithRetry(url, map, coordinates, retries - 1);
-        } else {
-            console.error("Error fetching route or adding layer:", error);
-        }
+        console.error("Error fetching route or adding layer:", error);
     }
 }
 

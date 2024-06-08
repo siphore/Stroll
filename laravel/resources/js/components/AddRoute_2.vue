@@ -7,8 +7,8 @@
             </div>
 
             <div class="form-group">
-                <label for="duration">Durée (heures)</label>
-                <input type="text" id="duration" v-model="form.duration" placeholder="hh:mm" required />
+                <label for="duration">Durée (minutes)</label>
+                <input type="text" id="duration" v-model="form.duration" placeholder="72" required />
             </div>
 
             <ListeFiltres :form="form" />

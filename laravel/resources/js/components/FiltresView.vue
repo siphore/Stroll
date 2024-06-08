@@ -15,15 +15,6 @@
                 </div>
             </div>
 
-            <!-- <div class="form-group">
-                <select id="theme" v-model="form.theme" required>
-                    <option value="" disabled>Thématiques</option>
-                    <option v-for="(filter) in filteredFilters">
-                        {{ `Sentier ${filter[0]}` }}
-                    </option>
-                </select>
-            </div> -->
-
             <ListeFiltres :form="form" />
         </form>
     </div>

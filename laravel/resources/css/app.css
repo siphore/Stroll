@@ -1,5 +1,95 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
+/* Import the font */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
+.min-h-screen {
+    background-color: #FEF7ED;
+}
+
+body {
+    font-family: 'Arimo', sans-serif;
+    background-color: #FEF7ED;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #D1D5DB;
+    border-radius: 5px;
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #254A3D;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #1e3a2f;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+.text-gray-600 {
+    color: #4B5563;
+}
+
+.text-gray-600:hover {
+    color: #1F2937;
+}
+
+.mt-4 {
+    margin-top: 16px;
+}
+
+.mb-4 {
+    margin-bottom: 16px;
+}
+
+.mt-1 {
+    margin-top: 4px;
+}
+
+.block {
+    display: block;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.back-button {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: var(--Sapin-1, #254A3D);
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* 
+.arrow {
+    display: flex;
+    justify-content: center;
+} */

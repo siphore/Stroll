@@ -29,12 +29,6 @@
                 <p class="file-instructions">Cliquer pour ajouter ou drag and drop<br />PNG ou JPG</p>
             </div>
 
-            <div class="form-group">
-                <label for="pdf">PDF de Sentier</label>
-                <input type="file" id="pdf" @change="handlePdfUpload" accept="application/pdf" required />
-                <p class="file-instructions">Cliquer pour ajouter ou drag and drop<br />PDF</p>
-            </div>
-
             <div class="buttons">
                 <button type="submit" class="btn-primary">Suivant</button>
                 <button type="button" class="btn-secondary" @click="handleBack">Retour</button>
@@ -56,7 +50,6 @@ const form = ref({
     theme: '',
     description: '',
     image: null,
-    pdf: null,
 });
 
 const handleImageUpload = (event) => {
@@ -65,15 +58,6 @@ const handleImageUpload = (event) => {
         form.value.image = file;
     } else {
         alert('Please upload a valid image file (PNG or JPG).');
-    }
-};
-
-const handlePdfUpload = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
-        form.value.pdf = file;
-    } else {
-        alert('Please upload a valid PDF file.');
     }
 };
 

@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="image">PDF du Sentier</label>
                 <div class="file-input-wrapper">
                     <input type="file" id="image" @change="handlePdfUpload" accept="application/pdf" />
@@ -35,7 +35,7 @@
                     <p class="file-instructions"><span class="highlight">Cliquer pour ajouter</span> ou drag and
                         drop<br />PDF</p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="buttons">
                 <button type="submit" class="btn-primary">Suivant</button>

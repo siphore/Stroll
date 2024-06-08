@@ -1,8 +1,8 @@
 <script setup>
-import Filtres from "./Filtres.vue";
 import { ref } from "vue";
 import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
+import QuickFiltres from "./QuickFiltres.vue";
 
 const activeFilter = ref("Populaires");
 
@@ -18,10 +18,7 @@ function redirectToFilters() {
 <template>
     <main>
         <div id="home">
-            <!-- Logo -->
-            <!-- <img src="../../svg/logo.svg" class="logo" alt="Logo application"> -->
-
-            <!-- Search box -->
+            <!-- Search bar -->
             <div class="search-container">
                 <input type="text" class="search" placeholder="Rechercher">
                 <img src="../../svg/magnifying-glass.svg" alt="Rechercher" class="search-icon">
@@ -30,7 +27,7 @@ function redirectToFilters() {
 
             <!-- Filters -->
             <div class="filter-menu">
-                <Filtres :filters="filters" v-model:activeFilter="activeFilter" />
+                <QuickFiltres :filters="filters" v-model:activeFilter="activeFilter" />
             </div>
 
             <!-- Content -->

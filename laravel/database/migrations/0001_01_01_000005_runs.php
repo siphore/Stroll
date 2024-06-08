@@ -32,7 +32,7 @@ return new class extends Migration {
             $table->decimal('duration', 8, 2);
             $table->decimal('distance', 8, 2);
             $table->enum('level_difficulty', ['Facile', 'Moyen', 'Difficile']);
-            $table->enum('season', ['Printemps', 'Ete', 'Automne', 'Hiver']);
+            $table->json('season');
             $table->boolean('family')->default(false);
             $table->boolean('school')->default(false);
             $table->boolean('senior')->default(false);
@@ -47,7 +47,7 @@ return new class extends Migration {
             $table->boolean('wc')->default(false);
             $table->boolean('fireplace')->default(false);
             $table->boolean('playground')->default(false);
-            $table->integer('rating')->default(0);
+            $table->decimal('rating', 3, 1)->default(0);
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('type_id');
             $table->timestamps();
