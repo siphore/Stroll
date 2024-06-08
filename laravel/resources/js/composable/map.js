@@ -36,3 +36,11 @@ export function loadMap() {
         });
     });
 }
+
+export async function adjustZoomForRoute(map, routeCoords) {
+    const bounds = new maplibregl.LngLatBounds();
+    routeCoords.forEach(coord => bounds.extend(coord));
+    map.fitBounds(bounds, {
+        maxZoom: 12
+    });
+}

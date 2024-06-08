@@ -1,10 +1,7 @@
 <template>
     <div class="detailed-route scrollable">
-        <h1>Détails sentier</h1>
         <div class="header">
             <button @click="handleBack" class="back-button">←</button>
-            <h2>Sentier</h2>
-            <div></div>
         </div>
 
         <img class="main-image" :src="run.img" alt="Image du sentier">
@@ -29,7 +26,7 @@
         </ul>
         <ul class="route-info">
             <li>
-                <img src="../../svg/district.svg" alt="">
+                <img src="../../svg/marker.svg" alt="District">
                 {{ run.district }}
             </li>
         </ul>
@@ -48,44 +45,77 @@
         <div class="practical-info">
             <h4>Informations pratiques</h4>
             <ul class="route-info">
-                <li>
-                    <img src="../../svg/saison.svg" alt="">
-                    Été
-                </li>
-                <li>
-                    <img src="../../svg/accessibilite.svg" alt="">
-                    Famille
-                </li>
-                <li>
-                    <img src="../../svg/accessibilite.svg" alt="">
-                    Poussettes
+                <li v-for="(season, index) in parsedSeasons" :key="index">
+                    <img src="/svg/saison.svg" alt="Saison">
+                    {{ season }}
                 </li>
             </ul>
-            <ul class="route-info">
-                <li>
-                    <img src="../../svg/accessibilite.svg" alt="">
-                    Mobilité réduite
-                </li>
-                <li>
-                    <img src="../../svg/equipement.svg" alt="">
-                    Table de pique-nique
-                </li>
-            </ul>
+            <div v-for="(chunk, index) in practicalInfoChunks" :key="index">
+                <ul class="route-info">
+                    <li v-for="info in chunk" :key="info.key">
+                        <img :src="info.icon" :alt="info.label">
+                        {{ info.label }}
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="buttons">
-            <button class="btn-primary">Visualiser le sentier</button>
+            <button class="btn-primary" @click="visualizeTrail">Visualiser le sentier</button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
 
 const handleBack = () => {
     window.history.back();
 };
 
+const visualizeTrail = () => {
+    localStorage.setItem('currentRun', JSON.stringify(run.value));
+    window.location.href = '#carte';
+};
+
+// Informations pratiques
+const practicalInfoMapping = [
+    { key: 'family', label: 'Famille', icon: '/svg/accessibilite.svg' },
+    { key: 'school', label: 'École', icon: '/svg/accessibilite.svg' },
+    { key: 'senior', label: 'Senior', icon: '/svg/accessibilite.svg' },
+    { key: 'handicap', label: 'Mobilité réduite', icon: '/svg/accessibilite.svg' },
+    { key: 'dogs', label: 'Chiens autorisés', icon: '/svg/accessibilite.svg' },
+    { key: 'parkings', label: 'Parkings', icon: '/svg/accessibilite.svg' },
+    { key: 'public_transport', label: 'Transport public', icon: '/svg/accessibilite.svg' },
+    { key: 'mobility', label: 'Mobilité réduite', icon: '/svg/accessibilite.svg' },
+    { key: 'scroller', label: 'Poussettes', icon: '/svg/accessibilite.svg' },
+    { key: 'table_picnic', label: 'Table de pique-nique', icon: '/svg/equipement.svg' },
+    { key: 'bench', label: 'Banc', icon: '/svg/equipement.svg' },
+    { key: 'wc', label: 'WC', icon: '/svg/equipement.svg' },
+    { key: 'fireplace', label: 'Place de feu', icon: '/svg/equipement.svg' },
+    { key: 'playground', label: 'Place de jeu', icon: '/svg/equipement.svg' }
+];
+
+const parsedSeasons = computed(() => {
+    return JSON.parse(run.value.season || '[]');
+});
+
+const filteredPracticalInfo = computed(() => {
+    return practicalInfoMapping.filter(info => run.value[info.key]);
+});
+
+const practicalInfoChunks = computed(() => {
+    // Properties per row
+    const chunkSize = 3;
+
+    const chunks = [];
+    for (let i = 0; i < filteredPracticalInfo.value.length; i += chunkSize) {
+        chunks.push(filteredPracticalInfo.value.slice(i, i + chunkSize));
+    }
+    return chunks;
+});
+
+// Init
 const run = ref([]);
 
 onMounted(() => {
@@ -93,7 +123,7 @@ onMounted(() => {
     if (storedRun) {
         run.value = JSON.parse(storedRun);
     }
-})
+});
 </script>
 
 <style scoped>
@@ -110,6 +140,7 @@ onMounted(() => {
     align-items: center;
     justify-content: space-between;
     color: #254A3D;
+    margin-bottom: 1vh;
 }
 
 .back-button {
@@ -122,6 +153,7 @@ onMounted(() => {
 .main-image {
     width: 100%;
     height: auto;
+    border-radius: 1rem;
 }
 
 .route-title {

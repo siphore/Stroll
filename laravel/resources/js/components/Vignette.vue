@@ -6,12 +6,12 @@
                 <div class="card-overlay">
                     <div class="card-header">
                         <span><i class="fas fa-exchange-alt"></i>{{ run.distance }}km</span>
-                        <span><i class="fas fa-clock"></i> {{ run.duration }}</span>
+                        <span><i class="fas fa-clock"></i> {{ formatDuration(run.duration) }}</span>
                         <span><i class="fas fa-mountain"></i> {{ run.level_difficulty }}</span>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">{{ run.name }}</h3>
-                        <p class="card-location">{{ run.district }}</p>
+                        <p class="card-location">{{ run.district.replace(/_/g, "'") }}</p>
                     </div>
                     <div class="card-indicators">
                         <span class="indicator active"></span>
@@ -19,7 +19,7 @@
                         <span class="indicator"></span>
                     </div>
                     <div class="star">
-                        <img src="../../svg/star.svg" alt="">
+                        <img src="../../svg/addToStarred.svg" alt="Enregistrer le sentier">
                     </div>
                 </div>
             </div>
@@ -30,6 +30,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { runs, fetchRuns } from '../composable/fetchRuns.js';
+import { formatDuration } from '../composable/formatDuration.js';
 
 function redirectToDetail(runData) {
     localStorage.setItem('runData', JSON.stringify(runData));

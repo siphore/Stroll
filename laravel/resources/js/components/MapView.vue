@@ -31,7 +31,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axios from "axios";
-import { loadMap } from "../composable/map";
+import { loadMap, adjustZoomForRoute } from "../composable/map";
 import { addRoute } from "../composable/addRoute";
 import { addLocation } from "../composable/addLocation";
 
@@ -40,6 +40,16 @@ const locations = ref([]);
 
 async function addToMap(map) {
   try {
+    // Retrieve run data from local storage
+    const storedRun = JSON.parse(localStorage.getItem('currentRun'));
+    if (storedRun) {
+      const coordsDep = storedRun.departure.split(',').map(coord => parseFloat(coord.trim()));
+      const coordsArr = storedRun.arrival.split(',').map(coord => parseFloat(coord.trim()));
+
+      adjustZoomForRoute(map, [coordsDep, coordsArr]);
+      localStorage.removeItem('currentRun');
+    }
+
     // Sentiers
     const runsResp = await axios.get('/api/runs');
     runs.value = runsResp.data;
