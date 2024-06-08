@@ -203,10 +203,6 @@ onMounted(() => {
     color: #254A3D;
 }
 
-.buttons {
-    height: 4vh;
-}
-
 .btn-primary {
     margin-top: 3vh;
 }

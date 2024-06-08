@@ -65,14 +65,14 @@ const handleImageUpload = (event) => {
     }
 };
 
-const handlePdfUpload = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
-        form.value.pdf = file;
-    } else {
-        alert('Please upload a valid PDF file.');
-    }
-};
+// const handlePdfUpload = (event) => {
+//     const file = event.target.files[0];
+//     if (file && file.type === 'application/pdf') {
+//         form.value.pdf = file;
+//     } else {
+//         alert('Please upload a valid PDF file.');
+//     }
+// };
 
 const handleSubmit = () => {
     console.log(form.value);

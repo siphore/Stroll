@@ -36,7 +36,7 @@ function redirectToFilters() {
                 <Vignette />
             </div>
             <div class="add-route-container">
-                <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="none"
+                <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="white"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M19 12.3335V25.6668M12.3333 19.0002H25.6667M35.6667 19.0002C35.6667 28.2049 28.2048 35.6668 19 35.6668C9.79526 35.6668 2.33334 28.2049 2.33334 19.0002C2.33334 9.79542 9.79526 2.3335 19 2.3335C28.2048 2.3335 35.6667 9.79542 35.6667 19.0002Z"
@@ -57,9 +57,8 @@ function redirectToFilters() {
     overflow: hidden;
 }
 
-/* Logo */
-.logo {
-    margin: 5vh 0;
+.scrollable {
+    z-index: 1;
 }
 
 /* Search box */
@@ -78,12 +77,14 @@ function redirectToFilters() {
     border-radius: 15px;
     padding-left: 10vw;
     font-size: 4vw;
+    z-index: 1;
 }
 
 .search-icon,
 .filter-icon {
     position: absolute;
     left: 2vw;
+    z-index: 1;
 }
 
 .search-icon {
@@ -106,7 +107,6 @@ function redirectToFilters() {
     line-height: 28px;
     color: #254A3D;
     align-self: start;
-    margin: 0 0 3vh 0;
 }
 
 /* Filters */
@@ -117,6 +117,7 @@ function redirectToFilters() {
     scrollbar-width: none;
     justify-self: end;
     margin-bottom: 5vh;
+    z-index: 1;
 }
 
 .filter-menu ul {
@@ -133,7 +134,7 @@ function redirectToFilters() {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 1.5vh 4vw;
+    padding: 1rem 2rem;
     width: fit-content;
     background: #A1C9BB;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
@@ -148,10 +149,18 @@ function redirectToFilters() {
 
 /* Add route */
 .add-route-container {
+    position: absolute;
     display: flex;
     justify-content: end;
+    align-items: end;
     width: 100vw;
-    margin: 0 5vw 11vh 0;
+    height: 100vh;
+}
+
+.add-route {
+    padding: 0 1rem 6.5rem 0;
+    z-index: 1;
+    cursor: pointer;
 }
 
 /* Desktop */

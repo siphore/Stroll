@@ -1,7 +1,7 @@
 <template>
     <ul class="cards">
-        <li v-for="(run, index) in runs" :key="index" class="card-item" @click="redirectToDetail(run)">
-            <div class="card" v-if="runs.length > 0">
+        <li v-for="(run, index) in runs" :key="index" class="card-item">
+            <div class="card" @click="redirectToDetail(run)" v-if="runs.length > 0">
                 <img class="card-image" :src="run.img" />
                 <div class="card-overlay">
                     <div class="card-header">
@@ -46,28 +46,26 @@ onMounted(() => {
 
 <style scoped>
 .cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     list-style: none;
-    height: 60vh;
+    margin: 0;
     padding: 0;
 }
 
 .card-item {
     border-radius: 15px;
     overflow: hidden;
-    width: 90vw;
-    height: 25vh;
+    width: 24rem;
+    height: 15rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card {
     position: relative;
     width: 100%;
-    height: 25vh;
+    height: 15rem;
     border-radius: 15px;
     overflow: hidden;
+    margin: 2rem 0;
 }
 
 .card-image {
@@ -75,7 +73,7 @@ onMounted(() => {
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 0;
+    z-index: 1;
 }
 
 .card-overlay {

@@ -42,18 +42,18 @@ onMounted(() => {
 <template>
     <main>
         <!-- Déconnecté -->
-        <div id="profile" v-if="!isAuthenticated">
+        <div id="profile" class="scrollable" v-if="!isAuthenticated">
             <h1>Mon profil</h1>
             <p>
                 Identifie-toi pour visualiser les résultats de tes parcours de sentier et suivre tes progrès.
             </p>
-            <img class="cover" src="https://images.unsplash.com/photo-1595202761821-57d3a4e5dc9f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2VudGllciUyMGRlJTIwcmFuZG9ubiVDMyVBOWV8ZW58MHx8MHx8fDA%3D" alt="">
-            <section class="auth-section">
-                <div class="buttons">
-                    <button @click="redirectToLogin" class="auth-button">S'authentifier</button>
-                    <button @click="redirectToRegister" class="btn-secondary">Créer un compte</button>
-                </div>
-            </section>
+            <img class="cover"
+                src="https://images.unsplash.com/photo-1595202761821-57d3a4e5dc9f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2VudGllciUyMGRlJTIwcmFuZG9ubiVDMyVBOWV8ZW58MHx8MHx8fDA%3D"
+                alt="">
+            <div class="buttons">
+                <button @click="redirectToLogin" class="btn-primary">S'authentifier</button>
+                <button @click="redirectToRegister" class="btn-secondary">Créer un compte</button>
+            </div>
         </div>
 
         <!-- Connecté -->
@@ -107,19 +107,11 @@ onMounted(() => {
 
             <div class="buttons">
                 <button @click="viewHistory" class="btn-primary">Voir l'historique</button>
+                <button v-if="isAuthenticated" @click="logout" class="btn-secondary">Logout</button>
             </div>
-
-            <section class="auth-section">
-                <div class="buttons">
-                    <button v-if="isAuthenticated" @click="logout" class="btn-secondary">Logout</button>
-                </div>
-            </section>
         </div>
     </main>
 </template>
-
-
-
 
 <style scoped>
 @import url('../../css/filtres.css');
@@ -144,7 +136,7 @@ body {
 }
 
 section {
-    margin-bottom: 8vh;
+    margin-bottom: 10vh;
 }
 
 .auth-section {
@@ -152,18 +144,8 @@ section {
     justify-content: center;
 }
 
-.auth-button {
-    background-color: #254A3D;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.auth-button:hover {
-    background-color: #1e3a2f;
+.buttons {
+    margin-bottom: 8rem;
 }
 
 .dashboard-grid {
