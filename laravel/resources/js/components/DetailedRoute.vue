@@ -129,6 +129,10 @@ onMounted(() => {
 <style scoped>
 @import url('../../css/filtres.css');
 
+.scrollable {
+    height: 100vh;
+}
+
 .detailed-route {
     font-family: Arimo, sans-serif;
     padding: 16px;
