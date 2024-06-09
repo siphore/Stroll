@@ -10,7 +10,7 @@ export function loadMap() {
         const mapElement = document.getElementById("map");
         mapElement.style.height = navHeight
             ? window.innerHeight - navHeight + "px"
-            : 70 + "vh";
+            : 60 + "vh";
 
         const map = new maplibregl.Map({
             container: "map",

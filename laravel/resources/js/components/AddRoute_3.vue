@@ -91,9 +91,10 @@ onMounted(() => {
     display: flex;
     gap: 5vw;
     padding: 5vh 0 0 10vw;
-    height: 30vh;
+    height: 40vh;
     align-items: start;
     background-color: var(--background);
+    overflow-x: hidden;
 }
 
 input[type=text] {
@@ -125,7 +126,7 @@ input[type=text] {
 }
 
 span {
-    line-height: .9;
+    line-height: 1.55vh;
 }
 
 span:last-child {

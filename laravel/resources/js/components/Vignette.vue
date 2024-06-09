@@ -50,7 +50,7 @@ onMounted(() => {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-height: 56vh;
+    max-height: 60vh;
     margin-bottom: 10rem;
 }
 
