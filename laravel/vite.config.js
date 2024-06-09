@@ -11,6 +11,12 @@ export default () => {
             type: "image/png",
             purpose: "any",
         },
+        {
+            src: "/icon.png",
+            sizes: "256x256",
+            type: "image/png",
+            purpose: "any",
+        },
     ];
 
     return defineConfig({
