@@ -149,14 +149,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-:root {
-    --sapin-1: #254A3D;
-    --sapin-2: #A1C9BB;
-    --sentier-1: #CD9349;
-    --argile-1: #99442A;
-    --argile-2: #F18A5C;
-}
-
 div#home {
     display: flex;
     flex-direction: column;

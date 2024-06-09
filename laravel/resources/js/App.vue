@@ -68,7 +68,12 @@ onMounted(() => {
 
 :root {
   /* background: #fffaf5; */
-  background: #f5f5f5;
+  --background: #f5f5f5;
+  --sapin-1: #254A3D;
+  --sapin-2: #A1C9BB;
+  --sentier-1: #CD9349;
+  --argile-1: #99442A;
+  --argile-2: #F18A5C;
 }
 
 html,
