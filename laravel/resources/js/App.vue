@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, provide } from 'vue';
 import { routes } from './composable/routes';
 import TheNav from "./components/TheNav.vue";
 
@@ -28,10 +28,37 @@ const currentView = computed(() => {
 const showNav = computed(() => {
   return currentPath.value in navLinks || currentPath.value == '#historique';
 });
+
+// Is user authenticated
+const isAuthenticated = ref(false);
+const user = ref(null);
+
+async function checkAuth() {
+  try {
+    const response = await axios.get('/api/user');
+    isAuthenticated.value = response.data.authenticated;
+    user.value = response.data.user;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Unauthorized
+      isAuthenticated.value = false;
+      user.value = null;
+    } else {
+      console.error('Error checking authentication:', error);
+    }
+  }
+}
+
+provide('isAuthenticated', isAuthenticated);
+provide('user', user);
+
+onMounted(() => {
+  checkAuth();
+})
 </script>
 
 <template>
-  <component :is="currentView" />
+  <component :is="currentView" :isAuthenticated="isAuthenticated" />
   <TheNav v-if="showNav" :routes="navLinks" :currentPath="currentPath" />
 </template>
 
@@ -70,9 +97,9 @@ body {
 }
 
 .close {
-    position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 3vh 0 0 80vw;
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 3vh 0 0 80vw;
 }
 </style>

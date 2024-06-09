@@ -1,10 +1,10 @@
 <template>
     <div class="container">
         <form @submit.prevent="handleSubmit">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="distance">Distance (km)</label>
                 <input type="text" id="distance" v-model="form.distance" placeholder="5.1" required />
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="duration">Durée (minutes)</label>

@@ -5,14 +5,15 @@
         </div>
 
         <section>
-            <h1>Bienvenue</h1>
+            <h1 v-if="user">Bienvenue, {{ user.firstname }}</h1>
+            <h1 v-else>Bienvenue</h1>
             <h4>
                 Explore les merveilles du Canton de Vaud. Tout près de chez toi, découvre des coins incroyables
                 et partage ces aventures avec tes proches.
             </h4>
-
-            <img class="section-img" src="../../img/accueil_1.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_1.png" alt="Image de présentation">
 
         <!-- <ImageSlider /> -->
 
@@ -22,9 +23,9 @@
                 Laisse-toi surprendre en découvrant le patrimoine vaudois, riche en histoire et lieux
                 emblématiques pour un moment sympas avec ceux que tu aimes.
             </h4>
-
-            <img class="section-img" src="../../img/accueil_2.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_2.png" alt="Image de présentation">
 
         <!-- <SentierCoeur /> -->
 
@@ -35,9 +36,9 @@
                 toutes et tous. Que tu sois passionné-e par la gastronomie, la plage, l'architecture, l'histoire ou
                 le street art, nos sentiers t'invite à l'aventure, la vraie !
             </h4>
-
-            <img class="section-img" src="../../img/accueil_3.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_3.png" alt="Image de présentation">
 
         <!-- <slot name="vdiscover-image"></slot> -->
 
@@ -53,9 +54,9 @@
                     <img src="../../svg/accueil_carte.svg">
                 </template>
             </CustomButton>
-
-            <img class="section-img" src="../../img/accueil_4.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_4.png" alt="Image de présentation">
 
         <!-- <slot name="aventures-locales-image"></slot> -->
 
@@ -72,9 +73,9 @@
                     <img src="../../svg/accueil_sentiers.svg">
                 </template>
             </CustomButton>
-
-            <img class="section-img" src="../../img/accueil_5.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_5.png" alt="Image de présentation">
 
         <section>
             <h1>Proche de chez toi</h1>
@@ -89,9 +90,9 @@
                     <img src="../../svg/accueil_location.svg">
                 </template>
             </CustomButton>
-
-            <img class="section-img" src="../../img/accueil_6.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_6.png" alt="Image de présentation">
 
         <!-- <slot name="proche-de-chez-toi-image"></slot> -->
 
@@ -108,9 +109,9 @@
                     <img src="../../svg/accueil_favoris.svg">
                 </template>
             </CustomButton>
-
-            <img class="section-img" src="../../img/accueil_7.png" alt="Image de présentation">
         </section>
+
+        <img class="section-img" src="../../img/accueil_7.png" alt="Image de présentation">
 
         <!-- <slot name="tes-parcours-image"></slot> -->
 
@@ -135,9 +136,12 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, inject } from 'vue';
 import { getNavHeight } from '../composable/navHeight';
 import CustomButton from './CustomButton.vue';
+
+const user = inject('user');
+console.log(user);
 
 onMounted(() => {
     document.getElementById('home').style.maxHeight = `calc(100vh - ${getNavHeight()}px)`;
@@ -167,14 +171,14 @@ section {
     width: 85vw;
 }
 
-section:not(section:last-child) {
+/* section:not(section:last-child) {
     margin-bottom: 5rem;
-}
+} */
 
 h1 {
     color: var(--Sapin-1, #254A3D);
     font-family: Arimo, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 600;
 }
 
@@ -190,6 +194,7 @@ h4 {
 
 .section-img {
     width: 85vw;
+    margin: 2.5rem 0;
 }
 
 .sentier1 {

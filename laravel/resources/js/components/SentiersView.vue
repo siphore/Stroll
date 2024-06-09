@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
 import QuickFiltres from "./QuickFiltres.vue";
+
+const isAuthenticated = inject('isAuthenticated');
 
 const activeFilter = ref("Populaires");
 
@@ -35,7 +37,7 @@ function redirectToFilters() {
             <div class="scrollable">
                 <Vignette />
             </div>
-            <div class="add-route-container">
+            <div class="add-route-container" v-if="isAuthenticated">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="white"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

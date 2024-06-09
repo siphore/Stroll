@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue';
 import axios from "../composable/axios.js";
 import MonthlyHikesChart from '@/components/MonthlyHikesChart.vue';
+import { inject } from 'vue';
 
 function redirectToLogin() {
     window.location.href = "/login";
@@ -18,25 +18,13 @@ function viewHistory() {
 async function logout() {
     try {
         await axios.post('/logout');
-        window.location.href = '/'; // Redirect to the home page or login page
+        window.location.href = '/';
     } catch (error) {
         console.error('Error logging out:', error);
     }
 }
 
-const isAuthenticated = ref(false);
-async function checkAuth() {
-    try {
-        const response = await axios.get('/api/user');
-        isAuthenticated.value = response.data.authenticated;
-    } catch (error) {
-        console.error('Error checking authentication:', error);
-    }
-}
-
-onMounted(() => {
-    checkAuth();
-})
+const isAuthenticated = inject('isAuthenticated');
 </script>
 
 <template>
