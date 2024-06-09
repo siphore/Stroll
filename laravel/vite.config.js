@@ -9,6 +9,7 @@ export default () => {
             src: "/Logo.png",
             sizes: "224x192",
             type: "image/png",
+            purpose: "any",
         },
     ];
 
