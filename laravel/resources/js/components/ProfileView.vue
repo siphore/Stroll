@@ -118,6 +118,13 @@ body {
     overflow-x: hidden;
 }
 
+.informations {
+    border: 1px solid black;
+    border-radius: .7rem;
+    padding: 0 1rem;
+    background-color: var(--background-nav);
+}
+
 .cover {
     width: 90vw;
     height: 30rem;
@@ -132,7 +139,7 @@ section {
 }
 
 .buttons {
-    margin-bottom: 8rem;
+    margin-bottom: 9rem;
 }
 
 .btn-primary,
