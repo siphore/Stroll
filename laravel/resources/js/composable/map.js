@@ -2,10 +2,11 @@ import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
 import { fitToLocation } from "../composable/fitToLocation";
 import { locateUser } from "../composable/locateUser";
 import { getCoords } from "../composable/getMouseCoords.js";
+import { getNavHeight } from "./navHeight.js";
 
 export function loadMap() {
     return new Promise((resolve, reject) => {
-        const navHeight = document.querySelector("nav")?.offsetHeight;
+        const navHeight = getNavHeight();
         const mapElement = document.getElementById("map");
         mapElement.style.height = navHeight
             ? window.innerHeight - navHeight + "px"

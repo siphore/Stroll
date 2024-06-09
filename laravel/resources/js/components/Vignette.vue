@@ -13,11 +13,11 @@
                         <h3 class="card-title">{{ run.name }}</h3>
                         <p class="card-location">{{ run.district.replace(/_/g, "'") }}</p>
                     </div>
-                    <div class="card-indicators">
+                    <!-- <div class="card-indicators">
                         <span class="indicator active"></span>
                         <span class="indicator"></span>
                         <span class="indicator"></span>
-                    </div>
+                    </div> -->
                     <div class="star">
                         <img src="../../svg/addToStarred.svg" alt="Enregistrer le sentier">
                     </div>
@@ -40,9 +40,6 @@ function redirectToDetail(runData) {
 
 onMounted(() => {
     fetchRuns();
-    document.querySelector('.cards').style.height = `calc(97vh - ${getNavHeight()}px)`;
-    // document.querySelector('.cards').style.height = '50rem';
-    console.log(document.querySelector('.cards').offsetHeight);
 });
 </script>
 
@@ -51,9 +48,10 @@ onMounted(() => {
 <style scoped>
 .cards {
     list-style: none;
-    /* max-height: 100vh; */
     margin: 0;
     padding: 0;
+    max-height: 56vh;
+    margin-bottom: 10rem;
 }
 
 .card-item {
@@ -62,6 +60,10 @@ onMounted(() => {
     width: 90vw;
     height: 15rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-item:last-child {
+    margin-bottom: 10rem;
 }
 
 .card {
@@ -87,7 +89,7 @@ onMounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     color: white;
     display: flex;
     flex-direction: column;
@@ -98,9 +100,11 @@ onMounted(() => {
 }
 
 .star {
+    position: absolute;
     display: flex;
     justify-content: end;
-    width: 100%;
+    width: 80vw;
+    margin-top: 9rem;
 }
 
 .card-header {
@@ -120,13 +124,13 @@ onMounted(() => {
 }
 
 .card-content {
-    padding-bottom: 10px;
+    padding-bottom: 2rem;
 }
 
 .card-title {
     font-size: 1.5em;
-    margin: 10vh 0 1vh 0;
     font-weight: bold;
+    margin: 0;
 }
 
 .card-location {
@@ -135,7 +139,7 @@ onMounted(() => {
     margin: 0;
 }
 
-.card-indicators {
+/* .card-indicators {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -154,7 +158,7 @@ onMounted(() => {
 
 .indicator.active {
     background: #d4a959;
-}
+} */
 
 @media (min-width: 1000px) {
     .card-item {

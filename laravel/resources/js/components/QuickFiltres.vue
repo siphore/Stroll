@@ -24,7 +24,6 @@ function setActiveFilter(filter) {
 <style scoped>
 .liste-filtres {
     display: flex;
-    /* flex-wrap: wrap; */
     gap: 10px;
     padding: 0;
     margin: 0;

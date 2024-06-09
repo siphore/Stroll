@@ -66,7 +66,7 @@ body {
 
 .scrollable {
   overflow-y: scroll;
-  max-height: 100vh;
+  /* max-height: 100vh; */
 }
 
 .close {
