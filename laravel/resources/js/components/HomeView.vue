@@ -162,10 +162,6 @@ section {
     width: 85vw;
 }
 
-/* section:not(section:last-child) {
-    margin-bottom: 5rem;
-} */
-
 h1 {
     color: var(--Sapin-1, #254A3D);
     font-family: Arimo, sans-serif;
@@ -185,7 +181,7 @@ h4 {
 
 .section-img {
     width: 85vw;
-    margin: 2.5rem 0;
+    margin: 3rem 0;
 }
 
 .sentier1 {

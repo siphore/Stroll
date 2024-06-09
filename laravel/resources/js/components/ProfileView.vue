@@ -132,7 +132,7 @@ section {
 }
 
 .buttons {
-    margin-bottom: 10rem;
+    margin-bottom: 8rem;
 }
 
 .btn-primary,
