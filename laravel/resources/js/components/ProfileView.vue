@@ -98,7 +98,7 @@ const user = inject('user');
 
             <div class="buttons">
                 <button @click="viewHistory" class="btn-primary">Historique des sentiers</button>
-                <button v-if="isAuthenticated" @click="logout" class="btn-secondary">Se déconnecter</button>
+                <button v-if="isAuthenticated" @click="logout" class="btn-secondary btn-cancel">Se déconnecter</button>
             </div>
         </div>
     </main>
@@ -214,17 +214,16 @@ section {
     text-align: center;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-secondary {
     height: 3rem;
     width: 80vw;
 }
 
-.btn-secondary {
-    height: 2rem;
-    width: 50vw;
+.btn-cancel {
+    height: 3rem;
+    width: 40vw;
     margin-top: 3rem;
-    background-color: rgba(255, 62, 62, 0.361);
-    color: #3b3b3b;
 }
 
 /* Desktop */

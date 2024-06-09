@@ -141,7 +141,6 @@ import { getNavHeight } from '../composable/navHeight';
 import CustomButton from './CustomButton.vue';
 
 const user = inject('user');
-console.log(user);
 
 onMounted(() => {
     document.getElementById('home').style.maxHeight = `calc(100vh - ${getNavHeight()}px)`;
