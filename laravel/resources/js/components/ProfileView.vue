@@ -124,10 +124,11 @@ body {
     padding: 5vw;
     background-color: #F5F5F5;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 .cover {
-    width: 24rem;
+    width: 90vw;
     height: 30rem;
     margin: 0;
     padding: 0;
@@ -237,5 +238,12 @@ section {
     font-weight: 700;
     line-height: 1.5rem;
     text-align: center;
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+    .cover {
+        width: 24rem;
+    }
 }
 </style>

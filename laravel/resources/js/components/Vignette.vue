@@ -31,6 +31,7 @@
 import { onMounted } from 'vue';
 import { runs, fetchRuns } from '../composable/fetchRuns.js';
 import { formatDuration } from '../composable/formatDuration.js';
+import { getNavHeight } from '../composable/navHeight.js';
 
 function redirectToDetail(runData) {
     localStorage.setItem('runData', JSON.stringify(runData));
@@ -39,6 +40,9 @@ function redirectToDetail(runData) {
 
 onMounted(() => {
     fetchRuns();
+    document.querySelector('.cards').style.height = `calc(97vh - ${getNavHeight()}px)`;
+    // document.querySelector('.cards').style.height = '50rem';
+    console.log(document.querySelector('.cards').offsetHeight);
 });
 </script>
 
@@ -47,6 +51,7 @@ onMounted(() => {
 <style scoped>
 .cards {
     list-style: none;
+    /* max-height: 100vh; */
     margin: 0;
     padding: 0;
 }
@@ -54,7 +59,7 @@ onMounted(() => {
 .card-item {
     border-radius: 15px;
     overflow: hidden;
-    width: 24rem;
+    width: 90vw;
     height: 15rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -149,5 +154,16 @@ onMounted(() => {
 
 .indicator.active {
     background: #d4a959;
+}
+
+@media (min-width: 1000px) {
+    .card-item {
+        width: 24rem;
+        height: 15rem;
+    }
+
+    .card {
+        height: 15rem;
+    }
 }
 </style>

@@ -40,7 +40,8 @@ const showNav = computed(() => {
 @import url('../css/multiselect.css');
 
 :root {
-  background: #fffaf5;
+  /* background: #fffaf5; */
+  background: #f5f5f5;
 }
 
 html,
