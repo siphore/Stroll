@@ -91,7 +91,7 @@ const user = inject('user');
             <!-- ajouter un graphique nombre de balade par année -->
             <section class="graph">
                 <div class="dashboard-frame-graph">
-                    <div class="dashboard-content">Nombre de balades par année</div>
+                    <div class="dashboard-content fit-text">Nombre de balades par année</div>
                     <MonthlyHikesChart />
                 </div>
             </section>
@@ -132,10 +132,31 @@ section {
 }
 
 .buttons {
-    margin-bottom: 8rem;
+    margin-bottom: 10rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    width: 80vw;
+}
+
+.btn-cancel {
+    width: 40vw;
+    margin-top: 3rem;
 }
 
 /* Dashboard */
+.dashboard-frame,
+.dashboard-frame-graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.0625rem solid var(--sapin-2);
+    border-radius: 0.75rem;
+    background: #fff;
+}
+
 .dashboard-grid {
     display: flex;
     flex-direction: column;
@@ -143,17 +164,11 @@ section {
 }
 
 .dashboard-frame {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: .5rem;
     width: 9.5rem;
     height: 8rem;
-    background: #fff;
     color: var(--sapin-1);
-    border: 0.0625rem solid var(--sapin-2);
-    border-radius: 0.75rem;
     padding: 0 1.25rem;
 }
 
@@ -168,17 +183,11 @@ section {
 }
 
 .dashboard-frame-graph {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.75rem;
-    border: 0.0625rem solid var(--sapin-2);
-    background: #FFF;
-    padding: 1.25rem;
-    margin: 0.625rem 0;
-    width: 80%;
-    height: 10rem;
+    justify-content: space-between;
+    width: 100%;
+    height: 13rem;
+    padding: 1.5rem 0;
+
     position: relative;
 }
 
@@ -214,16 +223,8 @@ section {
     text-align: center;
 }
 
-.btn-primary,
-.btn-secondary {
-    height: 3rem;
-    width: 80vw;
-}
-
-.btn-cancel {
-    height: 3rem;
-    width: 40vw;
-    margin-top: 3rem;
+.fit-text {
+    font-size: 1.5rem;
 }
 
 /* Desktop */
