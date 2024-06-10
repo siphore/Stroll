@@ -97,6 +97,10 @@ onMounted(() => {
     overflow-x: hidden;
 }
 
+#map {
+    height: 60vh;
+}
+
 input[type=text] {
     margin-bottom: 2vh;
     width: 50vw;

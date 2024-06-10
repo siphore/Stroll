@@ -8,9 +8,13 @@ export function loadMap() {
     return new Promise((resolve, reject) => {
         const navHeight = getNavHeight();
         const mapElement = document.getElementById("map");
-        mapElement.style.height = navHeight
-            ? window.innerHeight - navHeight + "px"
-            : 60 + "vh";
+        if (navHeight) {
+            mapElement.style.height = window.innerHeight - navHeight + "px"
+        }
+
+        // mapElement.style.height = navHeight
+        //     ? window.innerHeight - navHeight + "px"
+        //     : 60 + "vh";
 
         const map = new maplibregl.Map({
             container: "map",

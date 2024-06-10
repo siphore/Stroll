@@ -35,11 +35,12 @@
             <p>
                 {{ run.descr }}
             </p>
-            <a href="#" class="view-more">Voir plus</a>
+            <!-- <a href="#" class="view-more">Voir plus</a> -->
         </div>
         <div class="itinerary">
             <h4>Itinéraire</h4>
-            <img src="path/to/itinerary/map.jpg" alt="Itinéraire">
+            <div id="map"></div>
+            <!-- <img src="path/to/itinerary/map.jpg" alt="Itinéraire"> -->
         </div>
 
         <div class="practical-info">
@@ -68,6 +69,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
+import { loadMap } from '../composable/map.js';
 
 const handleBack = () => {
     window.history.back();
@@ -123,6 +125,8 @@ onMounted(() => {
     if (storedRun) {
         run.value = JSON.parse(storedRun);
     }
+
+    loadMap();
 });
 </script>
 
@@ -205,6 +209,10 @@ onMounted(() => {
     gap: 8px;
     flex-wrap: wrap;
     color: #254A3D;
+}
+
+#map {
+    height: 30vh;
 }
 
 .btn-primary {
