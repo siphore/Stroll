@@ -21,6 +21,7 @@
 <script setup>
 import { ref, onMounted, inject } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
+import { redirectToDetail } from '../composable/redirectToDetail.js';
 
 const props = defineProps({
     run: Object
@@ -33,11 +34,6 @@ const isAuthenticated = inject('isAuthenticated', ref(false));
 onMounted(() => {
     checkIfRunIsSaved();
 });
-
-function redirectToDetail(runData) {
-    localStorage.setItem('runData', JSON.stringify(runData));
-    window.location.hash = "#details-sentier";
-}
 
 function checkIfRunIsSaved() {
     const savedRuns = JSON.parse(localStorage.getItem('savedRuns')) || [];

@@ -30,6 +30,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
+import { redirectToDetail } from '../composable/redirectToDetail.js';
 
 const savedRuns = ref([]);
 
