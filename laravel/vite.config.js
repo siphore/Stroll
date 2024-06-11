@@ -12,9 +12,9 @@ export default () => {
         //     purpose: "any",
         // },
         {
-            src: "/Logo256px.jpg",
+            src: "/Logo256px.png",
             sizes: "256x256",
-            type: "image/jpg",
+            type: "image/png",
             purpose: "any",
         },
     ];
