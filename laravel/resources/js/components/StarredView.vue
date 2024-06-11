@@ -1,7 +1,7 @@
 <template>
     <div id="starred">
         <h1 class="title">Enregistré</h1>
-        <div class="scrollable">
+        <div class="scrollable" v-if="isAuthenticated">
             <ul class="cards">
                 <li v-for="(run) in savedRuns" class="card-item">
                     <div class="card" @click="redirectToDetail(run)" v-if="savedRuns.length > 0">
@@ -28,9 +28,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
 import { redirectToDetail } from '../composable/redirectToDetail.js';
+
+const isAuthenticated = inject('isAuthenticated');
 
 const savedRuns = ref([]);
 
