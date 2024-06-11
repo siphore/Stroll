@@ -5,16 +5,16 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default () => {
     const manifestIcons = [
+        // {
+        //     src: "/Logo.png",
+        //     sizes: "224x192",
+        //     type: "image/png",
+        //     purpose: "any",
+        // },
         {
-            src: "/Logo.png",
-            sizes: "224x192",
-            type: "image/png",
-            purpose: "any",
-        },
-        {
-            src: "/icon.png",
+            src: "/Logo256px.jpg",
             sizes: "256x256",
-            type: "image/png",
+            type: "image/jpg",
             purpose: "any",
         },
     ];
