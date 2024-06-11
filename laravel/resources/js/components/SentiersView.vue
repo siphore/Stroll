@@ -1,8 +1,10 @@
 <script setup>
-import { ref, inject } from "vue";
+import { ref, inject, onMounted } from "vue";
 import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
+import { runs, fetchRuns } from '../composable/fetchRuns.js';
 import QuickFiltres from "./QuickFiltres.vue";
+import FiltersHandler from "./FiltersHandler.vue";
 
 const isAuthenticated = inject('isAuthenticated');
 
@@ -15,6 +17,10 @@ function createRoute() {
 function redirectToFilters() {
     window.location.hash = "#filtres"
 }
+
+onMounted(() => {
+    fetchRuns();
+});
 </script>
 
 <template>
@@ -35,7 +41,11 @@ function redirectToFilters() {
             <!-- Content -->
             <h2 class="title">{{ filters[activeFilter] }}</h2>
             <div class="scrollable">
-                <Vignette />
+                <ul class="cards">
+                    <li v-for="(run, index) in runs" :key="index" class="card-item">
+                        <Vignette :run="run" />
+                    </li>
+                </ul>
             </div>
             <div class="add-route-container" v-if="isAuthenticated">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="white"
@@ -50,6 +60,8 @@ function redirectToFilters() {
 </template>
 
 <style scoped>
+@import url('../../css/vignette.css');
+
 #home {
     display: flex;
     flex-direction: column;

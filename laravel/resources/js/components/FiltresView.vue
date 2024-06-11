@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container scrollable">
         <img class="close" src="../../svg/close.svg" alt="Fermer le menu" @click="redirectToSentiers">
         <h1><img class="icon filter" src="../../svg/filter-simple.svg"> Filtres</h1>
         <sub>Sélectionner les filtres de recherche</sub>
@@ -16,6 +16,10 @@
             </div>
 
             <ListeFiltres :form="form" />
+
+            <div class="buttons">
+                <button type="submit" class="btn-primary">Appliquer</button>
+            </div>
         </form>
     </div>
 </template>
@@ -57,5 +61,13 @@ function redirectToSentiers() {
 .icon.filter {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.buttons {
+    margin: 0;
+}
+
+.btn-primary {
+    width: 85vw;
 }
 </style>

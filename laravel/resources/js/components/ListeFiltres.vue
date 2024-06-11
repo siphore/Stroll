@@ -64,23 +64,12 @@ const districts = [
     { name: "Ouest Lausannois" },
     { name: "Riviera-Pays-d'Enhaut" },
 ];
-
-// Define custom labels for French
-const customLabels = {
-    addOption: "Ajouter l'option",
-    noResults: "Aucun résultat trouvé",
-    noOptions: "Aucune option disponible",
-    search: "Rechercher",
-    selected: "Sélectionné",
-    deselectLabel: "Désélectionner",
-    selectLabel: "Sélectionner"
-};
 </script>
 
 <template>
     <div class="form-group">
-        <multiselect v-model="form.theme" :options="thematiques" :multiple="true" :close-on-select="false" label="name"
-            track-by="name" :labels="customLabels" select-label="Sélection">
+        <multiselect v-model="form.theme" :options="thematiques" :multiple="true" :close-on-select="false"
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/thematiques.svg" class="icon"> Thématiques
             </template>
@@ -88,8 +77,8 @@ const customLabels = {
     </div>
 
     <div class="form-group">
-        <multiselect v-model="form.levels" :options="levels" :close-on-select="false" label="name" track-by="name"
-            select-label="Sélectionner">
+        <multiselect v-model="form.levels" :options="levels" :close-on-select="false" :searchable="false" label="name"
+            track-by="name">
             <template #placeholder>
                 <img src="../../svg/niveau.svg" class="icon"> Niveau
             </template>
@@ -97,8 +86,8 @@ const customLabels = {
     </div>
 
     <div class="form-group">
-        <multiselect v-model="form.season" :options="seasons" :multiple="true" :close-on-select="false" label="name"
-            track-by="name" :labels="customLabels">
+        <multiselect v-model="form.season" :options="seasons" :multiple="true" :close-on-select="false"
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/saison.svg" class="icon"> Saison
             </template>
@@ -107,7 +96,7 @@ const customLabels = {
 
     <div class="form-group">
         <multiselect v-model="form.public" :options="publicOptions" :multiple="true" :close-on-select="false"
-            placeholder="Public" label="name" track-by="name" :labels="customLabels">
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/public.svg" class="icon"> Public
             </template>
@@ -116,7 +105,7 @@ const customLabels = {
 
     <div class="form-group">
         <multiselect v-model="form.accessibility" :options="accessibilities" :multiple="true" :close-on-select="false"
-            placeholder="Accessibilité (facultatif)" label="name" track-by="name" :labels="customLabels">
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/accessibilite.svg" class="icon"> Accessibilité (facultatif)
             </template>
@@ -125,7 +114,7 @@ const customLabels = {
 
     <div class="form-group">
         <multiselect v-model="form.equipment" :options="equipments" :multiple="true" :close-on-select="false"
-            placeholder="Équipement" label="name" track-by="name" :labels="customLabels">
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/equipement.svg" class="icon"> Équipement
             </template>
@@ -134,7 +123,7 @@ const customLabels = {
 
     <div class="form-group">
         <multiselect v-model="form.district" :options="districts" :multiple="true" :close-on-select="false"
-            placeholder="District" label="name" track-by="name" :labels="customLabels">
+            :searchable="false" label="name" track-by="name">
             <template #placeholder>
                 <img src="../../svg/district.svg" class="icon"> District
             </template>
