@@ -146,34 +146,8 @@ onMounted(async () => {
     scrollbar-width: none;
     justify-self: end;
     margin-bottom: 5vh;
+    flex-shrink: 0;
     z-index: 1;
-}
-
-.filter-menu ul {
-    display: flex;
-    gap: 2vw;
-    margin: 0 3vw;
-    padding: 0;
-    color: #254A3D;
-    font-weight: bold;
-}
-
-.filter-menu ul>* {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    width: fit-content;
-    background: #A1C9BB;
-    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-    border-radius: 8px;
-    cursor: pointer;
-    text-wrap: nowrap;
-}
-
-.filter-menu.show {
-    display: flex;
 }
 
 /* Add route */

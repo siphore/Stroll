@@ -25,17 +25,24 @@ function setActiveFilter(filter) {
 <style scoped>
 .liste-filtres {
     display: flex;
-    gap: 10px;
+    gap: .7rem;
+    margin: 0 3vw;
     padding: 0;
-    margin: 0;
-    list-style-type: none;
+    color: #254A3D;
+    font-weight: bold;
 }
 
 .liste-filtres li {
-    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    width: fit-content;
     background: #A1C9BB;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px;
     cursor: pointer;
+    text-wrap: nowrap;
 }
 
 .liste-filtres li.active {

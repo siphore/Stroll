@@ -1,22 +1,16 @@
 <template>
-    <div id="historique" class="scrollable">
+    <div id="historique">
         <button class="back-button" @click="goBack">
             <img src="../../svg/back_button.svg" alt="Retour">
         </button>
         <h1 class="title">Historique des sentiers</h1>
-        <ul class="cards">
-            <li v-for="(run, index) in runs" :key="index" class="card-item">
-                <Vignette :run="run" />
-            </li>
-        </ul>
-        <!-- <div class="run-list">
-            <div class="run-card" v-for="run in runs" :style="{ backgroundImage: `url(${run.img})` }">
-                <div class="run-info">
-                    <h2 class="run-name">{{ run.name }}</h2>
-                    <p class="run-location">{{ run.district }}</p>
-                </div>
-            </div>
-        </div> -->
+        <div class="scrollable">
+            <ul class="cards">
+                <li v-for="(run, index) in runs" :key="index" class="card-item">
+                    <Vignette :run="run" />
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -69,35 +63,7 @@ p {
     color: var(--sapin-1);
 }
 
-/* .run-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+.cards {
+    max-height: 100vh;
 }
-
-.run-card {
-    display: flex;
-    align-items: end;
-    width: 90vw;
-    height: 8rem;
-    border-radius: .7rem;
-    background-size: cover;
-    background-position: center;
-}
-
-.run-info {
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    padding: 1rem;
-}
-
-.run-info h2 {
-    font-size: 1.3rem;
-}
-
-.run-info p {
-    font-size: .8rem;
-} */
 </style>
