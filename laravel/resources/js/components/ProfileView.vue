@@ -1,7 +1,8 @@
 <script setup>
 import axios from "../composable/axios.js";
 import MonthlyHikesChart from '@/components/MonthlyHikesChart.vue';
-import { inject } from 'vue';
+import { inject, onMounted } from 'vue';
+import { runs, fetchRuns } from '../composable/fetchRuns.js';
 
 function redirectToLogin() {
     window.location.href = "/login";
@@ -20,12 +21,16 @@ async function logout() {
         await axios.post('/logout');
         window.location.href = '/';
     } catch (error) {
-        console.error('Error logging out:', error);
+        console.error('Erreur lors de la déconnexion:', error);
     }
 }
 
 const isAuthenticated = inject('isAuthenticated');
 const user = inject('user');
+
+onMounted(() => {
+    fetchRuns();
+})
 </script>
 
 <template>
@@ -64,16 +69,16 @@ const user = inject('user');
                 <h2>Dashboard</h2>
                 <div class="dashboard-grid">
                     <div class="dashboard-frame">
-                        <div class="dashboard-content">100 km</div>
+                        <div class="dashboard-content">{{ user.nb_km_done }} km</div>
                         <div class="dashboard-label">Distance parcourue</div>
                     </div>
                     <div class="dashboard-frame">
-                        <div class="dashboard-content">25/100</div>
+                        <div class="dashboard-content">{{ Math.round(user.nb_runs_done) }}/{{ runs.length }}</div>
                         <div class="dashboard-label">Sentiers parcourus</div>
                     </div>
 
                     <div class="dashboard-frame">
-                        <div class="dashboard-content">10'000</div>
+                        <div class="dashboard-content">{{ user.nb_km_done/0.76 }}</div>
                         <div class="dashboard-label">Pas effectués</div>
                     </div>
                     <div class="dashboard-frame">

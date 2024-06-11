@@ -1,6 +1,6 @@
 <template>
     <ul class="liste-filtres">
-        <li v-for="(text, key) in filters" :key="key" :class="{ active: key === activeFilter }" @click="setActiveFilter(key)">
+        <li v-for="(text, key) in filters" :key="key" :class="{ active: key === activeFilter }" @click="setActiveFilter(key)" :id="key.id">
             {{ key }}
         </li>
     </ul>

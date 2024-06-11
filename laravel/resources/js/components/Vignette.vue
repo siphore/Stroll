@@ -1,6 +1,4 @@
 <template>
-    <!-- <ul class="cards">
-        <li v-for="(run, index) in runs" :key="index" class="card-item"> -->
     <div class="card" @click="redirectToDetail(run)">
         <img class="card-image" :src="run.img" />
         <div class="card-overlay">
@@ -13,45 +11,47 @@
                 <h3 class="card-title">{{ run.name }}</h3>
                 <p class="card-location">{{ run.district.replace(/_/g, "'") }}</p>
             </div>
-            <!-- <div class="card-indicators">
-                        <span class="indicator active"></span>
-                        <span class="indicator"></span>
-                        <span class="indicator"></span>
-                    </div> -->
-            <div class="star" @click.stop="saveRun(run)">
-                <img src="../../svg/addToStarred.svg" alt="Enregistrer le sentier">
+            <div class="star" @click.stop="toggleSaveRun">
+                <img :src="isRunSaved ? '/svg/removeStarred.svg' : '/svg/addStarred.svg'" alt="Enregistrer le sentier">
             </div>
         </div>
     </div>
-    <!-- </li>
-    </ul> -->
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
 
-defineProps({
-  run: {
-    type: Object,
-    required: true,
-  },
-})
+const props = defineProps({
+    run: Object
+});
+
+const isRunSaved = ref(false);
+
+onMounted(() => {
+    checkIfRunIsSaved();
+});
 
 function redirectToDetail(runData) {
     localStorage.setItem('runData', JSON.stringify(runData));
     window.location.hash = "#details-sentier";
 }
 
-function saveRun(runData) {
-    // Get existing saved runs from localStorage
-    let savedRuns = JSON.parse(localStorage.getItem('savedRuns')) || [];
+function checkIfRunIsSaved() {
+    const savedRuns = JSON.parse(localStorage.getItem('savedRuns')) || [];
+    isRunSaved.value = savedRuns.some(savedRun => savedRun.id === props.run.id);
+}
 
-    // Add the new run if it's not already saved
-    if (!savedRuns.find(run => run.id === runData.id)) {
-        savedRuns.push(runData);
+function toggleSaveRun() {
+    const savedRuns = JSON.parse(localStorage.getItem('savedRuns')) || [];
+    if (isRunSaved.value) {
+        const updatedRuns = savedRuns.filter(savedRun => savedRun.id !== props.run.id);
+        localStorage.setItem('savedRuns', JSON.stringify(updatedRuns));
+    } else {
+        savedRuns.push(props.run);
         localStorage.setItem('savedRuns', JSON.stringify(savedRuns));
     }
+    isRunSaved.value = !isRunSaved.value;
 }
 </script>
 

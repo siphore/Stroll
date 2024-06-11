@@ -14,9 +14,14 @@ class TypeTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('types')->delete();
-        $genres = ['Street Art', 'Architecture', 'Historique', 'Nature', 'Sportif', 'Gastronomie & Vins', 'Arts & Culture', 'Ephémère'];
-        foreach ($genres as $genre) {
-            DB::table('types')->insert(['name' => $genre]);
+        $genres = ['Street Art', 'Architecture', 'Historique', 'Nature', 'Sportif', 'Gastronomie', 'Arts & Culture', 'Ephémère'];
+        $descr = ["Sentiers Street Art", "Sentiers d'architecture", "Sentiers historiques", "Sentiers Nature", "Sentiers sportifs", "Sentiers gastronomiques", "Sentiers Art & Culture", "Sentiers éphémères"];
+
+        foreach ($genres as $index => $genre) {
+            DB::table('types')->insert([
+                'name' => $genre,
+                'descr' => $descr[$index]
+            ]);
         }
     }
 }

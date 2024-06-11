@@ -1,12 +1,17 @@
 <script setup>
-import { ref, inject, onMounted } from "vue";
+import { ref, inject, onMounted, computed } from "vue";
 import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
 import { runs, fetchRuns } from '../composable/fetchRuns.js';
 import QuickFiltres from "./QuickFiltres.vue";
 import FiltersHandler from "./FiltersHandler.vue";
 
+const searchInput = ref("");
+const searchFilter = computed(() => runs.value?.filter((run) => run.name.toLowerCase().includes(searchInput.value.toLowerCase())));
+const filterType = computed(()=> runs.value?.filter((run) => run.type === activeFilter.value));
+
 const isAuthenticated = inject('isAuthenticated');
+const user = inject('user');
 
 const activeFilter = ref("Populaires");
 
@@ -28,7 +33,7 @@ onMounted(() => {
         <div id="home">
             <!-- Search bar -->
             <div class="search-container">
-                <input type="text" class="search" placeholder="Rechercher">
+                <input type="text" v-model="searchInput" class="search" placeholder="Rechercher">
                 <img src="../../svg/magnifying-glass.svg" alt="Rechercher" class="search-icon">
                 <img src="../../svg/filter.svg" alt="Afficher filtres" class="filter-icon" @click="redirectToFilters">
             </div>
@@ -42,12 +47,13 @@ onMounted(() => {
             <h2 class="title">{{ filters[activeFilter] }}</h2>
             <div class="scrollable">
                 <ul class="cards">
-                    <li v-for="(run, index) in runs" :key="index" class="card-item">
+                    <li v-for="run in (searchFilter || filterType)" class="card-item">
+                        {{ console.log(run) }}
                         <Vignette :run="run" />
                     </li>
                 </ul>
             </div>
-            <div class="add-route-container" v-if="isAuthenticated">
+            <div class="add-route-container" v-if="isAuthenticated && user.isAdmin">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="white"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
