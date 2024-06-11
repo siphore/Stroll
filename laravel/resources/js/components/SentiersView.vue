@@ -14,8 +14,8 @@ const searchFilter = computed(() => {
 });
 
 const filterType = computed(() => {
-    if (!activeFilter.value) return searchFilter.value; 
-    return searchFilter.value?.filter((run) => run.type?.name === activeFilter?.name);
+    if (!activeFilter.value || !activeFilter.value.id) return searchFilter.value;
+    return searchFilter.value?.filter((run) => run.type_id === activeFilter.value.id);
 });
 
 const filteredRuns = computed(() => filterType.value);
@@ -28,15 +28,13 @@ function createRoute() {
 }
 
 function redirectToFilters() {
-    window.location.hash = "#filtres"
+    window.location.hash = "#filtres";
 }
 
-onMounted(() => {
-    fetchRuns();
-    fetchTypes();
-    console.log(types.value[0]);
-    activeFilter.value = types.value[0];  // Ensure types is an array
-    // console.log(activeFilter);
+onMounted(async () => {
+    await fetchRuns();
+    await fetchTypes();
+    activeFilter.value = types.value[0];
 });
 </script>
 
@@ -56,7 +54,7 @@ onMounted(() => {
             </div>
 
             <!-- Content -->
-            <h2 class="title">Sentiers {{ activeFilter?.name }}</h2>
+            <h2 class="title">{{ activeFilter?.descr }}</h2>
             <div class="scrollable">
                 <ul class="cards">
                     <li v-for="run in filteredRuns" :key="run.id" class="card-item">

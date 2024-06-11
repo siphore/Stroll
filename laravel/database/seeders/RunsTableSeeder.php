@@ -30,7 +30,7 @@ class RunsTableSeeder extends Seeder
             'scroller' => true,
             'bench' => true,
             'wc' => true,
-            'type_id' => 1,
+            'type_id' => 2,
             // 'users_id' => 1,
             'location_id' => 1
         ]);
@@ -51,7 +51,7 @@ class RunsTableSeeder extends Seeder
             'mobility' => true,
             'scroller' => true,
             'table_picnic' => true,
-            'type_id' => 1,
+            'type_id' => 4,
             // 'users_id' => 1,
             'location_id' => 1
         ]);
