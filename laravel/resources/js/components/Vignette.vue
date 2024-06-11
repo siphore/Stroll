@@ -11,7 +11,7 @@
                 <h3 class="card-title">{{ run.name }}</h3>
                 <p class="card-location">{{ run.district.replace(/_/g, "'") }}</p>
             </div>
-            <div class="star" @click.stop="toggleSaveRun">
+            <div class="star" @click.stop="toggleSaveRun" v-if="isAuthenticated">
                 <img :src="isRunSaved ? '/svg/removeStarred.svg' : '/svg/addStarred.svg'" alt="Enregistrer le sentier">
             </div>
         </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
 
 const props = defineProps({
@@ -27,6 +27,8 @@ const props = defineProps({
 });
 
 const isRunSaved = ref(false);
+
+const isAuthenticated = inject('isAuthenticated', ref(false));
 
 onMounted(() => {
     checkIfRunIsSaved();

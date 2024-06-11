@@ -1,19 +1,27 @@
 <script setup>
 import { ref, inject, onMounted, computed } from "vue";
-import { filters } from "../composable/thematiques.js";
 import Vignette from "./Vignette.vue";
 import { runs, fetchRuns } from '../composable/fetchRuns.js';
+import { types, fetchTypes } from '../composable/fetchTypes.js';
 import QuickFiltres from "./QuickFiltres.vue";
-import FiltersHandler from "./FiltersHandler.vue";
 
 const searchInput = ref("");
-const searchFilter = computed(() => runs.value?.filter((run) => run.name.toLowerCase().includes(searchInput.value.toLowerCase())));
-const filterType = computed(()=> runs.value?.filter((run) => run.type === activeFilter.value));
+const activeFilter = ref(null);
+
+const searchFilter = computed(() => {
+    if (!searchInput.value) return runs.value;
+    return runs.value?.filter((run) => run.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+});
+
+const filterType = computed(() => {
+    if (!activeFilter.value) return searchFilter.value; 
+    return searchFilter.value?.filter((run) => run.type?.name === activeFilter?.name);
+});
+
+const filteredRuns = computed(() => filterType.value);
 
 const isAuthenticated = inject('isAuthenticated');
 const user = inject('user');
-
-const activeFilter = ref("Populaires");
 
 function createRoute() {
     window.location.hash = "#ajout-1";
@@ -25,6 +33,10 @@ function redirectToFilters() {
 
 onMounted(() => {
     fetchRuns();
+    fetchTypes();
+    console.log(types.value[0]);
+    activeFilter.value = types.value[0];  // Ensure types is an array
+    // console.log(activeFilter);
 });
 </script>
 
@@ -40,20 +52,19 @@ onMounted(() => {
 
             <!-- Filters -->
             <div class="filter-menu">
-                <QuickFiltres :filters="filters" v-model:activeFilter="activeFilter" />
+                <QuickFiltres :types="types" v-model:activeFilter="activeFilter" />
             </div>
 
             <!-- Content -->
-            <h2 class="title">{{ filters[activeFilter] }}</h2>
+            <h2 class="title">Sentiers {{ activeFilter?.name }}</h2>
             <div class="scrollable">
                 <ul class="cards">
-                    <li v-for="run in (searchFilter || filterType)" class="card-item">
-                        {{ console.log(run) }}
+                    <li v-for="run in filteredRuns" :key="run.id" class="card-item">
                         <Vignette :run="run" />
                     </li>
                 </ul>
             </div>
-            <div class="add-route-container" v-if="isAuthenticated && user.isAdmin">
+            <div class="add-route-container" v-if="isAuthenticated && user?.isAdmin">
                 <svg @click="createRoute" class="add-route" width="38" height="38" viewBox="0 0 38 38" fill="white"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

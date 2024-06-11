@@ -1,7 +1,8 @@
 <template>
     <ul class="liste-filtres">
-        <li v-for="(text, key) in filters" :key="key" :class="{ active: key === activeFilter }" @click="setActiveFilter(key)" :id="key.id">
-            {{ key }}
+        <li v-for="type in types" :key="type.id" :class="{ active: type === activeFilter }"
+            @click="setActiveFilter(type)">
+            {{ type.name }}
         </li>
     </ul>
 </template>
@@ -10,8 +11,8 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-    filters: Object,
-    activeFilter: String,
+    types: Array,
+    activeFilter: Object,
 });
 
 const emit = defineEmits(['update:activeFilter']);
