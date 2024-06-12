@@ -4,12 +4,12 @@
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="name">Nom du sentier</label>
-                <input type="text" id="name" v-model="form.name" placeholder="Entrer le nom du sentier" required />
+                <input type="text" id="name" v-model="formStore.name" placeholder="Entrer le nom du sentier" required />
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" v-model="form.description" placeholder="Description du sentier"
+                <textarea id="description" v-model="formStore.description" placeholder="Description du sentier"
                     required></textarea>
             </div>
 
@@ -25,18 +25,6 @@
                 </div>
             </div>
 
-            <!-- <div class="form-group">
-                <label for="image">PDF du Sentier</label>
-                <div class="file-input-wrapper">
-                    <input type="file" id="image" @change="handlePdfUpload" accept="application/pdf" />
-                    <div class="upload-icon">
-                        <img src="../../svg/upload-icon.svg" alt="Upload Icon">
-                    </div>
-                    <p class="file-instructions"><span class="highlight">Cliquer pour ajouter</span> ou drag and
-                        drop<br />PDF</p>
-                </div>
-            </div> -->
-
             <div class="buttons">
                 <button type="submit" class="btn-primary">Suivant</button>
                 <button type="button" class="btn-secondary" @click="handleBack">Retour</button>
@@ -46,36 +34,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { inject } from 'vue';
 
-const form = ref({
-    name: '',
-    theme: '',
-    description: '',
-    image: null,
-    pdf: null,
-});
+const formStore = inject('formStore');
 
 const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-        form.value.image = file;
+        formStore.image = file;
     } else {
         alert('Please upload a valid image file (PNG or JPG).');
     }
 };
 
-// const handlePdfUpload = (event) => {
-//     const file = event.target.files[0];
-//     if (file && file.type === 'application/pdf') {
-//         form.value.pdf = file;
-//     } else {
-//         alert('Please upload a valid PDF file.');
-//     }
-// };
-
 const handleSubmit = () => {
-    console.log(form.value);
+    console.log(formStore);
     window.location.hash = "#ajout-2";
 };
 

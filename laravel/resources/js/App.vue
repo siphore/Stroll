@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, provide } from 'vue';
 import { routes } from './composable/routes';
 import TheNav from "./components/TheNav.vue";
+import { formStore } from './composable/formStore';
 
 const navLinks = {
   '#carte': routes['#carte'],
@@ -51,6 +52,7 @@ async function checkAuth() {
 
 provide('isAuthenticated', isAuthenticated);
 provide('user', user);
+provide('formStore', formStore);
 
 onMounted(() => {
   checkAuth();

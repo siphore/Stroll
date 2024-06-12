@@ -70,8 +70,8 @@ async function addToMap(map) {
       const coordsY = parseFloat(location.lat.trim());
 
       // Create a popup
-      const popup = new maplibregl.Popup({ offset: 25 }).setText(
-        location.descr
+      const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
+        `${location.descr}<br><a href="#details-point-interet">Voir plus</a>`
       );
 
       // Create DOM element for the marker
