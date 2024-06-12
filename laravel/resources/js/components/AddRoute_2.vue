@@ -1,10 +1,10 @@
 <template>
     <div class="container">
         <form @submit.prevent="handleSubmit">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="duration">Durée (minutes)</label>
                 <input type="text" id="duration" v-model="formStore.duration" placeholder="72" required />
-            </div>
+            </div> -->
 
             <ListeFiltres :form="formStore" />
 

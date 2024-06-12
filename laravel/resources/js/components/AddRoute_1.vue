@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" v-model="formStore.description" placeholder="Description du sentier"
+                <textarea id="description" v-model="formStore.descr" placeholder="Description du sentier"
                     required></textarea>
             </div>
 
@@ -41,7 +41,7 @@ const formStore = inject('formStore');
 const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-        formStore.image = file;
+        formStore.img = file;
     } else {
         alert('Please upload a valid image file (PNG or JPG).');
     }

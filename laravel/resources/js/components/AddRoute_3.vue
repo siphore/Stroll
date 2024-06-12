@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div id="map"></div>
+        <div id="map">
+            <button id="reset" @click="removeCurrentRoute">RESETTTTT</button>
+        </div>
 
         <div class="scrollable">
             <div class="path">
@@ -39,7 +41,7 @@
                 <label for="arrival">
                     Point d'arrivée (Point B)
                 </label>
-                <input id="arrival" type="text" v-model="arrival" placeholder="Rue des narcisses 6" required />
+                <input id="arrival" type="text" v-model="arrival" placeholder="Sélectionner l'arrivée" required />
 
                 <div class="buttons">
                     <button type="submit" class="btn-primary">Valider</button>
@@ -51,49 +53,123 @@
 </template>
 
 <script setup>
-import { onMounted, ref, getCurrentInstance } from 'vue';
+import { onMounted, ref, getCurrentInstance, inject } from 'vue';
+import axios from 'axios';
 import { loadMap } from '../composable/map.js';
+import { addRoute, removeSpecificRoute } from '../composable/addRoute.js';
 
 const departure = ref('');
 const arrival = ref('');
 const steps = ref([]);
 const numberOfSpans = ref(10);
+const routeId = ref(`route-${Date.now()}`);
+const coordinates = ref([]);
+const markers = ref([]);
+const formStore = inject('formStore');
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+        formStore.img = file;
+    } else {
+        alert('Please upload a valid image file (PNG or JPG).');
+    }
+};
 
 const addStep = () => {
     steps.value.push('');
     numberOfSpans.value += 6;
 };
 
-const submitForm = () => {
-    const routeData = {
-        departure: departure.value,
-        steps: steps.value,
-        arrival: arrival.value,
-    };
-    console.log(routeData);
+const submitForm = async () => {
+    const departureInput = document.getElementById('departure');
+    const arrivalInput = document.getElementById('arrival');
 
-    window.location.hash = '#ajout-4';
+    formStore.departure = departureInput.value;
+    formStore.arrival = arrivalInput.value;
+    formStore.steps = steps.value;
+
+    const formData = new FormData();
+    const flattenedFormStore = { ...formStore._rawValue, ...formStore };
+    for (const key in flattenedFormStore) {
+        if (flattenedFormStore.hasOwnProperty(key) && key !== '_rawValue' && key !== '__v_isRef' && key !== '__v_isShallow' && key !== 'dep') {
+            if (Array.isArray(flattenedFormStore[key])) {
+                formData.append(key, JSON.stringify(flattenedFormStore[key]));
+            } else {
+                formData.append(key, flattenedFormStore[key]);
+            }
+        }
+    }
+    if (formStore.img) {
+        formData.append('img', formStore.img);
+    }
+
+    try {
+        const response = await axios.post('/api/runs', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log('Run created successfully:', response.data);
+    } catch (error) {
+        if (error.response) {
+            if (error.response.status === 422) {
+                console.error('Validation errors:', error.response.data.errors);
+            } else if (error.response.status === 500) {
+                console.error('Server error:', error.response.data);
+            } else {
+                console.error('Error:', error.response.data);
+            }
+        } else {
+            console.error('Error creating run:', error);
+        }
+    }
 };
 
 const handleBack = () => {
     window.history.back();
 };
 
-const handleCoordinates = (coordinates) => {
-    const departure = document.getElementById('departure');
-    const arrival = document.getElementById('arrival');
+const handleCoordinates = (coords) => {
+    coordinates.value = coords;
+    const departureInput = document.getElementById('departure');
+    const arrivalInput = document.getElementById('arrival');
 
-    departure.value = coordinates[0];
-    if (coordinates.length > 1) arrival.value = coordinates[1];
+    departureInput.value = coordinates.value[0];
+    if (coordinates.value.length > 1) arrivalInput.value = coordinates.value[coordinates.value.length - 1];
+    if (coordinates.value.length == 2) addNewRoute(coordinates.value);
+};
+
+const loadMapInstance = ref(null);
+
+const addNewRoute = (coords) => {
+    if (loadMapInstance.value) {
+        addRoute(loadMapInstance.value, coords, routeId.value, markers);
+    }
+};
+
+const removeCurrentRoute = () => {
+    coordinates.value = [];
+    if (loadMapInstance.value) {
+        removeSpecificRoute(loadMapInstance.value, routeId.value, markers);
+    }
 };
 
 onMounted(() => {
-    loadMap(getCurrentInstance(), handleCoordinates);
+    loadMap(getCurrentInstance(), handleCoordinates).then(map => {
+        loadMapInstance.value = map;
+    });
 });
 </script>
 
+
 <style scoped>
 @import url('../../css/filtres.css');
+
+#reset {
+    position: absolute;
+    z-index: 1;
+}
 
 .scrollable {
     display: flex;

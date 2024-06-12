@@ -1,4 +1,6 @@
-export async function addRoute(map, coordinates) {
+const routes = {};
+
+export async function addRoute(map, coordinates, routeId, markers, formStore) {
     const url = `https://router.project-osrm.org/route/v1/driving/${coordinates.join(
         ";"
     )}?overview=full&geometries=geojson`;
@@ -10,12 +12,20 @@ export async function addRoute(map, coordinates) {
         }
         const data = await response.json();
         const route = data.routes[0].geometry;
-        const sourceId = `route-${Date.now()}`;
+        console.log(data);
+
+        formStore.distance = data.routes[0].distance;
+        formStore.duration = data.routes[0].distance * 1.3 / 60;
 
         const addRouteSourceAndLayer = () => {
-            if (!map.getSource(sourceId)) {
-                addSourceAndLayer(map, sourceId, route);
-                addMarkers(map, coordinates);
+            if (!map.getSource(routeId)) {
+                routes[routeId] = {
+                    sourceId: routeId,
+                    layerId: routeId,
+                    markers: [],
+                };
+                addSourceAndLayer(map, routeId, route);
+                addMarkers(map, coordinates, routeId, markers);
             }
         };
 
@@ -68,52 +78,42 @@ function addSourceAndLayer(map, sourceId, route) {
     }
 }
 
-function addMarkers(map, coordinates) {
-    // Add a marker at the starting point
-    new maplibregl.Marker({ color: "green" })
-        .setLngLat(coordinates[0])
-        .addTo(map);
-
-    // Add a marker at the ending point
-    new maplibregl.Marker({ color: "red" })
-        .setLngLat(coordinates[1])
-        .addTo(map);
+function addMarkers(map, coordinates, routeId, markers) {
+    coordinates.forEach((coord, index) => {
+        const color =
+            index === 0
+                ? "green"
+                : index === coordinates.length - 1
+                ? "red"
+                : "blue";
+        const marker = new maplibregl.Marker({ color })
+            .setLngLat(coord)
+            .addTo(map);
+        routes[routeId].markers.push(marker);
+        markers.value.push(marker); // Add marker to markers array
+    });
 }
 
-// function addMarkers(map, coordinates) {
-//     // Create a DOM element for the starting point marker
-//     const startEl = document.createElement('div');
-//     startEl.className = 'marker';
-//     startEl.textContent = 'A';
-//     startEl.style.backgroundColor = 'green';
-//     startEl.style.color = 'white';
-//     startEl.style.borderRadius = '50%';
-//     startEl.style.width = '30px';
-//     startEl.style.height = '30px';
-//     startEl.style.display = 'flex';
-//     startEl.style.justifyContent = 'center';
-//     startEl.style.alignItems = 'center';
+export function removeSpecificRoute(map, routeId, markers) {
+    const route = routes[routeId];
+    if (!route) {
+        console.error(`Route with ID ${routeId} not found.`);
+        return;
+    }
 
-//     // Add the starting point marker
-//     new maplibregl.Marker(startEl)
-//         .setLngLat(coordinates[0])
-//         .addTo(map);
+    // Remove source and layer
+    if (map.getLayer(route.layerId)) {
+        map.removeLayer(route.layerId);
+    }
+    if (map.getSource(route.sourceId)) {
+        map.removeSource(route.sourceId);
+    }
 
-//     // Create a DOM element for the ending point marker
-//     const endEl = document.createElement('div');
-//     endEl.className = 'marker';
-//     endEl.textContent = 'B';
-//     endEl.style.backgroundColor = 'red';
-//     endEl.style.color = 'white';
-//     endEl.style.borderRadius = '50%';
-//     endEl.style.width = '30px';
-//     endEl.style.height = '30px';
-//     endEl.style.display = 'flex';
-//     endEl.style.justifyContent = 'center';
-//     endEl.style.alignItems = 'center';
+    // Remove markers
+    route.markers.forEach((marker) => marker.remove());
+    markers.value.forEach((marker) => marker.remove());
+    markers.value = []; // Clear markers array
 
-//     // Add the ending point marker
-//     new maplibregl.Marker(endEl)
-//         .setLngLat(coordinates[1])
-//         .addTo(map);
-// }
+    // Remove route from the routes object
+    delete routes[routeId];
+}

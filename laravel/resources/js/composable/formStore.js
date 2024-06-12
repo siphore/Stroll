@@ -2,12 +2,14 @@ import { ref } from "vue";
 
 export const formStore = ref({
     name: "",
-    description: "",
-    image: null,
+    descr: "",
+    img: null,
     duration: "",
     // distance: "",
     radius: 0,
     level: "",
+    departure: "",
+    arrival: "",
     season: [],
     public: [],
     accessibility: [],

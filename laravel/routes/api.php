@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/runs', [RunController::class, 'index']);
+Route::post('/runs', [RunController::class, 'store']);
 Route::get('/locations', [LocationController::class, 'index']);
 Route::get('/types', [TypeController::class, 'index']);
 
