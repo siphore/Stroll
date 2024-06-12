@@ -15,8 +15,7 @@
                 <label for="departure">
                     Point de départ (Point A)
                 </label>
-                <input id="departure" type="text" v-model="formStore.departure" @change="geocode('departure')"
-                    placeholder="Bahnhofstrasse 7, 8001 Zürich, Switzerland" required />
+                <input id="departure" type="text" v-model="departure" placeholder="Sélectionner le départ" required />
 
                 <!-- Ajouter une étape -->
                 <button type="button" id="addStep" @click="addStep">
@@ -29,20 +28,18 @@
                 </button>
 
                 <!-- Steps -->
-                <div v-for="(step, index) in formStore.steps" :key="index">
+                <div v-for="(step, index) in steps" :key="index">
                     <label :for="'step-' + index">
                         Étape {{ index + 1 }}
                     </label>
-                    <input :id="'step-' + index" type="text" v-model="formStore.steps[index]"
-                        @change="geocode('step', index)" placeholder="Ajouter une étape" />
+                    <input :id="'step-' + index" type="text" v-model="steps[index]" placeholder="Ajouter une étape" />
                 </div>
 
                 <!-- Point d’arrivée (Point B) -->
                 <label for="arrival">
                     Point d'arrivée (Point B)
                 </label>
-                <input id="arrival" type="text" v-model="formStore.arrival" @change="geocode('arrival')"
-                    placeholder="Schaffhauserstrasse 100, 8057 Zürich, Switzerland" required />
+                <input id="arrival" type="text" v-model="arrival" placeholder="Rue des narcisses 6" required />
 
                 <div class="buttons">
                     <button type="submit" class="btn-primary">Valider</button>
@@ -54,23 +51,27 @@
 </template>
 
 <script setup>
-import { onMounted, ref, inject } from 'vue';
-import mapboxgl from 'mapbox-gl';
+import { onMounted, ref, getCurrentInstance } from 'vue';
 import { loadMap } from '../composable/map.js';
 
-const formStore = inject('formStore');
-
+const departure = ref('');
+const arrival = ref('');
+const steps = ref([]);
 const numberOfSpans = ref(10);
-const map = ref(null);
-const markers = ref([]);
 
 const addStep = () => {
-    formStore.steps.push('');
+    steps.value.push('');
     numberOfSpans.value += 6;
 };
 
 const submitForm = () => {
-    console.log(formStore);
+    const routeData = {
+        departure: departure.value,
+        steps: steps.value,
+        arrival: arrival.value,
+    };
+    console.log(routeData);
+
     window.location.hash = '#ajout-4';
 };
 
@@ -78,53 +79,16 @@ const handleBack = () => {
     window.history.back();
 };
 
-const geocode = async (type, index = null) => {
-    let address;
-    if (type === 'departure') {
-        address = formStore.departure;
-    } else if (type === 'arrival') {
-        address = formStore.arrival;
-    } else if (type === 'step' && index !== null) {
-        address = formStore.steps[index];
-    }
+const handleCoordinates = (coordinates) => {
+    const departure = document.getElementById('departure');
+    const arrival = document.getElementById('arrival');
 
-    console.log('Geocoding address:', address); // Debugging log
-
-    try {
-        const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}`);
-        const data = await response.json();
-
-        if (data.features && data.features.length > 0) {
-            const [longitude, latitude] = data.features[0].geometry.coordinates;
-
-            // Update formStore with coordinates
-            if (type === 'departure') {
-                formStore.departureCoordinates = [longitude, latitude];
-            } else if (type === 'arrival') {
-                formStore.arrivalCoordinates = [longitude, latitude];
-            } else if (type === 'step' && index !== null) {
-                formStore.stepsCoordinates[index] = [longitude, latitude];
-            }
-
-            // Add marker to map
-            addMarker([longitude, latitude]);
-        } else {
-            alert(`No results found for ${address}`);
-        }
-    } catch (error) {
-        console.error('Error geocoding address:', error);
-    }
-};
-
-const addMarker = (coordinates) => {
-    const marker = new mapboxgl.Marker()
-        .setLngLat(coordinates)
-        .addTo(map.value);
-    markers.value.push(marker);
+    departure.value = coordinates[0];
+    if (coordinates.length > 1) arrival.value = coordinates[1];
 };
 
 onMounted(() => {
-    map.value = loadMap();
+    loadMap(getCurrentInstance(), handleCoordinates);
 });
 </script>
 

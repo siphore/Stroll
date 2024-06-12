@@ -19,17 +19,18 @@ class LocationsTableSeeder extends Seeder
             'lat' => '46.52257799060757',
             'log' => '6.635368623895602',
             'descr' => 'La Cathédrale de Lausanne, dédiée à Notre-Dame, est un édifice gothique construit entre 1170 et 1240. C\'est l\'un des plus beaux exemples d\'architecture gothique en Suisse. La cathédrale domine la ville de Lausanne et offre une vue imprenable sur le lac Léman et les Alpes.',
-            'img' => 'https://www.holidify.com/places/lausanne/cathdrale-de-notre-dame-sightseeing-10801.html',
-            'access' => 'La cathédrale est accessible à pied depuis la gare de Lausanne en environ 20 minutes. Il existe également plusieurs lignes de bus et de métro qui desservent le centre-ville de Lausanne, facilitant l\'accès à la cathédrale.'
+            'img' => 'https://www.holidify.com/images/cmsuploads/compressed/Kathedrale_Lausanne_20190116135515.jpg',
+            'access' => 'La cathédrale est accessible à pied depuis la gare de Lausanne en environ 20 minutes. Il existe également plusieurs lignes de bus et de métro qui desservent le centre-ville de Lausanne, facilitant l\'accès à la cathédrale.',
+            'city' => 'Lausanne'
         ]);
         Location::create([
             'name' => 'Rolex Learning Center',
             'lat' => '46.5184109795195',
             'log' => '6.568464807357941',
             'descr' => 'Le Rolex Learning Center est un bâtiment innovant situé sur le campus de l\'École polytechnique fédérale de Lausanne (EPFL). Conçu par les architectes japonais SANAA, il sert de bibliothèque, de centre culturel et de lieu de rencontre pour les étudiants et les chercheurs. Le bâtiment, ouvert en 2010, est célèbre pour son architecture unique et ses espaces ouverts.',
-            'img' => 'https://www.pinterest.ca/pin/rolex-learning-centre-epfl-lausanne-sanaa-iwan-baan--163114817750314597/',
-            'access' => 'Le Rolex Learning Center est facilement accessible par les transports publics. Il se trouve à quelques minutes à pied de la station de métro EPFL (ligne M1). Il y a également plusieurs lignes de bus qui desservent le campus.'
-
+            'img' => 'https://bg-21.com/wp-content/uploads/2022/04/RolexLearningCenter_1_1920%C3%97700.png',
+            'access' => 'Le Rolex Learning Center est facilement accessible par les transports publics. Il se trouve à quelques minutes à pied de la station de métro EPFL (ligne M1). Il y a également plusieurs lignes de bus qui desservent le campus.',
+            'city' => 'Ecublens'
         ]);
     }
 }

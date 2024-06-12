@@ -13,8 +13,20 @@ import FiltresView from "../components/FiltresView.vue";
 import HistoryView from "../components/HistoryView.vue";
 import DetailedRoute from "../components/DetailedRoute.vue";
 import DetailedLocation from "../components/DetailedLocation.vue";
+import Launch1 from "../components/Launch1.vue";
+import Launch2 from "../components/Launch2.vue";
+import Launch3 from "../components/Launch3.vue";
 
 export const routes = {
+    "#bienvenue-1": {
+        component: Launch1,
+    },
+    "#bienvenue-2": {
+        component: Launch2,
+    },
+    "#bienvenue-3": {
+        component: Launch3,
+    },
     "#carte": {
         component: MapView,
         label: "Cartes",

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->text('descr');
             $table->text('img');
             $table->text('access');
+            $table->string('city');
             $table->timestamps();
         });
     }

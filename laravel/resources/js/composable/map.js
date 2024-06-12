@@ -1,18 +1,17 @@
 import "https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js";
-import { fitToLocation } from "../composable/fitToLocation";
-import { locateUser } from "../composable/locateUser";
-import { getCoords } from "../composable/getMouseCoords.js";
+import { locateUser } from "./locateUser";
+import { getCoords } from "./getMouseCoords.js";
 import { getNavHeight } from "./navHeight.js";
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from "mapbox-gl";
 
-export function loadMap() {
-    mapboxgl.accessToken = 'AskmG7OtKitUCOKFDwAn';
+export function loadMap(componentInstance, callback) {
+    mapboxgl.accessToken = "AskmG7OtKitUCOKFDwAn";
 
     return new Promise((resolve, reject) => {
         const navHeight = getNavHeight();
         const mapElement = document.getElementById("map");
         if (navHeight) {
-            mapElement.style.height = window.innerHeight - navHeight + "px"
+            mapElement.style.height = window.innerHeight - navHeight + "px";
         }
 
         const map = new maplibregl.Map({
@@ -27,9 +26,10 @@ export function loadMap() {
             const { latitude, longitude } = position.coords;
             map.setCenter([longitude, latitude]);
             map.on("load", () => {
-                fitToLocation(map);
                 locateUser(map);
-                getCoords(map);
+                if (componentInstance.type.__name === "AddRoute_3") {
+                    getCoords(map, callback);
+                }
                 map.addControl(new maplibregl.NavigationControl());
                 resolve(map);
             });
@@ -43,8 +43,8 @@ export function loadMap() {
 
 export async function adjustZoomForRoute(map, routeCoords) {
     const bounds = new maplibregl.LngLatBounds();
-    routeCoords.forEach(coord => bounds.extend(coord));
+    routeCoords.forEach((coord) => bounds.extend(coord));
     map.fitBounds(bounds, {
-        maxZoom: 12
+        maxZoom: 12,
     });
 }

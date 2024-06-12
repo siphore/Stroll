@@ -12,12 +12,12 @@ const navLinks = {
   '#profil': routes['#profil']
 };
 
-const currentPath = ref(window.location.hash || '#accueil');
+const currentPath = ref(window.location.hash || '#bienvenue-1');
 updateCurrentPath();
 
 function updateCurrentPath() {
   const path = window.location.hash;
-  currentPath.value = routes[path] ? path : '#accueil';
+  currentPath.value = routes[path] ? path : '#bienvenue-1';
 }
 
 window.addEventListener('hashchange', updateCurrentPath);

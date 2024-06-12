@@ -1,7 +1,7 @@
 <template>
   <main>
     <div id="map">
-      <button id="fit">Fit to Switzerland</button>
+      <!-- <button id="fit">Fit to Switzerland</button> -->
     </div>
   </main>
 </template>
@@ -29,11 +29,15 @@
 </style>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, getCurrentInstance } from "vue";
 import axios from "axios";
 import { loadMap, adjustZoomForRoute } from "../composable/map";
 import { addRoute } from "../composable/addRoute";
 import { addLocation } from "../composable/addLocation";
+
+const storeLocation = (location) => {
+  localStorage.setItem('currentLocation', JSON.stringify(location));
+};
 
 const runs = ref([]);
 const locations = ref([]);
@@ -59,33 +63,41 @@ async function addToMap(map) {
         const coordsDep = run.departure.split(',').map(coord => parseFloat(coord.trim()));
         const coordsArr = run.arrival.split(',').map(coord => parseFloat(coord.trim()));
         addRoute(map, [coordsDep, coordsArr]);
-      })
+      });
     }
 
     // Locations
     const locResp = await axios.get('/api/locations');
     locations.value = locResp.data;
-    locations.value.forEach((location) => {
+    locations.value.forEach((location, index) => {
       const coordsX = parseFloat(location.log.trim());
       const coordsY = parseFloat(location.lat.trim());
 
-      // Create a popup
+      // Create a popup with a unique id for the link
       const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
-        `${location.descr}<br><a href="#details-point-interet">Voir plus</a>`
+        `${location.name}<br><a href="#details-point-interet" class="popup-link" data-index="${index}">Voir plus</a>`
       );
 
       // Create DOM element for the marker
       const el = document.createElement('div');
       el.class = 'marker';
       addLocation(map, [coordsX, coordsY], popup);
-    })
+    });
+
+    // Add event listener for all popup links
+    document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('popup-link')) {
+        const index = event.target.getAttribute('data-index');
+        storeLocation(locations.value[index]);
+      }
+    });
   } catch (error) {
     console.error("Error fetching runs or locations:", error);
   }
 }
 
 onMounted(async () => {
-  const map = await loadMap();
+  const map = await loadMap(getCurrentInstance());
   addToMap(map);
 });
 </script>
