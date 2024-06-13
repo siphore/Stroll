@@ -77,7 +77,7 @@
                 se cachent au coins de chaque rue et colline de ta région.
             </h4>
 
-            <CustomButton text="Trouve ta commune" color="#99442A" :city="city">
+            <CustomButton text="Trouve ta commune" link="#carte" color="#99442A">
                 <template #icon>
                     <img src="../../svg/accueil_location.svg">
                 </template>

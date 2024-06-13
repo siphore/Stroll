@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Location;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 
@@ -21,7 +20,10 @@ class LocationsTableSeeder extends Seeder
             'descr' => 'La Cathédrale de Lausanne, dédiée à Notre-Dame, est un édifice gothique construit entre 1170 et 1240. C\'est l\'un des plus beaux exemples d\'architecture gothique en Suisse. La cathédrale domine la ville de Lausanne et offre une vue imprenable sur le lac Léman et les Alpes.',
             'img' => 'https://www.holidify.com/images/cmsuploads/compressed/Kathedrale_Lausanne_20190116135515.jpg',
             'access' => 'La cathédrale est accessible à pied depuis la gare de Lausanne en environ 20 minutes. Il existe également plusieurs lignes de bus et de métro qui desservent le centre-ville de Lausanne, facilitant l\'accès à la cathédrale.',
-            'city' => 'Lausanne'
+            'city' => 'Lausanne',
+            'address' => 'Pl. de la Cathédrale 1, 1005 Lausanne',
+            'phone' => '+412 38 58 17',
+            'availability' => 'Lun - Dim 9h - 19h',
         ]);
         Location::create([
             'name' => 'Rolex Learning Center',

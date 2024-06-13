@@ -199,11 +199,6 @@ onMounted(() => {
     color: #040505;
 }
 
-.view-more {
-    color: red;
-    cursor: pointer;
-}
-
 .info-icons {
     display: flex;
     gap: 8px;

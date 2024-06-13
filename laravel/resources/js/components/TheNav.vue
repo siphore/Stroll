@@ -13,7 +13,7 @@ defineProps({
 })
 
 const icons = {
-  Cartes: `<svg class="icon" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+  Carte: `<svg class="icon" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9.49992 20.5L1.33325 25.1667V6.50004L9.49992 1.83337M9.49992 20.5L17.6666 25.1667M9.49992 20.5V1.83337M17.6666 25.1667L24.6666 20.5V1.83337L17.6666 6.50004M17.6666 25.1667V6.50004M17.6666 6.50004L9.49992 1.83337" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
   Sentiers: `<svg class="icon" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">

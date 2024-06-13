@@ -4,7 +4,6 @@
             <button @click="handleBack" class="back-button">←</button>
         </div>
 
-        {{ console.log(location.img) }}
         <img class="main-image" :src="location.img" alt="Image du sentier">
         <h3 class="location-title">{{ location.name }}</h3>
         <ul class="location-info">
@@ -27,19 +26,11 @@
         <div class="practical-info">
             <h4>Informations pratiques</h4>
             <ul class="location-info">
-                <li v-for="(season, index) in parsedSeasons" :key="index">
-                    <img src="/svg/saison.svg" alt="Saison">
-                    {{ season }}
+                <li v-for="info in filteredPracticalInfo" :key="info.key">
+                    <img :src="info.icon" :alt="info.label">
+                    {{ info.label }}
                 </li>
             </ul>
-            <div v-for="(chunk, index) in practicalInfoChunks" :key="index">
-                <ul class="location-info">
-                    <li v-for="info in chunk" :key="info.key">
-                        <img :src="info.icon" :alt="info.label">
-                        {{ info.label }}
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="buttons">
             <button class="btn-primary" @click="visualizeLocation">Visualiser le point d'intérêt</button>
@@ -48,9 +39,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { formatDuration } from '../composable/formatDuration.js';
-import { loadMap } from '../composable/map.js';
+import { ref, onMounted, computed } from 'vue';
 
 const handleBack = () => {
     window.history.back();
@@ -63,44 +52,21 @@ const visualizeLocation = () => {
 
 // Informations pratiques
 const practicalInfoMapping = [
-    { key: 'family', label: 'Famille', icon: '/svg/accessibilite.svg' },
-    { key: 'school', label: 'École', icon: '/svg/accessibilite.svg' },
-    { key: 'senior', label: 'Senior', icon: '/svg/accessibilite.svg' },
-    { key: 'handicap', label: 'Mobilité réduite', icon: '/svg/accessibilite.svg' },
-    { key: 'dogs', label: 'Chiens autorisés', icon: '/svg/accessibilite.svg' },
-    { key: 'parkings', label: 'Parkings', icon: '/svg/accessibilite.svg' },
-    { key: 'public_transport', label: 'Transport public', icon: '/svg/accessibilite.svg' },
-    { key: 'mobility', label: 'Mobilité réduite', icon: '/svg/accessibilite.svg' },
-    { key: 'scroller', label: 'Poussettes', icon: '/svg/accessibilite.svg' },
-    { key: 'table_picnic', label: 'Table de pique-nique', icon: '/svg/equipement.svg' },
-    { key: 'bench', label: 'Banc', icon: '/svg/equipement.svg' },
-    { key: 'wc', label: 'WC', icon: '/svg/equipement.svg' },
-    { key: 'fireplace', label: 'Place de feu', icon: '/svg/equipement.svg' },
-    { key: 'playground', label: 'Place de jeu', icon: '/svg/equipement.svg' }
+    { key: 'address', icon: '/svg/marker.svg', label: 'Address' },
+    { key: 'phone', icon: '/svg/phone.svg', label: 'Phone' },
+    { key: 'availability', icon: '/svg/availability.svg', label: 'Availability' }
 ];
 
-const parsedSeasons = computed(() => {
-    return JSON.parse(location.value.season || '[]');
-});
+const location = ref({});
 
 const filteredPracticalInfo = computed(() => {
-    return practicalInfoMapping.filter(info => location.value[info.key]);
-});
-
-const practicalInfoChunks = computed(() => {
-    // Properties per row
-    const chunkSize = 3;
-
-    const chunks = [];
-    for (let i = 0; i < filteredPracticalInfo.value.length; i += chunkSize) {
-        chunks.push(filteredPracticalInfo.value.slice(i, i + chunkSize));
-    }
-    return chunks;
+    return practicalInfoMapping.filter(info => location.value[info.key]).map(info => ({
+        ...info,
+        label: location.value[info.key]
+    }));
 });
 
 // Init
-const location = ref([]);
-
 onMounted(() => {
     const storedLocation = localStorage.getItem('currentLocation');
     if (storedLocation) {
@@ -114,6 +80,10 @@ onMounted(() => {
 
 .scrollable {
     height: 100vh;
+}
+
+h4 {
+    margin: 3rem 0 1rem 0;
 }
 
 .detailed-location {
@@ -151,6 +121,7 @@ onMounted(() => {
 
 .location-info {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     margin: 1vh 0 0 0;
     padding: 0;
@@ -161,26 +132,18 @@ onMounted(() => {
 .location-info>* {
     display: flex;
     align-items: center;
-    gap: .3rem;
-}
-
-.rating {
-    color: #254A3D;
+    justify-content: start;
+    gap: .7rem;
 }
 
 .itinerary,
 .practical-info {
     margin-top: 16px;
-    color: #254A3D;
+    color: var(--sapin-1);
 }
 
 .description p {
     color: #040505;
-}
-
-.view-more {
-    color: red;
-    cursor: pointer;
 }
 
 .info-icons {
@@ -188,10 +151,6 @@ onMounted(() => {
     gap: 8px;
     flex-wrap: wrap;
     color: #254A3D;
-}
-
-#map {
-    height: 30vh;
 }
 
 .btn-primary {

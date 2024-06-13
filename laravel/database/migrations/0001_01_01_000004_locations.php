@@ -19,6 +19,9 @@ return new class extends Migration {
             $table->text('img');
             $table->text('access');
             $table->string('city');
+            $table->string('address')->default("");
+            $table->string('phone')->default("");
+            $table->string('availability')->default("");
             $table->timestamps();
         });
     }

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Run;
 
@@ -31,13 +30,12 @@ class RunsTableSeeder extends Seeder
             'bench' => true,
             'wc' => true,
             'type_id' => 2,
-            // 'users_id' => 1,
             'location_id' => 1
         ]);
 
         Run::create([
             'name' => 'Sentier des narcisses',
-            'descr' => 'Cette promenade thématique devrait être entreprise au printemps (mai à juin). C’est à ce moment-là que les narcisses fleurissant à l’état sauvage transforment les prairies des hauts de Vevey et Montreux en une mer de fleurs blanches. On dirait qu’il a neigé. C’est pourquoi les habitants surnomment ce rare spectacle naturel «neige de mai». Il attire chaque année de nombreux visiteurs au Lac Léman. Un sentier didactique consacré aux narcisses commence aux Avants. Ce village aux allures de Belle Epoque est l’une des plus anciennes stations de sports d’hiver de Suisse. Le sentier est jalonné de panneaux explicatifs, pour permettre aux randonneurs de mieux comprendre la géologie, la faune et la flore de ces lieux.',
+            'descr' => "Cette promenade thématique devrait être entreprise au printemps (mai à juin). C'est à ce moment-là que les narcisses fleurissant à l'état sauvage transforment les prairies des hauts de Vevey et Montreux en une mer de fleurs blanches. On dirait qu'il a neigé. C'est pourquoi les habitants surnomment ce rare spectacle naturel «neige de mai». Il attire chaque année de nombreux visiteurs au Lac Léman. Un sentier didactique consacré aux narcisses commence aux Avants. Ce village aux allures de Belle Epoque est l’une des plus anciennes stations de sports d'hiver de Suisse. Le sentier est jalonné de panneaux explicatifs, pour permettre aux randonneurs de mieux comprendre la géologie, la faune et la flore de ces lieux.",
             'district' => 'Riviera-Pays-d_Enhaut',
             'img' => 'https://awwway.ch/wp-content/uploads/2017/06/Pleiades_sentier_narcisses_Montreux_7.jpg',
             'departure' => '6.911926293544639, 46.451720292241106',
@@ -52,7 +50,6 @@ class RunsTableSeeder extends Seeder
             'scroller' => true,
             'table_picnic' => true,
             'type_id' => 4,
-            // 'users_id' => 1,
             'location_id' => 1
         ]);
     }
