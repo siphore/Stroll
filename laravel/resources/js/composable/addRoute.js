@@ -12,7 +12,6 @@ export async function addRoute(map, coordinates, routeId, markers, formStore) {
         }
         const data = await response.json();
         const route = data.routes[0].geometry;
-        console.log(data);
 
         formStore.distance = data.routes[0].distance;
         formStore.duration = data.routes[0].distance * 1.3 / 60;

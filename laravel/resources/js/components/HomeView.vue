@@ -15,8 +15,6 @@
 
         <img class="section-img" src="../../img/accueil_1.png" alt="Image de présentation">
 
-        <!-- <ImageSlider /> -->
-
         <section>
             <h1>Balade coup de &#x2665 du jour</h1>
             <h4>
@@ -26,8 +24,6 @@
         </section>
 
         <img class="section-img" src="../../img/accueil_2.png" alt="Image de présentation">
-
-        <!-- <SentierCoeur /> -->
 
         <section>
             <h1>VDiscover</h1>
@@ -39,8 +35,6 @@
         </section>
 
         <img class="section-img" src="../../img/accueil_3.png" alt="Image de présentation">
-
-        <!-- <slot name="vdiscover-image"></slot> -->
 
         <section>
             <h1>Aventures locales</h1>
@@ -57,8 +51,6 @@
         </section>
 
         <img class="section-img" src="../../img/accueil_4.png" alt="Image de présentation">
-
-        <!-- <slot name="aventures-locales-image"></slot> -->
 
         <section>
             <h1>À ton rythme</h1>
@@ -94,8 +86,6 @@
 
         <img class="section-img" src="../../img/accueil_6.png" alt="Image de présentation">
 
-        <!-- <slot name="proche-de-chez-toi-image"></slot> -->
-
         <section>
             <h1>Tes parcours au même endroit</h1>
             <h4>
@@ -113,8 +103,6 @@
 
         <img class="section-img" src="../../img/accueil_7.png" alt="Image de présentation">
 
-        <!-- <slot name="tes-parcours-image"></slot> -->
-
         <section>
             <h1>Bon pour la santé et le bien-être</h1>
             <h4>
@@ -130,8 +118,6 @@
                 </template>
             </CustomButton>
         </section>
-
-        <!-- <slot name="sante-bien-etre-image"></slot> -->
     </div>
 </template>
 

@@ -29,7 +29,7 @@
 </style>
 
 <script setup>
-import { onMounted, ref, getCurrentInstance } from "vue";
+import { onMounted, ref, getCurrentInstance, inject } from "vue";
 import axios from "axios";
 import { loadMap, adjustZoomForRoute } from "../composable/map";
 import { addRoute } from "../composable/addRoute";
@@ -38,6 +38,10 @@ import { addLocation } from "../composable/addLocation";
 const storeLocation = (location) => {
   localStorage.setItem('currentLocation', JSON.stringify(location));
 };
+
+const formStore = inject('formStore');
+const routeId = ref(`route-${Date.now()}`);
+const markers = ref([]);
 
 const runs = ref([]);
 const locations = ref([]);
@@ -62,7 +66,7 @@ async function addToMap(map) {
       runs.value.forEach((run) => {
         const coordsDep = run.departure.split(',').map(coord => parseFloat(coord.trim()));
         const coordsArr = run.arrival.split(',').map(coord => parseFloat(coord.trim()));
-        addRoute(map, [coordsDep, coordsArr]);
+        addRoute(map, [coordsDep, coordsArr], routeId.value, markers, formStore);
       });
     }
 

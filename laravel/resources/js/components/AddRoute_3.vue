@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="map">
-            <button id="reset" @click="removeCurrentRoute">RESETTTTT</button>
+            <button id="reset" @click="removeCurrentRoute">Effacer (marche pas)</button>
         </div>
 
         <div class="scrollable">
@@ -144,7 +144,7 @@ const loadMapInstance = ref(null);
 
 const addNewRoute = (coords) => {
     if (loadMapInstance.value) {
-        addRoute(loadMapInstance.value, coords, routeId.value, markers);
+        addRoute(loadMapInstance.value, coords, routeId.value, markers, formStore);
     }
 };
 
