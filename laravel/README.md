@@ -15,3 +15,7 @@ Ouvrir un autre:
 ```bash
 npm run dev
 ```
+Compte en tant que admin/contributeur:
+E-mail: stroll.admin@gmx.ch
+Mot de passe: Strolltest
+
