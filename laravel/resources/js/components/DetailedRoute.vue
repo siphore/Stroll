@@ -62,14 +62,19 @@
         </div>
         <div class="buttons">
             <button class="btn-primary" @click="visualizeTrail">Visualiser le sentier</button>
+            <button class="btn-cancel" @click="deleteRoute" v-if="isAuthenticated && user?.isAdmin">Supprimer le
+                sentier</button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, inject } from 'vue';
 import { formatDuration } from '../composable/formatDuration.js';
 import { loadMap } from '../composable/map.js';
+
+const isAuthenticated = inject('isAuthenticated');
+const user = inject('user');
 
 const handleBack = () => {
     window.history.back();
@@ -79,6 +84,20 @@ const visualizeTrail = () => {
     localStorage.setItem('currentRun', JSON.stringify(run.value));
     window.location.href = '#carte';
 };
+
+function deleteRoute() {
+    if (confirm('Voulez-vous vraiment supprimer ce sentier ?')) {
+        axios.delete(`/api/runs/${run.value.id}`)
+            .then(() => {
+                alert('Sentier supprimé avec succès');
+                window.location.href = '#sentiers';
+            })
+            .catch((error) => {
+                console.error('Erreur lors de la suppression du sentier:', error);
+                alert('Erreur lors de la suppression du sentier');
+            });
+    }
+}
 
 // Informations pratiques
 const practicalInfoMapping = [

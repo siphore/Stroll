@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/runs', [RunController::class, 'index']);
 Route::post('/runs', [RunController::class, 'store']);
+Route::get('/runs/{id}', [RunController::class, 'show']);
+Route::delete('/runs/{id}', [RunController::class, 'destroy']);
 Route::get('/locations', [LocationController::class, 'index']);
 Route::get('/types', [TypeController::class, 'index']);
 

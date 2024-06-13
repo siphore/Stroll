@@ -23,7 +23,7 @@
             </h4>
         </section>
 
-        <img class="section-img" src="../../img/accueil_2.png" alt="Image de présentation">
+        <img class="section-img" src="../../img/fav.png" alt="Image de présentation">
 
         <section>
             <h1>VDiscover</h1>

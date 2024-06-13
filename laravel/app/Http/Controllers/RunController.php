@@ -105,4 +105,17 @@ class RunController extends Controller
         return response()->json(['success' => true, 'data' => $run], 201);
     }
 
+    public function destroy($id)
+    {
+        $run = Run::findOrFail($id);
+        $run->delete();
+        return response()->json(['message' => 'Sentier supprimé avec succès!']);
+    }
+
+    public function show($id)
+    {
+        $run = Run::findOrFail($id);
+        return response()->json($run);
+    }
+
 }

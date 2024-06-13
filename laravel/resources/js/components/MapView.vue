@@ -1,7 +1,6 @@
 <template>
   <main>
     <div id="map">
-      <!-- <button id="fit">Fit to Switzerland</button> -->
     </div>
   </main>
 </template>
@@ -63,11 +62,28 @@ async function addToMap(map) {
     runs.value = runsResp.data;
 
     if (runs.value && runs.value.length > 0) {
-      runs.value.forEach((run) => {
-        const coordsDep = run.departure.split(',').map(coord => parseFloat(coord.trim()));
-        const coordsArr = run.arrival.split(',').map(coord => parseFloat(coord.trim()));
+      let index = runs.value.length - 5;
+
+      const addNextRun = () => {
+        if (index >= runs.value.length) {
+          return;
+        }
+
+        const run = runs.value[index];
+
+        const dep = run.departure.split(',');
+        const arr = run.arrival.split(',');
+
+        const coordsDep = [parseFloat(dep[1]), parseFloat(dep[0])];
+        const coordsArr = [parseFloat(arr[1]), parseFloat(arr[0])];
+
         addRoute(map, [coordsDep, coordsArr], routeId.value, markers, formStore);
-      });
+
+        index++;
+        setTimeout(addNextRun, 200);
+      };
+
+      addNextRun();
     }
 
     // Locations

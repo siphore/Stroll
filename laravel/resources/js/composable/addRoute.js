@@ -1,6 +1,7 @@
 const routes = {};
 
 export async function addRoute(map, coordinates, routeId, markers, formStore) {
+    console.log(coordinates);
     const url = `https://router.project-osrm.org/route/v1/driving/${coordinates.join(
         ";"
     )}?overview=full&geometries=geojson`;
